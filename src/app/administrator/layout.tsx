@@ -1,16 +1,18 @@
-import '@/libraries/shared/shadcn/globals.css';
+import AdministratorApplication from '@/libraries/src/Application/AdministratorApplication';
 import WebApplication from '@/libraries/src/Application/WebApplication';
-import ThemeProvider from '@/libraries/src/Styles/ThemeProvider';
+import { getLocale } from '@/libraries/src/Language/Language.actionsServer';
 import type { Metadata } from 'next';
 
 export const metadata: Metadata = {
     title: 'NJC - Administrator',
 };
 
-export default function RootLayout({ children }: LayoutProps<'/'>) {
+export default async function RootAdministratorLayout({ children }: LayoutProps<'/'>) {
+    const locale = await getLocale('site');
+
     return (
-        <WebApplication locale="en">
-            <ThemeProvider name="administrator">{children}</ThemeProvider>
-        </WebApplication>
+        <AdministratorApplication locale={locale}>
+            <WebApplication>{children}</WebApplication>
+        </AdministratorApplication>
     );
 }

@@ -12,7 +12,8 @@
   "arrowParens": "avoid",
   "endOfLine": "auto",
   "importOrder": [
-    "&@libraries/(.*)$",
+    "^@libraries/(.*)$",
+    "(.css)$",
     "^[./]"
   ],
   "importOrderSeparation": true,

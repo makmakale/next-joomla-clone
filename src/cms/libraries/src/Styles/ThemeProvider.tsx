@@ -1,9 +1,12 @@
 'use client';
 
+import { useCMSApplication } from '@/libraries/src/Application/CMSApplication';
 import { ThemeProvider as NextThemesProvider } from 'next-themes';
 import type { ComponentProps } from 'react';
 
-const ThemeProvider = ({ name, ...props }: ComponentProps<typeof NextThemesProvider> & { name: string }) => {
+const ThemeProvider = (props: ComponentProps<typeof NextThemesProvider>) => {
+    const { name } = useCMSApplication();
+
     return (
         <NextThemesProvider
             attribute="class"

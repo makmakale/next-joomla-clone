@@ -1,18 +1,23 @@
+'use client';
+
 import { cn } from '@/libraries/shared/shadcn/utils';
+import { useLanguage } from '@/libraries/src/Language/Language';
+import ThemeProvider from '@/libraries/src/Styles/ThemeProvider';
 import { Roboto } from 'next/font/google';
 import type { PropsWithChildren } from 'react';
-import React from 'react';
+
+import '@/libraries/shared/shadcn/globals.css';
 
 const roboto = Roboto({ subsets: ['cyrillic'], variable: '--font-sans' });
 
-interface HTMLProviderProps extends PropsWithChildren {
-    locale: string;
-}
+const WebApplication = ({ children }: PropsWithChildren) => {
+    const { locale } = useLanguage();
 
-const WebApplication = ({ locale, children }: HTMLProviderProps) => {
     return (
         <html lang={locale} suppressHydrationWarning className={cn('min-h-full flex flex-col', roboto.className)}>
-            <body>{children}</body>
+            <body>
+                <ThemeProvider>{children}</ThemeProvider>
+            </body>
         </html>
     );
 };

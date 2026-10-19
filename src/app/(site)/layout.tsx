@@ -1,16 +1,18 @@
-import '@/libraries/shared/shadcn/globals.css';
+import SiteApplication from '@/libraries/src/Application/SiteApplication';
 import WebApplication from '@/libraries/src/Application/WebApplication';
-import ThemeProvider from '@/libraries/src/Styles/ThemeProvider';
+import { getLocale } from '@/libraries/src/Language/Language.actionsServer';
 import type { Metadata } from 'next';
 
 export const metadata: Metadata = {
     title: 'NJC - Site',
 };
 
-export default function RootLayout({ children }: LayoutProps<'/'>) {
+export default async function RootSiteLayout({ children }: LayoutProps<'/'>) {
+    const locale = await getLocale('site');
+
     return (
-        <WebApplication locale="en">
-            <ThemeProvider name="site">{children}</ThemeProvider>
-        </WebApplication>
+        <SiteApplication locale={locale}>
+            <WebApplication>{children}</WebApplication>
+        </SiteApplication>
     );
 }
