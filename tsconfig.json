@@ -19,7 +19,8 @@
       }
     ],
     "paths": {
-      "@/*": ["./src/*"]
+      "@/*": ["./src/*"],
+      "@/libraries/*": ["./src/cms/libraries/*"]
     }
   },
   "include": [
