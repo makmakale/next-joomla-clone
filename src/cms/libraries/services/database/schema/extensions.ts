@@ -3,7 +3,7 @@ import * as p from 'drizzle-orm/pg-core';
 export const extensionsTable = p.pgTable(
     'extensions',
     {
-        extensionId: p.serial('extension_id').notNull(),
+        extensionId: p.serial('extension_id').notNull().primaryKey(),
         packageId: p.bigint('package_id', { mode: 'number' }).default(0).notNull(),
         name: p.varchar('name', { length: 100 }).notNull(),
         type: p.varchar('type', { length: 20 }).notNull(),
@@ -25,7 +25,6 @@ export const extensionsTable = p.pgTable(
         note: p.varchar('note', { length: 255 }),
     },
     table => ({
-        pk: p.primaryKey({ columns: [table.extensionId], name: 'extensions_pkey' }),
         elementClientIdIdx: p.index('extensions_element_clientid').on(table.element, table.clientId),
         elementFolderClientIdIdx: p.index('extensions_element_folder_clientid').on(table.element, table.folder, table.clientId),
         extensionIdx: p.index('extensions_extension').on(table.type, table.element, table.folder, table.clientId),

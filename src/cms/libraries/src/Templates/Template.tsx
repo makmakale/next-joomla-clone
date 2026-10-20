@@ -24,7 +24,7 @@ export default function Template({ children }: PropsWithChildren) {
     const value = useContextValue();
     const { clientId, template } = useCMSApplication();
 
-    const RenderTemplate = dynamic(() => renderTemplate(clientId, template?.name), { ssr: false });
+    const RenderTemplate = dynamic(() => renderTemplate(clientId, template?.template), { ssr: false });
 
     return (
         <TemplateContext.Provider value={value}>
