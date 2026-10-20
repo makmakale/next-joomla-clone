@@ -1,8 +1,8 @@
+import { getAdminTemplate } from '@/cms/administrator/com_templates/src/Model/StyleModel';
 import AdministratorApplication from '@/libraries/src/Application/AdministratorApplication';
 import WebApplication from '@/libraries/src/Application/WebApplication';
 import { getLocale } from '@/libraries/src/Language/Language.actionsServer';
 import Template from '@/libraries/src/Templates/Template';
-import { getTemplates } from '@/libraries/src/Templates/Template.actionsServer';
 import type { Metadata } from 'next';
 
 export const metadata: Metadata = {
@@ -11,7 +11,7 @@ export const metadata: Metadata = {
 
 export default async function RootAdministratorLayout({ children }: LayoutProps<'/'>) {
     const locale = await getLocale('administrator');
-    const template = await getTemplates(1);
+    const template = await getAdminTemplate();
 
     return (
         <AdministratorApplication locale={locale} template={template}>

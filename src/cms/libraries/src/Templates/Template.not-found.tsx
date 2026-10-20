@@ -11,11 +11,17 @@ export const TemplateNoFound = () => {
                 <AlertCircleIcon />
                 <AlertTitle>Not Found</AlertTitle>
                 <AlertDescription>
-                    Template <code>{template.name}</code> was not found in{' '}
-                    <code>
-                        {name}/templates/{template.name}
-                    </code>{' '}
-                    folder
+                    {template ? (
+                        <>
+                            Template <code>{template.template}</code> was not found in{' '}
+                            <code>
+                                {name}/templates/{template.template}
+                            </code>{' '}
+                            folder
+                        </>
+                    ) : (
+                        'No template were found'
+                    )}
                 </AlertDescription>
             </Alert>
         </div>

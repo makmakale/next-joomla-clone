@@ -1,4 +1,3 @@
-import type { getTemplates } from '@/libraries/src/Templates/Template.actionsServer';
+import type { getAdminTemplate } from '@/cms/administrator/com_templates/src/Model/StyleModel';
 
-export type ClientActiveTemplate = Awaited<ReturnType<typeof getTemplates>>;
-
+export type ClientActiveTemplate = Awaited<ReturnType<typeof getAdminTemplate>>;
