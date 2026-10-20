@@ -1,11 +1,13 @@
 'use client';
 
+import type { ClientActiveTemplate } from '@/libraries/src/Templates/Template.types';
 import type { PropsWithChildren } from 'react';
-import { use, createContext } from 'react';
+import { createContext, use } from 'react';
 
 interface CMSApplicationProps {
     clientId: number;
     name: string;
+    template: ClientActiveTemplate;
 }
 
 const useContextValue = (props: CMSApplicationProps) => {
