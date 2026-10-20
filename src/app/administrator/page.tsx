@@ -1,9 +1,11 @@
 'use client';
 
 import { useCMSApplication } from '@/libraries/src/Application/CMSApplication';
+import { useTemplate } from '@/libraries/src/Templates/Template';
 
 export default function Home() {
     const app = useCMSApplication();
+    const template = useTemplate();
 
     return (
         <div className="flex flex-col flex-1 items-center justify-center bg-zinc-50 font-sans dark:bg-black">
@@ -19,7 +21,7 @@ export default function Home() {
                 </div>
 
                 <div>
-                    <pre>{JSON.stringify(app, null, 2)}</pre>
+                    <pre>{JSON.stringify({ ...app, ...template }, null, 2)}</pre>
                 </div>
 
                 <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">

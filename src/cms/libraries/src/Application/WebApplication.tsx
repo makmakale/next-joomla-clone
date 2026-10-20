@@ -3,12 +3,21 @@
 import { cn } from '@/libraries/shared/shadcn/utils';
 import { useLanguage } from '@/libraries/src/Language/Language';
 import ThemeProvider from '@/libraries/src/Styles/ThemeProvider';
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { Roboto } from 'next/font/google';
 import type { PropsWithChildren } from 'react';
 
 import '@/libraries/shared/shadcn/globals.css';
 
 const roboto = Roboto({ subsets: ['cyrillic'], variable: '--font-sans' });
+let browserQueryClient: QueryClient | undefined;
+
+function getQueryClient() {
+    if (typeof window === 'undefined') return new QueryClient();
+    browserQueryClient ??= new QueryClient();
+
+    return browserQueryClient;
+}
 
 const WebApplication = ({ children }: PropsWithChildren) => {
     const { locale } = useLanguage();
@@ -16,7 +25,9 @@ const WebApplication = ({ children }: PropsWithChildren) => {
     return (
         <html lang={locale} suppressHydrationWarning className={cn('min-h-full flex flex-col', roboto.className)}>
             <body>
-                <ThemeProvider>{children}</ThemeProvider>
+                <ThemeProvider>
+                    <QueryClientProvider client={getQueryClient()}>{children}</QueryClientProvider>
+                </ThemeProvider>
             </body>
         </html>
     );

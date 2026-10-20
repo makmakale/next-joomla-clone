@@ -1,10 +1,10 @@
+import type { ApplicationClientProps } from '@/libraries/src/Application/Application.types';
 import CMSApplicationProvider from '@/libraries/src/Application/CMSApplication';
 import LanguageProvider from '@/libraries/src/Language/Language';
-import type { PropsWithChildren } from 'react';
 
-const SiteApplication = ({ locale, children }: PropsWithChildren<{ locale: string }>) => {
+const SiteApplication = ({ locale, template, children }: ApplicationClientProps) => {
     return (
-        <CMSApplicationProvider clientId={0} name="site">
+        <CMSApplicationProvider clientId={0} name="site" template={template}>
             <LanguageProvider locale={locale}>{children}</LanguageProvider>
         </CMSApplicationProvider>
     );

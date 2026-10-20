@@ -9,7 +9,11 @@
         "lint": "eslint --cache \"*/**/*.{ts,tsx}\" --max-wornings 0",
         "prettier": "prettier -c \"./**/*.{ts,tsx,d.ts}\"",
         "all_linters": "npm run eslint & npm run prettier",
-        "formatting": "prettier --write \"./**/*.{ts,tsx,d.ts}\""
+        "formatting": "prettier --write \"./**/*.{ts,tsx,d.ts}\"",
+        "db:generate": "drizzle-kit generate",
+        "db:migrate": "drizzle-kit migrate",
+        "db:push": "drizzle-kit push",
+        "db:studio": "drizzle-kit studio"
     },
     "dependencies": {
         "@base-ui/react": "^1.8.0",
@@ -17,9 +21,11 @@
         "@tanstack/react-query": "^5.103.2",
         "class-variance-authority": "^0.7.1",
         "cn": "^0.5.0",
+        "drizzle-orm": "^0.45.4",
         "lucide-react": "^1.41.0",
         "next": "16.4.2",
         "next-themes": "^0.4.6",
+        "pg": "^8.23.1",
         "react": "19.3.0",
         "react-dom": "19.3.0",
         "shadcn": "^4.21.0",
@@ -29,15 +35,18 @@
         "@tailwindcss/turbopack": "^4",
         "@trivago/prettier-plugin-sort-imports": "^6.0.2",
         "@types/node": "^20",
+        "@types/pg": "^8.23.1",
         "@types/react": "^19",
         "@types/react-dom": "^19",
         "@typescript-eslint/eslint-plugin": "^8.36.0",
         "babel-plugin-react-compiler": "1.0.0",
+        "drizzle-kit": "^0.31.11",
         "eslint": "^9",
         "eslint-config-next": "16.4.2",
         "prettier": "3.9.6",
         "prettier-plugin-tailwindcss": "^0.8.1",
         "tailwindcss": "^4",
+        "tsx": "^4.23.15",
         "typescript": "^5"
     }
 }
