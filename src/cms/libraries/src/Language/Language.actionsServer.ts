@@ -1,48 +1,56 @@
 'use server';
 
 import { cookies, headers } from 'next/headers';
+import { administratorRouting } from '@/libraries/services/i18n/administrator/routing';
+import { siteRouting } from '@/libraries/services/i18n/site/routing';
 
-import type { Locale } from './Language.constants';
-import { defaultLocale } from './Language.constants';
-import { locales } from './Language.constants';
-
-export const getLocaleFromHeaders = async (): Promise<Locale> => {
+export const getLocaleFromHeaders = async (): Promise<string> => {
     const acceptLanguage = (await headers()).get('accept-language') || '';
-    const browserLocale = acceptLanguage.split(',')[0]?.split('-')[0] || '';
+    const tags = acceptLanguage.match(/[a-zA-Z]{2}-[a-zA-Z]{2}/g) ?? [];
+    const browserLocale = tags[0] || '';
 
-    return browserLocale as Locale;
+    return browserLocale;
 };
 
-export const getLocaleFromCookies = async (name: string): Promise<Locale> => {
+export const getLocaleFromCookies = async (name: string): Promise<string> => {
     const cookie = (await cookies()).get(`joomla.${name}.locale`);
 
-    return (cookie?.value ?? '') as Locale;
+    return cookie?.value ?? '';
 };
 
-export const isValidLocale = async (locale: string): Promise<boolean> => {
-    return locales.includes(locale as Locale);
+export const isValidLocale = async (locale: string, name: string): Promise<boolean> => {
+    if (name === 'administrator') {
+        return administratorRouting.locales.includes(locale);
+    }
+
+    return siteRouting.locales.includes(locale);
 };
 
 export const getLocale = async (name: string) => {
     const cookieLocale = await getLocaleFromCookies(name);
 
-    if (cookieLocale && (await isValidLocale(cookieLocale))) {
+    if (cookieLocale && (await isValidLocale(cookieLocale, name))) {
         return cookieLocale;
     }
 
     const headersLocale = await getLocaleFromHeaders();
 
-    if (headersLocale && (await isValidLocale(headersLocale))) {
+    if (headersLocale && (await isValidLocale(headersLocale, name))) {
         return headersLocale;
     }
 
-    return defaultLocale;
+    if (name === 'administrator') {
+        return administratorRouting.defaultLocale;
+    }
+
+    return siteRouting.defaultLocale;
 };
 
 export const setLocale = async (name: string, locale: string): Promise<void> => {
     const cookieStore = await cookies();
+    const cookieName = name === 'administrator' ? administratorRouting.localeCookie.name : siteRouting.localeCookie.name;
 
-    cookieStore.set(`joomla.${name}.locale`, locale, {
+    cookieStore.set(cookieName, locale, {
         path: '/',
         maxAge: 60 * 60 * 24 * 365,
         sameSite: 'lax',
