@@ -7,9 +7,8 @@ import { siteRouting } from '@/libraries/services/i18n/site/routing';
 export const getLocaleFromHeaders = async (): Promise<string> => {
     const acceptLanguage = (await headers()).get('accept-language') || '';
     const tags = acceptLanguage.match(/[a-zA-Z]{2}-[a-zA-Z]{2}/g) ?? [];
-    const browserLocale = tags[0] || '';
 
-    return browserLocale;
+    return tags[0] || '';
 };
 
 export const getLocaleFromCookies = async (name: string): Promise<string> => {
@@ -55,4 +54,24 @@ export const setLocale = async (name: string, locale: string): Promise<void> => 
         maxAge: 60 * 60 * 24 * 365,
         sameSite: 'lax',
     });
+};
+
+export const loadLanguageFile = async (clientId: number, locale: string, langPath: string) => {
+    if (clientId === 1) {
+        try {
+            const res = await import(`@/cms/administrator/language/${locale}/${langPath}.json`);
+
+            return res?.default;
+        } catch {
+            return { default: {} };
+        }
+    }
+
+    try {
+        const res = await import(`@/cms/language/${locale}/${langPath}.json`);
+
+        return res?.default;
+    } catch {
+        return { default: {} };
+    }
 };

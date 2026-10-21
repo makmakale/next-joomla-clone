@@ -1,0 +1,91 @@
+:root {
+    --cassiopeia-color-primary: #112855;
+    --cassiopeia-color-link: #224faa;
+    --link-color: #224faa;
+    --link-color-rgb: 34, 79, 170;
+    --cassiopeia-color-hover: #424077;
+    --link-hover-color: #424077;
+    --link-hover-color-rgb: 66, 64, 119;
+}
+
+*, :before, :after {
+    box-sizing: border-box;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    position: relative;
+}
+
+.grid-child {
+    width: 100%;
+    max-width: 1320px;
+    margin-left: auto;
+    margin-right: auto;
+    display: flex;
+}
+
+.container-header {
+    z-index: 10;
+    background-color: var(--cassiopeia-color-primary);
+    background-image: linear-gradient(135deg, var(--cassiopeia-color-primary) 0%, var(--cassiopeia-color-hover) 100%);
+    position: relative;
+    box-shadow: inset 0 5px 5px #00000008;
+}
+
+.container-header .grid-child {
+    padding: .5em;
+}
+
+.container-header .navbar-brand {
+    color: #fff;
+    margin-inline-end: auto;
+    padding-top: .3125rem;
+    padding-bottom: .3125rem;
+    font-size: 2rem;
+    display: inline-block;
+    position: relative;
+}
+
+.site-grid {
+    grid-gap: 0 1em;
+    grid-template-columns: [full-start] minmax(0, 1fr) [main-start] repeat(4, minmax(0, 19.875rem)) [main-end] minmax(0, 1fr) [full-end];
+    grid-template-areas:         ".banner banner banner banner."        ".top-a top-a top-a top-a."        ".top-b top-b top-b top-b."        ".comp comp comp comp."        ".side-r side-r side-r side-r."        ".side-l side-l side-l side-l."        ".bot-a bot-a bot-a bot-a."        ".bot-b bot-b bot-b bot-b.";
+    display: grid;
+    margin-bottom: auto;
+}
+
+body:not(.has-sidebar-left) .site-grid .container-component {
+    grid-column-start: main-start;
+}
+
+.site-grid>[class^=container-], .site-grid>[class*=\ container-] {
+    column-gap: 1em;
+    width: 100%;
+    max-width: none;
+}
+.container-component, .container-sidebar-left, .container-sidebar-right {
+    flex-direction: column;
+    flex: 1;
+    display: flex;
+}
+.container-component {
+    grid-area: comp;
+}
+.container-sidebar-right {
+    grid-area: side-r;
+}
+
+@media (width >= 992px) {
+    .site-grid {
+        grid-template-areas:
+            ".banner banner banner banner."
+            ".top-a top-a top-a top-a."
+            ".top-b top-b top-b top-b."
+            ".side-l comp comp side-r."
+            ".bot-a bot-a bot-a bot-a."
+            ".bot-b bot-b bot-b bot-b.";
+    }
+}

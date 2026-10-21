@@ -10,7 +10,7 @@ const ThemeProvider = (props: ComponentProps<typeof NextThemesProvider>) => {
     return (
         <NextThemesProvider
             attribute="class"
-            defaultTheme="system"
+            defaultTheme={name === 'administrator' ? 'dark' : 'light'}
             storageKey={`joomla.${name}.theme`}
             enableSystem
             disableTransitionOnChange

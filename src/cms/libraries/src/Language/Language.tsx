@@ -6,6 +6,7 @@ import { useCMSApplication } from '@/libraries/src/Application/CMSApplication';
 import get from 'lodash/get';
 import { replaceParams } from './Language.utils';
 import type { LanguageProps, LocaleParams } from './Language.types';
+import { loadLanguageFile } from '@/libraries/src/Language/Language.actionsServer';
 
 const useContextValue = ({ locale }: LanguageProps) => {
     const { clientId } = useCMSApplication();
@@ -36,7 +37,16 @@ const useContextValue = ({ locale }: LanguageProps) => {
         return replaceParams(translatedStr, params);
     }
 
-    return { locale, t };
+    async function load(langPath: string | string[]) {
+        const pathArr = Array.isArray(langPath) ? langPath : [langPath];
+
+        for (const _langPath of pathArr) {
+            const res = await loadLanguageFile(clientId, locale, _langPath);
+            setMessages(prev => ({ ...prev, ...res }));
+        }
+    }
+
+    return { locale, t, load };
 };
 
 const LanguageContext = createContext<ReturnType<typeof useContextValue> | null>(null);
