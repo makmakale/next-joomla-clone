@@ -13,6 +13,7 @@ interface CMSApplicationProps {
 const useContextValue = (props: CMSApplicationProps) => {
     return {
         ...props,
+        session: null, // TODO
     };
 };
 

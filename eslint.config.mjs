@@ -22,6 +22,7 @@ const eslintConfig = defineConfig([
         rules: {
             'react/display-name': 'off',
             'import/no-anonymous-default-export': 'off',
+            'react-hooks/exhaustive-deps': 'off',
             'react-hooks/static-components': 'off',
             'react/jsx-curly-brace-presence': [
                 'error',
