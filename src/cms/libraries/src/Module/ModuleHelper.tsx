@@ -1,9 +1,9 @@
 'use client';
 
-import { useCMSApplication } from '@/libraries/src/Application/CMSApplication';
+import { useApplication } from '@/libraries/src/Application/Application';
 
 export const useModuleHelper = () => {
-    const { modules } = useCMSApplication();
+    const { modules } = useApplication();
 
     const getModules = (positionName: string) => {
         return modules.filter(mod => mod.position === positionName);

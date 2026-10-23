@@ -1,6 +1,6 @@
 'use client';
 
-import { useCMSApplication } from '@/libraries/src/Application/CMSApplication';
+import { useApplication } from '@/libraries/src/Application/Application';
 import Link from 'next/link';
 
 type JLinkProps = Omit<React.ComponentProps<typeof Link>, 'href'> & {
@@ -8,7 +8,7 @@ type JLinkProps = Omit<React.ComponentProps<typeof Link>, 'href'> & {
 };
 
 const JLink = ({ href, ...props }: JLinkProps) => {
-    const { clientId } = useCMSApplication();
+    const { clientId } = useApplication();
     const rootPath = clientId === 1 ? `/administrator` : '/';
     const link = `${rootPath}/${href}`.replace(/\/{2,}/, '/');
 

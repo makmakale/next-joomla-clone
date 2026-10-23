@@ -61,7 +61,7 @@ body:not(.has-sidebar-left) .site-grid .container-component {
     grid-column-start: main-start;
 }
 
-.site-grid>[class^=container-], .site-grid>[class*=\ container-] {
+.site-grid>[class^=container-], .site-grid>[class*=\container-] {
     column-gap: 1em;
     width: 100%;
     max-width: none;
@@ -70,6 +70,7 @@ body:not(.has-sidebar-left) .site-grid .container-component {
     flex-direction: column;
     flex: 1;
     display: flex;
+    gap: 1em;
 }
 .container-component {
     grid-area: comp;

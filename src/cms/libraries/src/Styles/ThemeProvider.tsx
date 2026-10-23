@@ -1,11 +1,11 @@
 'use client';
 
-import { useCMSApplication } from '@/libraries/src/Application/CMSApplication';
+import { useApplication } from '@/libraries/src/Application/Application';
 import { ThemeProvider as NextThemesProvider } from 'next-themes';
 import type { ComponentProps } from 'react';
 
 const ThemeProvider = (props: ComponentProps<typeof NextThemesProvider>) => {
-    const { name } = useCMSApplication();
+    const { name } = useApplication();
 
     return (
         <NextThemesProvider

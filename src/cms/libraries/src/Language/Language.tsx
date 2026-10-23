@@ -1,15 +1,15 @@
 'use client';
 
+import { useApplication } from '@/libraries/src/Application/Application';
+import { loadLanguageFile } from '@/libraries/src/Language/Language.actionsServer';
+import get from 'lodash/get';
 import type { PropsWithChildren } from 'react';
 import { createContext, use, useEffect, useState } from 'react';
-import { useCMSApplication } from '@/libraries/src/Application/CMSApplication';
-import get from 'lodash/get';
-import { replaceParams } from './Language.utils';
 import type { LanguageProps, LocaleParams } from './Language.types';
-import { loadLanguageFile } from '@/libraries/src/Language/Language.actionsServer';
+import { replaceParams } from './Language.utils';
 
 const useContextValue = ({ locale }: LanguageProps) => {
-    const { clientId } = useCMSApplication();
+    const { clientId } = useApplication();
     const [messages, setMessages] = useState({});
 
     useEffect(() => {

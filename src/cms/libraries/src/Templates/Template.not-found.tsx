@@ -1,9 +1,9 @@
 import { Alert, AlertDescription, AlertTitle } from '@/libraries/shared/shadcn/ui/alert';
-import { useCMSApplication } from '@/libraries/src/Application/CMSApplication';
 import { AlertCircleIcon } from 'lucide-react';
+import { useApplication } from '@/libraries/src/Application/Application';
 
 export const TemplateNoFound = () => {
-    const { name, template } = useCMSApplication();
+    const { name, template } = useApplication();
 
     return (
         <div className="container mx-auto flex h-screen grow items-center justify-center px-4 py-8">

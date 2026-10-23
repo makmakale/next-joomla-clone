@@ -1,6 +1,6 @@
 'use client';
 
-import { useCMSApplication } from '@/libraries/src/Application/CMSApplication';
+import { useApplication } from '@/libraries/src/Application/Application';
 import dynamic from 'next/dynamic';
 import { usePathname } from 'next/navigation';
 import type { PropsWithChildren } from 'react';
@@ -10,9 +10,9 @@ import { useLanguage } from '@/libraries/src/Language/Language';
 import get from 'lodash/get';
 
 const useContextValue = () => {
-    const { session } = useCMSApplication();
+    const { session } = useApplication();
     const pathname = usePathname();
-    const { template } = useCMSApplication();
+    const { template } = useApplication();
 
     return {
         hiddenMenu: !session,
@@ -36,7 +36,7 @@ export const useTemplate = () => {
 
 export default function Template({ children }: PropsWithChildren) {
     const value = useContextValue();
-    const { clientId, template } = useCMSApplication();
+    const { clientId, template } = useApplication();
     const { load } = useLanguage();
 
     useEffect(() => {
