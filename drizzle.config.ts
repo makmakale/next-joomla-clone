@@ -8,11 +8,7 @@ export default defineConfig({
     out: './src/cms/libraries/services/database/migrations',
     dialect: 'postgresql',
     dbCredentials: {
-        host: JConfig.dbHost,
-        database: JConfig.dbName,
-        port: JConfig.dbPort,
-        user: JConfig.dbUser,
-        password: JConfig.dbPass,
+        url: JConfig.dbUrl,
         ssl: true,
     },
     verbose: true,

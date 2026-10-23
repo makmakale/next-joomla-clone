@@ -5,11 +5,7 @@ import { Pool } from 'pg';
 import * as schema from './schema';
 
 const pool = new Pool({
-    host: JConfig.dbHost,
-    database: JConfig.dbName,
-    port: JConfig.dbPort,
-    user: JConfig.dbUser,
-    password: JConfig.dbPass,
+    connectionString: JConfig.dbUrl,
     ssl: true,
     max: 20,
 });
