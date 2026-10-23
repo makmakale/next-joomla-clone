@@ -1,12 +1,8 @@
 'use client';
 
-import { useCMSApplication } from '@/libraries/src/Application/CMSApplication';
-import { useTemplate } from '@/libraries/src/Templates/Template';
 import { useLanguage } from '@/libraries/src/Language/Language';
 
 export default function Home() {
-    const app = useCMSApplication();
-    const template = useTemplate();
     const { t } = useLanguage();
 
     return (
@@ -20,10 +16,6 @@ export default function Home() {
                     <h3 className="max-w-xs text-xl leading-10 font-semibold tracking-tight text-black dark:text-zinc-50">
                         {t('JTEST_MESSAGE')}
                     </h3>
-                </div>
-
-                <div>
-                    <pre>{JSON.stringify({ ...app, ...template }, null, 2)}</pre>
                 </div>
 
                 <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">

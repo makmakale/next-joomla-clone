@@ -20,6 +20,7 @@ import Image from 'next/image';
 import type { PropsWithChildren } from 'react';
 import './css/atum.css';
 import { useLanguage } from '@/libraries/src/Language/Language';
+import JInclude from '@/libraries/shared/components/include';
 
 function Atum({ children }: PropsWithChildren) {
     const { open, toggleSidebar } = useSidebar();
@@ -64,7 +65,7 @@ function Atum({ children }: PropsWithChildren) {
                             </SidebarMenuItem>
                         </SidebarMenu>
 
-                        {/* TODO: <JInclude type="modules" name="menu" />*/}
+                        <JInclude type="modules" name="menu" />
                     </SidebarGroup>
                     <SidebarGroup />
                 </SidebarContent>
@@ -73,10 +74,10 @@ function Atum({ children }: PropsWithChildren) {
             <SidebarInset>
                 <div className="flex h-16 shrink-0 items-center border-b transition-[width,height] ease-linear">
                     <div className="flex w-full items-center gap-1 px-4 lg:gap-2 lg:px-6">
-                        {/* TODO: {!hiddenMenu && <JInclude type="modules" name="title" />}*/}
+                        {!hiddenMenu && <JInclude type="modules" name="title" />}
 
                         <div className="ml-auto flex items-center gap-2">
-                            {/*< TODO: JInclude type="modules" name="status" />*/}
+                            <JInclude type="modules" name="status" />
                         </div>
                     </div>
                 </div>
@@ -84,7 +85,7 @@ function Atum({ children }: PropsWithChildren) {
                 <div className="flex flex-1 flex-col">
                     <div className="@container/main flex flex-1 flex-col gap-2">
                         <div className="flex flex-col gap-4 px-4 py-4 md:gap-6 md:px-6 md:py-6">
-                            {/* TODO: <JInclude type="message" />*/}
+                            <JInclude type="message" />
                             {children}
                         </div>
                     </div>
