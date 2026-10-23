@@ -3,10 +3,12 @@
 import type { ClientActiveTemplate } from '@/libraries/src/Templates/Template.types';
 import type { PropsWithChildren } from 'react';
 import { createContext, use } from 'react';
+import type { JModuleType } from '@/libraries/src/Module/Module.types';
 
 interface CMSApplicationProps {
     clientId: number;
     name: string;
+    modules: JModuleType[];
     template: ClientActiveTemplate;
 }
 

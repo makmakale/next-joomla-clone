@@ -5,6 +5,8 @@ import JConfig from '@/configuration';
 import logoSvg from './images/logo.svg';
 import Image from 'next/image';
 import { useLanguage } from '@/libraries/src/Language/Language';
+import { useModuleHelper } from '@/libraries/src/Module/ModuleHelper';
+import JInclude from '@/libraries/shared/components/include';
 
 import './css/template.css';
 
@@ -17,27 +19,21 @@ const Cassiopeia = ({ children }: PropsWithChildren) => {
     ) : (
         <Image src={logoSvg} alt="" loading="eager" decoding="async" className="logo inline-block" />
     );
-    // TODO
-    const countModules = (positionName: string, withContentOnly = false) => {
-        switch (positionName) {
-            case 'sidebar-right':
-            case 'bottom-b':
-                return true;
-            default:
-                return false;
-        }
-    };
+
+    const { countModules } = useModuleHelper();
 
     return (
         <>
             <header className="header container-header w-full">
                 {countModules('topbar') && (
-                    <div className="container-topbar">{/* TODO: <JInclude type="modules" name="topbar" style="none" />*/}</div>
+                    <div className="container-topbar">
+                        <JInclude type="modules" name="topbar" style="none" />
+                    </div>
                 )}
 
                 {countModules('below-top') && (
                     <div className="grid-child container-below-top">
-                        {/* TODO: <JInclude type="modules" name="below-top" style="none" />*/}
+                        <JInclude type="modules" name="below-top" style="none" />
                     </div>
                 )}
 
@@ -56,10 +52,10 @@ const Cassiopeia = ({ children }: PropsWithChildren) => {
 
                 {(countModules('menu', true) || countModules('search', true)) && (
                     <div className="grid-child container-nav">
-                        {countModules('menu', true) && <>{/* TODO: <JInclude type="modules" name="menu" style="none" />*/}</>}
+                        {countModules('menu', true) && <JInclude type="modules" name="menu" style="none" />}
                         {countModules('search', true) && (
                             <div className="container-search">
-                                {/* TODO: <JInclude type="modules" name="search" style="none" />*/}
+                                <JInclude type="modules" name="search" style="none" />
                             </div>
                         )}
                     </div>
@@ -69,58 +65,60 @@ const Cassiopeia = ({ children }: PropsWithChildren) => {
             <div className="site-grid">
                 {countModules('banner', true) && (
                     <div className="container-banner w-full">
-                        {/* TODO: <JInclude type="modules" name="banner" style="none" />*/}
+                        <JInclude type="modules" name="banner" style="none" />
                     </div>
                 )}
 
                 {countModules('top-a', true) && (
                     <div className="grid-child container-top-a">
-                        {/* TODO: <JInclude type="modules" name="banner" style="none" />*/}
+                        <JInclude type="modules" name="banner" style="none" />
                     </div>
                 )}
 
                 {countModules('top-b', true) && (
                     <div className="grid-child container-top-b">
-                        {/* TODO: <JInclude type="modules" name="banner" style="none" />*/}
+                        <JInclude type="modules" name="banner" style="none" />
                     </div>
                 )}
 
                 {countModules('sidebar-left', true) && (
                     <div className="grid-child container-sidebar-left">
-                        {/* TODO: <JInclude type="modules" name="banner" style="none" />*/}
+                        <JInclude type="modules" name="banner" style="none" />
                     </div>
                 )}
 
                 <div className="grid-child container-component">
-                    {/* TODO: {<JInclude type="modules" name="breadcrumbs" style="none" />}*/}
-                    {/* TODO: {<JInclude type="modules" name="main-top" style="card" />}*/}
-                    {/* TODO: {<JInclude type="message" />}*/}
+                    <JInclude type="modules" name="breadcrumbs" style="none" />
+                    <JInclude type="modules" name="main-top" style="card" />
+                    <JInclude type="message" />
                     <main>{children}</main>
-                    {/* TODO: {<JInclude type="modules" name="main-bottom" style="card" />}*/}
+                    <JInclude type="modules" name="main-bottom" style="card" />
                 </div>
 
                 {countModules('sidebar-right', true) && (
                     <div className="grid-child container-sidebar-right">
-                        {/* TODO: <JInclude type="modules" name="sidebar-right" style="card" />*/}
+                        <JInclude type="modules" name="sidebar-right" style="card" />
                     </div>
                 )}
 
                 {countModules('bottom-a', true) && (
                     <div className="grid-child container-bottom-a">
-                        {/* TODO: <JInclude type="modules" name="bottom-a" style="card" />*/}
+                        <JInclude type="modules" name="bottom-a" style="card" />
                     </div>
                 )}
 
                 {countModules('bottom-b', true) && (
                     <div className="grid-child container-bottom-b">
-                        {/* TODO: <JInclude type="modules" name="bottom-b" style="card" />*/}
+                        <JInclude type="modules" name="bottom-b" style="card" />
                     </div>
                 )}
             </div>
 
             {countModules('footer', true) && (
                 <footer className="container-footer footer w-full">
-                    <div className="grid-child">{/* TODO: <JInclude type="modules" name="footer" style="none" />*/}</div>
+                    <div className="grid-child">
+                        <JInclude type="modules" name="footer" style="none" />
+                    </div>
                 </footer>
             )}
 
@@ -130,7 +128,7 @@ const Cassiopeia = ({ children }: PropsWithChildren) => {
                 </a>
             )}
 
-            {/* TODO: <JInclude type="modules" name="debug" style="none" />*/}
+            <JInclude type="modules" name="debug" style="none" />
         </>
     );
 };
