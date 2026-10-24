@@ -1,8 +1,8 @@
 'use server';
 
-import { cookies, headers } from 'next/headers';
 import { administratorRouting } from '@/libraries/services/i18n/administrator/routing';
 import { siteRouting } from '@/libraries/services/i18n/site/routing';
+import { cookies, headers } from 'next/headers';
 
 export const getLocaleFromHeaders = async (): Promise<string> => {
     const acceptLanguage = (await headers()).get('accept-language') || '';
@@ -44,6 +44,8 @@ export const getLocale = async (name: string) => {
 
     return siteRouting.defaultLocale;
 };
+
+export const getAdminLocale = async () => getLocale('administrator');
 
 export const setLocale = async (name: string, locale: string): Promise<void> => {
     const cookieStore = await cookies();

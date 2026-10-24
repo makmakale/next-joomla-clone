@@ -1,14 +1,16 @@
 'use client';
 
 import type { ClientActiveTemplate } from '@/libraries/src/Templates/Template.types';
+import type { JModuleType } from '@/libraries/src/Module/Module.types';
 import type { PropsWithChildren } from 'react';
 import { createContext, use } from 'react';
-import type { JModuleType } from '@/libraries/src/Module/Module.types';
 
 interface ApplicationProps {
     initialValues: {
         clientId: number;
         name: string;
+        locale: string;
+        session?: unknown;
         modules: JModuleType[];
         template: ClientActiveTemplate;
     };
@@ -17,7 +19,6 @@ interface ApplicationProps {
 const useContextValue = ({ initialValues }: ApplicationProps) => {
     return {
         ...initialValues,
-        session: null, // TODO
     };
 };
 

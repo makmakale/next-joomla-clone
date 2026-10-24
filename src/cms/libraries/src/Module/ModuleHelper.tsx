@@ -21,9 +21,12 @@ export const useModuleHelper = () => {
         return !!_modules.length;
     };
 
+    const getLoginModule = (name: string = 'mod_login') => modules.filter(mod => mod.module === name);
+
     return {
         modules,
         getModules,
         countModules,
+        getLoginModule,
     };
 };

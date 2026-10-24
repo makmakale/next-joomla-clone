@@ -1,5 +1,6 @@
 @import "tailwindcss";
-@import "../../../../../cms/libraries/shared/shadcn/globals.css"; /* required */
+@import "../../../../../cms/libraries/shared/shadcn/globals.css";
+/* required */
 
 @layer base {
     :root {
@@ -10,3 +11,4 @@
         --background: oklch(0.505 0.163 255.98) !important;
     }
 }
+

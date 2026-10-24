@@ -1,11 +1,15 @@
-import WebApplication from '@/libraries/src/Application/WebApplication';
-import Template from '@/libraries/src/Templates/Template';
-import type { Metadata } from 'next';
+import { getSiteTemplates } from '@/cms/administrator/components/com_templates/src/Model/StyleModel';
 import { getLocale } from '@/libraries/src/Language/Language.actionsServer';
 import { getModuleList } from '@/libraries/src/Module/Module.actionsServer';
-import { getSiteTemplates } from '@/cms/administrator/com_templates/src/Model/StyleModel';
 import ApplicationProvider from '@/libraries/src/Application/Application';
-import LanguageProvider from '@/libraries/src/Language/Language';
+import WebApplication from '@/libraries/src/Application/WebApplication';
+import Template from '@/libraries/src/Templates/Template';
+import { getSession } from '@/libraries/src/Session';
+import { Roboto } from 'next/font/google';
+import type { Metadata } from 'next';
+import { cn } from 'cn';
+
+const roboto = Roboto({ subsets: ['cyrillic'], variable: '--font-sans-serif' });
 
 export const metadata: Metadata = {
     title: 'NJC - Site',
@@ -19,23 +23,32 @@ export const metadata: Metadata = {
 
 export default async function RootSiteLayout({ children }: LayoutProps<'/'>) {
     const locale = await getLocale('site');
+    const session = await getSession('site');
     const modules = await getModuleList(0);
     const template = await getSiteTemplates();
 
+    // TODO
+    const option = 'com_content';
+    const view = 'category';
+
     return (
-        <ApplicationProvider
-            initialValues={{
-                clientId: 0,
-                name: 'site',
-                modules,
-                template,
-            }}
-        >
-            <LanguageProvider locale={locale}>
-                <WebApplication>
-                    <Template>{children}</Template>
-                </WebApplication>
-            </LanguageProvider>
-        </ApplicationProvider>
+        <html lang={locale} suppressHydrationWarning>
+            <body className={cn('site', option, `view-${view}`, roboto.className)}>
+                <ApplicationProvider
+                    initialValues={{
+                        clientId: 0,
+                        name: 'site',
+                        locale,
+                        session,
+                        modules,
+                        template,
+                    }}
+                >
+                    <WebApplication>
+                        <Template>{children}</Template>
+                    </WebApplication>
+                </ApplicationProvider>
+            </body>
+        </html>
     );
 }

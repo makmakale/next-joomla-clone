@@ -1,12 +1,12 @@
 'use client';
 
 import { useApplication } from '@/libraries/src/Application/Application';
-import dynamic from 'next/dynamic';
-import { usePathname } from 'next/navigation';
-import type { PropsWithChildren } from 'react';
+import { useLanguage } from '@/libraries/src/Language/Language';
 import { createContext, use, useEffect } from 'react';
 import { renderTemplate } from './Template.actions';
-import { useLanguage } from '@/libraries/src/Language/Language';
+import type { PropsWithChildren } from 'react';
+import { usePathname } from 'next/navigation';
+import dynamic from 'next/dynamic';
 import get from 'lodash/get';
 
 const useContextValue = () => {
@@ -36,7 +36,7 @@ export const useTemplate = () => {
 
 export default function Template({ children }: PropsWithChildren) {
     const value = useContextValue();
-    const { clientId, template } = useApplication();
+    const { clientId, template, session } = useApplication();
     const { load } = useLanguage();
 
     useEffect(() => {
@@ -45,7 +45,7 @@ export default function Template({ children }: PropsWithChildren) {
         load([`tpl_${template.template}`, `tpl_${template.template}.sys`]);
     }, [template]);
 
-    const RenderTemplate = dynamic(() => renderTemplate(clientId, template?.template), { ssr: false });
+    const RenderTemplate = dynamic(() => renderTemplate(clientId, template?.template, session), { ssr: false });
 
     return (
         <TemplateContext.Provider value={value}>

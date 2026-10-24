@@ -1,7 +1,3 @@
-import brandLarge from '@/cms/administrator/templates/atum/images/logos/brand-large.svg';
-import brandSmall from '@/cms/administrator/templates/atum/images/logos/brand-small.svg';
-import JIcon from '@/libraries/shared/components/Icon';
-import JLink from '@/libraries/shared/components/Link';
 import {
     Sidebar,
     SidebarContent,
@@ -14,13 +10,17 @@ import {
     SidebarProvider,
     useSidebar,
 } from '@/libraries/shared/shadcn/ui/sidebar';
-import { cn } from '@/libraries/shared/shadcn/utils';
+import brandSmall from '@/cms/administrator/templates/atum/images/logos/brand-small.svg';
+import brandLarge from '@/cms/administrator/templates/atum/images/logos/brand-large.svg';
 import { useTemplate } from '@/libraries/src/Templates/Template';
-import Image from 'next/image';
-import type { PropsWithChildren } from 'react';
-import './css/atum.css';
 import { useLanguage } from '@/libraries/src/Language/Language';
 import JInclude from '@/libraries/shared/components/include';
+import JLink from '@/libraries/shared/components/Link';
+import JIcon from '@/libraries/shared/components/Icon';
+import { cn } from '@/libraries/shared/shadcn/utils';
+import type { PropsWithChildren } from 'react';
+import Image from 'next/image';
+import './css/template.css';
 
 function Atum({ children }: PropsWithChildren) {
     const { open, toggleSidebar } = useSidebar();
@@ -71,7 +71,7 @@ function Atum({ children }: PropsWithChildren) {
                 </SidebarContent>
             </Sidebar>
 
-            <SidebarInset>
+            <SidebarInset className="overflow-hidden">
                 <div className="flex h-16 shrink-0 items-center border-b transition-[width,height] ease-linear">
                     <div className="flex w-full items-center gap-1 px-4 lg:gap-2 lg:px-6">
                         {!hiddenMenu && <JInclude type="modules" name="title" />}
