@@ -11,6 +11,18 @@ const nextConfig: NextConfig = {
             },
         },
     },
+    async rewrites() {
+        return [
+            {
+                source: '/',
+                destination: '/index',
+            },
+            {
+                source: '/administrator',
+                destination: '/administrator/index',
+            },
+        ];
+    },
 };
 
 export default nextConfig;

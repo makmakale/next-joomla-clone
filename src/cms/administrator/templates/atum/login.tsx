@@ -14,22 +14,19 @@ import brandSmall from '@/cms/administrator/templates/atum/images/logos/brand-sm
 import brandLarge from '@/cms/administrator/templates/atum/images/logos/brand-large.svg';
 import loginLogo from '@/cms/administrator/templates/atum/images/logos/login.svg';
 import { Card, CardContent, CardHeader } from '@/libraries/shared/shadcn/ui/card';
-import { useTemplate } from '@/libraries/src/Templates/Template';
 import { useLanguage } from '@/libraries/src/Language/Language';
 import JInclude from '@/libraries/shared/components/include';
 import { cn } from '@/libraries/shared/shadcn/utils';
-import type { PropsWithChildren } from 'react';
 import JConfig from '@/configuration';
 import Image from 'next/image';
 
-function AtumLogin({ children }: PropsWithChildren) {
+function AtumLogin() {
     const { open } = useSidebar();
-    const { hiddenMenu, cpanel } = useTemplate();
     const { t } = useLanguage();
 
     return (
         <>
-            <Sidebar>
+            <Sidebar variant="inset">
                 <SidebarHeader className="h-16">
                     <div className={cn('flex h-full items-center', { 'justify-center': !open })}>
                         <Image
@@ -80,7 +77,9 @@ function AtumLogin({ children }: PropsWithChildren) {
                                         <JInclude type="message" />
                                     </div>
                                     <div className="flex justify-center items-center h-full">
-                                        <div className="login w-full">{children}</div>
+                                        <div className="login w-full">
+                                            <JInclude type="component" />
+                                        </div>
                                     </div>
                                 </CardContent>
                             </Card>
@@ -92,7 +91,7 @@ function AtumLogin({ children }: PropsWithChildren) {
     );
 }
 
-export default ({ children }: PropsWithChildren) => {
+export default () => {
     return (
         <SidebarProvider
             style={
@@ -101,7 +100,7 @@ export default ({ children }: PropsWithChildren) => {
                 } as React.CSSProperties
             }
         >
-            <AtumLogin>{children}</AtumLogin>
+            <AtumLogin />
         </SidebarProvider>
     );
 };

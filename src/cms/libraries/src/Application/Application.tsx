@@ -1,24 +1,28 @@
 'use client';
 
-import type { ClientActiveTemplate } from '@/libraries/src/Templates/Template.types';
-import type { JModuleType } from '@/libraries/src/Module/Module.types';
-import type { PropsWithChildren } from 'react';
+import WebApplication from '@/libraries/src/Application/WebApplication';
+import type { ApplicationProps } from './Application.types';
+import Template from '@/libraries/src/Templates/Template';
+import { useSearchParams } from 'next/navigation';
 import { createContext, use } from 'react';
 
-interface ApplicationProps {
-    initialValues: {
-        clientId: number;
-        name: string;
-        locale: string;
-        session?: unknown;
-        modules: JModuleType[];
-        template: ClientActiveTemplate;
-    };
-}
-
 const useContextValue = ({ initialValues }: ApplicationProps) => {
+    const { clientId, session } = initialValues;
+    const searchParams = useSearchParams();
+
+    const defaultOption = clientId === 1 ? (session ? 'com_cpanel' : 'com_login') : 'com_content';
+    const option = searchParams.get('option') || defaultOption;
+    const view = searchParams.get('view') || option.replace('com_', '');
+    const layout = searchParams.get('layout') || 'default';
+
     return {
         ...initialValues,
+        getInput: () =>
+            new Map([
+                ['option', option.toLowerCase()],
+                ['view', view.toLowerCase()],
+                ['layout', layout.toLowerCase()],
+            ]),
     };
 };
 
@@ -31,8 +35,14 @@ export const useApplication = () => {
     return context;
 };
 
-export default function ApplicationProvider({ children, ...props }: PropsWithChildren<ApplicationProps>) {
+export default function ApplicationProvider(props: ApplicationProps) {
     const value = useContextValue(props);
 
-    return <ApplicationContext.Provider value={value}>{children}</ApplicationContext.Provider>;
+    return (
+        <ApplicationContext.Provider value={value}>
+            <WebApplication>
+                <Template />
+            </WebApplication>
+        </ApplicationContext.Provider>
+    );
 }
