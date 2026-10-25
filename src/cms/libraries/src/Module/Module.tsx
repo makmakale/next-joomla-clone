@@ -1,8 +1,8 @@
 'use client';
 
+import type { JModuleProps } from '@/libraries/src/Module/Module.types';
 import type { PropsWithChildren } from 'react';
 import { createContext, use } from 'react';
-import type { JModuleProps } from '@/libraries/src/Module/Module.types';
 
 const useCtxValue = ({ module }: JModuleProps) => {
     return { module };

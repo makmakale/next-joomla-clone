@@ -1,10 +1,10 @@
 'use client';
 
-import type { ComponentType } from 'react';
-import type { JIncludeMessageType } from './include-message';
-import { JIncludeMessage } from './include-message';
 import type { JIncludeModulesType } from './include-modules';
+import type { JIncludeMessageType } from './include-message';
 import { JIncludeModules } from './include-modules';
+import { JIncludeMessage } from './include-message';
+import type { ComponentType } from 'react';
 
 type JInclude = JIncludeMessageType | JIncludeModulesType;
 

@@ -1,12 +1,12 @@
-import JConfig from '@/configuration';
-import JInclude from '@/libraries/shared/components/include';
-import JLink from '@/libraries/shared/components/Link';
-import { useLanguage } from '@/libraries/src/Language/Language';
 import { useModuleHelper } from '@/libraries/src/Module/ModuleHelper';
 import { useTemplate } from '@/libraries/src/Templates/Template';
-import Image from 'next/image';
+import { useLanguage } from '@/libraries/src/Language/Language';
+import JInclude from '@/libraries/shared/components/include';
+import JLink from '@/libraries/shared/components/Link';
 import type { PropsWithChildren } from 'react';
 import logoSvg from './images/logo.svg';
+import JConfig from '@/configuration';
+import Image from 'next/image';
 
 import './css/template.css';
 

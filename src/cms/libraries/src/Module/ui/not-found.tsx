@@ -1,5 +1,5 @@
-import { AlertCircleIcon } from 'lucide-react';
 import { Alert, AlertDescription, AlertTitle } from '@/libraries/shared/shadcn/ui/alert';
+import { AlertCircleIcon } from 'lucide-react';
 
 export const ModuleNotFound = ({ moduleName, layout }: { moduleName: string; layout: string }) => {
     return (

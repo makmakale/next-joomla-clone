@@ -1,6 +1,8 @@
 'use client';
 
 import { useLanguage } from '@/libraries/src/Language/Language';
+import { Button } from '@/libraries/shared/shadcn/ui/button';
+import { signOut } from '@/libraries/src/Authentication';
 
 export default function Home() {
     const { t } = useLanguage();
@@ -27,6 +29,8 @@ export default function Home() {
                     >
                         Back to Site
                     </a>
+
+                    <Button onClick={() => signOut('administrator')}>Log out</Button>
                 </div>
             </main>
         </div>

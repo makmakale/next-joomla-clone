@@ -1,5 +1,5 @@
-import JConfig from '@/configuration';
 import { drizzle } from 'drizzle-orm/node-postgres';
+import JConfig from '@/configuration';
 import { Pool } from 'pg';
 
 import * as schema from './schema';

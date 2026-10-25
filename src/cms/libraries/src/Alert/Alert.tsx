@@ -1,7 +1,7 @@
 'use client';
 
-import type { PropsWithChildren } from 'react';
 import { createContext, use, useCallback, useState } from 'react';
+import type { PropsWithChildren } from 'react';
 
 export type AlertType = 'default' | 'info' | 'warning' | 'error';
 
