@@ -1,5 +1,6 @@
 'use client';
 
+import { useApplication } from '@/libraries/src/Application/Application';
 import type { JModuleProps } from '@/libraries/src/Module/Module.types';
 import { useLanguage } from '@/libraries/src/Language/Language';
 import { createContext, use, useEffect } from 'react';
@@ -7,12 +8,23 @@ import type { PropsWithChildren } from 'react';
 
 const useCtxValue = ({ module }: JModuleProps) => {
     const { load } = useLanguage();
+    const app = useApplication();
 
     useEffect(() => {
         load([module.module, `${module.module}.sys`]);
     }, [module.module]);
 
-    return { ...module, params: new Map(Object.entries(module.params as object)) };
+    const getLayoutData = () => {
+        return {
+            module: module,
+            app: app,
+            input: app.getInput(),
+            params: new Map(Object.entries(module.params as object)),
+            // template: $this->app->getTemplate(),
+        };
+    };
+
+    return { getLayoutData };
 };
 
 const JModuleContext = createContext<ReturnType<typeof useCtxValue> | null>(null);

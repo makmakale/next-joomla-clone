@@ -1,9 +1,13 @@
 'use server';
 
 import { db, extensionsTable, modulesTable } from '@/libraries/services/database';
-import { and, eq } from 'drizzle-orm';
+import { getAdminSession } from '@/libraries/src/Session';
+import { and, eq, inArray } from 'drizzle-orm';
 
 export async function getModuleList(clientId: number) {
+    const session = await getAdminSession();
+    const groups = session ? [1, 3] : [1]; //TODO
+
     return db
         .select({
             id: modulesTable.id,
@@ -20,7 +24,15 @@ export async function getModuleList(clientId: number) {
             extensionsTable,
             and(eq(extensionsTable.element, modulesTable.module), eq(extensionsTable.clientId, modulesTable.clientId)),
         )
-        .where(and(eq(modulesTable.published, true), eq(extensionsTable.enabled, true), eq(modulesTable.clientId, clientId)));
+        .where(
+            and(
+                eq(modulesTable.published, true),
+                eq(extensionsTable.enabled, true),
+                eq(modulesTable.clientId, clientId),
+                inArray(modulesTable.access, groups),
+            ),
+        )
+        .orderBy(modulesTable.position, modulesTable.ordering);
 
     // TODO: menu
     // TODO: access
