@@ -18,11 +18,10 @@ import JInclude from '@/libraries/shared/components/include';
 import JLink from '@/libraries/shared/components/Link';
 import JIcon from '@/libraries/shared/components/Icon';
 import { cn } from '@/libraries/shared/shadcn/utils';
-import type { PropsWithChildren } from 'react';
 import Image from 'next/image';
 import './css/template.css';
 
-function Atum({ children }: PropsWithChildren) {
+function Atum() {
     const { open, toggleSidebar } = useSidebar();
     const { hiddenMenu, cpanel } = useTemplate();
     const { t } = useLanguage();
@@ -86,7 +85,7 @@ function Atum({ children }: PropsWithChildren) {
                     <div className="@container/main flex flex-1 flex-col gap-2">
                         <div className="flex flex-col gap-4 px-4 py-4 md:gap-6 md:px-6 md:py-6">
                             <JInclude type="message" />
-                            {children}
+                            <JInclude type="component" />
                         </div>
                     </div>
                 </div>
@@ -95,7 +94,7 @@ function Atum({ children }: PropsWithChildren) {
     );
 }
 
-export default ({ children }: PropsWithChildren) => {
+export default () => {
     return (
         <SidebarProvider
             style={
@@ -104,7 +103,7 @@ export default ({ children }: PropsWithChildren) => {
                 } as React.CSSProperties
             }
         >
-            <Atum>{children}</Atum>
+            <Atum />
         </SidebarProvider>
     );
 };

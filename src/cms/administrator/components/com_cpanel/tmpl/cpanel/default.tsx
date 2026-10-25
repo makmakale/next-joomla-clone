@@ -4,7 +4,7 @@ import { useLanguage } from '@/libraries/src/Language/Language';
 import { Button } from '@/libraries/shared/shadcn/ui/button';
 import { signOut } from '@/libraries/src/Authentication';
 
-export default function Home() {
+export default () => {
     const { t } = useLanguage();
 
     return (
@@ -23,7 +23,7 @@ export default function Home() {
                 <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
                     <a
                         className="bg-foreground text-background flex h-12 w-full items-center justify-center gap-2 rounded-full px-5 transition-colors hover:bg-[#383838] md:w-[158px] dark:hover:bg-[#ccc]"
-                        href="/"
+                        href="/public"
                         target="_blank"
                         rel="noopener noreferrer"
                     >
@@ -35,4 +35,4 @@ export default function Home() {
             </main>
         </div>
     );
-}
+};

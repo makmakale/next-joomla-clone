@@ -3,14 +3,13 @@ import { useTemplate } from '@/libraries/src/Templates/Template';
 import { useLanguage } from '@/libraries/src/Language/Language';
 import JInclude from '@/libraries/shared/components/include';
 import JLink from '@/libraries/shared/components/Link';
-import type { PropsWithChildren } from 'react';
 import logoSvg from './images/logo.svg';
 import JConfig from '@/configuration';
 import Image from 'next/image';
 
 import './css/template.css';
 
-const Cassiopeia = ({ children }: PropsWithChildren) => {
+const Cassiopeia = () => {
     const { params } = useTemplate();
     const { t } = useLanguage();
 
@@ -91,7 +90,9 @@ const Cassiopeia = ({ children }: PropsWithChildren) => {
                     <JInclude type="modules" name="breadcrumbs" style="none" />
                     <JInclude type="modules" name="main-top" style="card" />
                     <JInclude type="message" />
-                    <main>{children}</main>
+                    <main>
+                        <JInclude type="component" />
+                    </main>
                     <JInclude type="modules" name="main-bottom" style="card" />
                 </div>
 
