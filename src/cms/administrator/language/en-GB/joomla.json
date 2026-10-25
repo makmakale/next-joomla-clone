@@ -1,4 +1,5 @@
 {
     "JTEST_MESSAGE": "Administrator should be here",
-    "JTOGGLE_SIDEBAR_MENU": "Toggle Menu"
+    "JTOGGLE_SIDEBAR_MENU": "Toggle Menu",
+    "JBROWSERTARGET_NEW_TITLE": "Open {title} in new window"
 }

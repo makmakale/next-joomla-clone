@@ -1,13 +1,14 @@
 'use client';
 
-import { loadLanguageFile } from '@/libraries/src/Language/Language.actionsServer';
 import { useApplication } from '@/libraries/src/Application/Application';
+import { createContext, use, useEffect, useState } from 'react';
+import { loadLanguageFile } from './Language.actionsServer';
 import type { LocaleParams } from './Language.types';
 import { replaceParams } from './Language.utils';
-import { useEffect, useState } from 'react';
+import type { PropsWithChildren } from 'react';
 import get from 'lodash/get';
 
-export const useLanguage = () => {
+const useContextValue = () => {
     const { clientId, locale } = useApplication();
     const [messages, setMessages] = useState({});
 
@@ -45,5 +46,20 @@ export const useLanguage = () => {
         }
     }
 
-    return { locale, t, load };
+    return { locale, t, load, messages };
 };
+
+const LanguageContext = createContext<ReturnType<typeof useContextValue> | null>(null);
+
+export const useLanguage = () => {
+    const context = use(LanguageContext);
+    if (!context) throw new Error('useLanguage should be used within <LanguageProvider>');
+
+    return context;
+};
+
+export default function LanguageProvider({ children }: PropsWithChildren) {
+    const value = useContextValue();
+
+    return <LanguageContext.Provider value={value}>{children}</LanguageContext.Provider>;
+}
