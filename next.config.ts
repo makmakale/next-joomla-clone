@@ -1,3 +1,4 @@
+import packageJson from './package.json';
 import type { NextConfig } from 'next';
 
 const nextConfig: NextConfig = {
@@ -22,6 +23,9 @@ const nextConfig: NextConfig = {
                 destination: '/administrator/index',
             },
         ];
+    },
+    env: {
+        APP_VERSION: packageJson.version,
     },
 };
 

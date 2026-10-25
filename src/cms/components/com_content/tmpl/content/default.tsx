@@ -1,34 +1,16 @@
-'use client';
-
-import { useLanguage } from '@/libraries/src/Language/Language';
-
 export default function Home() {
-    const { t } = useLanguage();
-
     return (
-        <div className="flex flex-1 flex-col items-center justify-center font-sans">
-            <main className="flex w-full max-w-3xl flex-col items-center justify-between gap-6 px-16 py-32 sm:items-start">
-                <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-                    <h1 className="max-w-xs text-3xl leading-10 font-semibold tracking-tight text-black dark:text-zinc-50">
-                        Next.js Joomla Clone
-                    </h1>
-
-                    <h3 className="max-w-xs text-xl leading-10 font-semibold tracking-tight text-black dark:text-zinc-50">
-                        {t('JTEST_MESSAGE')}
-                    </h3>
-                </div>
-
-                <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-                    <a
-                        className="bg-foreground text-background flex h-12 w-full items-center justify-center gap-2 rounded-full px-5 transition-colors hover:bg-[#383838] md:w-[158px] dark:hover:bg-[#ccc]"
-                        href="/administrator"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                    >
-                        Administrator
-                    </a>
-                </div>
-            </main>
+        <div>
+            <iframe
+                width="560"
+                height="315"
+                src="https://www.youtube.com/embed/3-CLwrav8ic?si=R665L6QG-FlqUqaV"
+                title="YouTube video player"
+                frameBorder="0"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                referrerPolicy="strict-origin-when-cross-origin"
+                allowFullScreen
+            ></iframe>
         </div>
     );
 }
