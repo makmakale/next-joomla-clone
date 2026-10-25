@@ -1,6 +1,7 @@
 'use client';
 
 import WebApplication from '@/libraries/src/Application/WebApplication';
+import LanguageProvider from '@/libraries/src/Language/Language';
 import type { ApplicationProps } from './Application.types';
 import Template from '@/libraries/src/Templates/Template';
 import { useSearchParams } from 'next/navigation';
@@ -40,9 +41,11 @@ export default function ApplicationProvider(props: ApplicationProps) {
 
     return (
         <ApplicationContext.Provider value={value}>
-            <WebApplication>
-                <Template />
-            </WebApplication>
+            <LanguageProvider>
+                <WebApplication>
+                    <Template />
+                </WebApplication>
+            </LanguageProvider>
         </ApplicationContext.Provider>
     );
 }

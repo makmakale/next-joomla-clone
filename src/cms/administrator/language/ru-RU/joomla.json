@@ -1,4 +1,5 @@
 {
     "JTEST_MESSAGE": "Здесь должна быть админка",
-    "JTOGGLE_SIDEBAR_MENU": "Переключить меню"
+    "JTOGGLE_SIDEBAR_MENU": "Переключить меню",
+    "JBROWSERTARGET_NEW_TITLE": "Открыть {title} в новом окне"
 }

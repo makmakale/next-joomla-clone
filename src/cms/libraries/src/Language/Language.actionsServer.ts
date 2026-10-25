@@ -59,21 +59,14 @@ export const setLocale = async (name: string, locale: string): Promise<void> => 
 };
 
 export const loadLanguageFile = async (clientId: number, locale: string, langPath: string) => {
-    if (clientId === 1) {
-        try {
-            const res = await import(`@/cms/administrator/language/${locale}/${langPath}.json`);
-
-            return res?.default;
-        } catch {
-            return { default: {} };
-        }
-    }
-
     try {
-        const res = await import(`@/cms/language/${locale}/${langPath}.json`);
+        const res =
+            clientId === 1
+                ? await import(`@/cms/administrator/language/${locale}/${langPath}.json`)
+                : await import(`@/cms/language/${locale}/${langPath}.json`);
 
         return res?.default;
     } catch {
-        return { default: {} };
+        return {};
     }
 };
