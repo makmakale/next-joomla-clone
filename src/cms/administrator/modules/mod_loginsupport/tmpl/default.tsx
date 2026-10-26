@@ -1,8 +1,9 @@
-import { Card, CardContent, CardHeader, CardTitle } from '@/libraries/shared/shadcn/ui/card';
-import { useLanguage } from '@/libraries/src/Language/Language';
-import { useDispatcher } from '../src/Dispatcher/Dispatcher';
-import HTMLHelper from '@/libraries/src/HTML/HTMLHelper';
 import JIcon from '@/libraries/shared/components/Icon';
+import { Card, CardContent, CardHeader, CardTitle } from '@/libraries/shared/shadcn/ui/card';
+import HTMLHelper from '@/libraries/src/HTML/HTMLHelper';
+import { useLanguage } from '@/libraries/src/Language/Language';
+
+import { useDispatcher } from '../src/hooks';
 
 export default () => {
     const { params } = useDispatcher();

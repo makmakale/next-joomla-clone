@@ -1,8 +1,9 @@
 'use client';
 
+import { Fragment } from 'react';
+
 import { useModuleHelper } from '@/libraries/src/Module/ModuleHelper';
 import { RenderModule } from '@/libraries/src/Module/ui';
-import { Fragment } from 'react';
 
 export default () => {
     const { getLoginModule } = useModuleHelper();

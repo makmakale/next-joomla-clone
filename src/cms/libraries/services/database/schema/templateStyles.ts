@@ -12,11 +12,11 @@ export const templateStyles = p.pgTable(
         parent: p.varchar('parent', { length: 50 }).default(''),
         params: p.jsonb('params').notNull().default({}),
     },
-    table => ({
-        templateIdx: p.index('template_styles_idx_template').on(table.template),
-        clientIdIdx: p.index('template_styles_idx_client_id').on(table.clientId),
-        clientIdHomeIdx: p.index('template_styles_idx_client_id_home').on(table.clientId, table.home),
-    }),
+    table => [
+        p.index('template_styles_idx_template').on(table.template),
+        p.index('template_styles_idx_client_id').on(table.clientId),
+        p.index('template_styles_idx_client_id_home').on(table.clientId, table.home),
+    ],
 );
 
 export type TemplateStyle = typeof templateStyles.$inferSelect;

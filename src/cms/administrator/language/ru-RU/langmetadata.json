@@ -1,0 +1,22 @@
+{
+    "client": "administrator",
+    "name": "Russian (ru-RU)",
+    "version": "6.0.1",
+    "creationDate": "2025-11",
+    "author": "Russian Translation Team",
+    "authorEmail": "smart@joomlaportal.ru",
+    "authorUrl": "https://joomlaportal.ru",
+    "copyright": "Copyright (C) 2005 - 2025 Open Source Matters, Inc.",
+    "license": "GNU General Public License version 2 or later",
+    "description": "<![CDATA[<p>Russian language pack (administrator) for Joomla!</p>]]>",
+    "metadata": {
+        "name": "Russian (ru-RU)",
+        "nativeName": "Русский (Россия)",
+        "tag": "ru-RU",
+        "rtl": "0",
+        "locale": "ru-RU.utf8, ru-RU.UTF-8, ru_RU.utf8, ru_RU.UTF-8, ru-RU, ru_RU, ru-ru, ru_ru, ru, russian, russian-ru",
+        "firstDay": "0",
+        "weekEnd": "0,6",
+        "calendar": "gregorian"
+    }
+}

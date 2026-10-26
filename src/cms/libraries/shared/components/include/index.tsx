@@ -1,12 +1,13 @@
 'use client';
 
-import type { JIncludeComponentType } from './include-component';
-import type { JIncludeModulesType } from './include-modules';
-import type { JIncludeMessageType } from './include-message';
-import { JIncludeComponent } from './include-component';
-import { JIncludeModules } from './include-modules';
-import { JIncludeMessage } from './include-message';
 import type { ComponentType } from 'react';
+
+import type { JIncludeComponentType } from './include-component';
+import { JIncludeComponent } from './include-component';
+import type { JIncludeMessageType } from './include-message';
+import { JIncludeMessage } from './include-message';
+import type { JIncludeModulesType } from './include-modules';
+import { JIncludeModules } from './include-modules';
 
 type JInclude = JIncludeMessageType | JIncludeComponentType | JIncludeModulesType;
 

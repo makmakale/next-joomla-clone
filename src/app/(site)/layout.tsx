@@ -1,10 +1,13 @@
-import { getSiteTemplates } from '@/cms/administrator/components/com_templates/src/Model/StyleModel';
-import { getLocale } from '@/libraries/src/Language/Language.actionsServer';
-import { getModuleList } from '@/libraries/src/Module/Module.actionsServer';
-import ApplicationProvider from '@/libraries/src/Application/Application';
-import { getSession } from '@/libraries/src/Session';
 import { Roboto } from 'next/font/google';
+
 import type { Metadata } from 'next';
+
+import { getSiteTemplates } from '@/cms/administrator/components/com_templates/src/Model/StyleModel';
+
+import { getLocale } from '@/libraries/services/language';
+import ApplicationProvider from '@/libraries/src/Application/Application';
+import { getModuleList } from '@/libraries/src/Module/Module.actionsServer';
+import { getSession } from '@/libraries/src/Session';
 
 const roboto = Roboto({ subsets: ['cyrillic'], variable: '--font-sans-serif' });
 
@@ -19,7 +22,7 @@ export const metadata: Metadata = {
 };
 
 export default async function RootSiteLayout() {
-    const locale = await getLocale('site');
+    const locale = await getLocale();
     const session = await getSession('site');
     const modules = await getModuleList(0);
     const template = await getSiteTemplates();

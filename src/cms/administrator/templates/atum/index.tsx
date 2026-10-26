@@ -1,3 +1,13 @@
+import Image from 'next/image';
+
+import { cn } from 'cn';
+
+import brandLarge from '@/cms/administrator/templates/atum/images/logos/brand-large.svg';
+import brandSmall from '@/cms/administrator/templates/atum/images/logos/brand-small.svg';
+
+import JIcon from '@/libraries/shared/components/Icon';
+import JLink from '@/libraries/shared/components/Link';
+import JInclude from '@/libraries/shared/components/include';
 import {
     Sidebar,
     SidebarContent,
@@ -10,15 +20,9 @@ import {
     SidebarProvider,
     useSidebar,
 } from '@/libraries/shared/shadcn/ui/sidebar';
-import brandSmall from '@/cms/administrator/templates/atum/images/logos/brand-small.svg';
-import brandLarge from '@/cms/administrator/templates/atum/images/logos/brand-large.svg';
-import { useTemplate } from '@/libraries/src/Templates/Template';
 import { useLanguage } from '@/libraries/src/Language/Language';
-import JInclude from '@/libraries/shared/components/include';
-import JLink from '@/libraries/shared/components/Link';
-import JIcon from '@/libraries/shared/components/Icon';
-import { cn } from '@/libraries/shared/shadcn/utils';
-import Image from 'next/image';
+import { useTemplate } from '@/libraries/src/Templates/Template';
+
 import './css/template.css';
 
 function Atum() {

@@ -1,5 +1,16 @@
 'use client';
 
+import Image from 'next/image';
+
+import JConfig from '@/configuration';
+import { cn } from 'cn';
+
+import brandLarge from '@/cms/administrator/templates/atum/images/logos/brand-large.svg';
+import brandSmall from '@/cms/administrator/templates/atum/images/logos/brand-small.svg';
+import loginLogo from '@/cms/administrator/templates/atum/images/logos/login.svg';
+
+import JInclude from '@/libraries/shared/components/include';
+import { Card, CardContent, CardHeader } from '@/libraries/shared/shadcn/ui/card';
 import {
     Sidebar,
     SidebarContent,
@@ -10,15 +21,7 @@ import {
     SidebarProvider,
     useSidebar,
 } from '@/libraries/shared/shadcn/ui/sidebar';
-import brandSmall from '@/cms/administrator/templates/atum/images/logos/brand-small.svg';
-import brandLarge from '@/cms/administrator/templates/atum/images/logos/brand-large.svg';
-import loginLogo from '@/cms/administrator/templates/atum/images/logos/login.svg';
-import { Card, CardContent, CardHeader } from '@/libraries/shared/shadcn/ui/card';
 import { useLanguage } from '@/libraries/src/Language/Language';
-import JInclude from '@/libraries/shared/components/include';
-import { cn } from '@/libraries/shared/shadcn/utils';
-import JConfig from '@/configuration';
-import Image from 'next/image';
 
 function AtumLogin() {
     const { open } = useSidebar();

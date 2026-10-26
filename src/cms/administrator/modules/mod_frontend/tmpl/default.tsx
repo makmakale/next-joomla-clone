@@ -1,9 +1,12 @@
-import { useLanguage } from '@/libraries/src/Language/Language';
-import { Button } from '@/libraries/shared/shadcn/ui/button';
-import { useDispatcher } from '../src/Dispatcher/Dispatcher';
-import JIcon from '@/libraries/shared/components/Icon';
-import { truncate } from 'lodash';
 import Link from 'next/link';
+
+import truncate from 'lodash/truncate';
+
+import JIcon from '@/libraries/shared/components/Icon';
+import { Button } from '@/libraries/shared/shadcn/ui/button';
+import { useLanguage } from '@/libraries/src/Language/Language';
+
+import { useDispatcher } from '../src/hooks';
 
 export default () => {
     const { siteName } = useDispatcher();

@@ -12,11 +12,11 @@ export const assetsTable = p.pgTable(
         title: p.varchar('title', { length: 100 }).notNull(),
         rules: p.jsonb('rules').notNull().default({}),
     },
-    table => ({
-        nameIdx: p.uniqueIndex('assets_idx_asset_name').on(table.name),
-        lftRgtIdx: p.index('assets_idx_lft_rgt').on(table.lft, table.rgt),
-        parentIdIdx: p.index('assets_idx_parent_id').on(table.parentId),
-    }),
+    table => [
+        p.uniqueIndex('assets_idx_asset_name').on(table.name),
+        p.index('assets_idx_lft_rgt').on(table.lft, table.rgt),
+        p.index('assets_idx_parent_id').on(table.parentId),
+    ],
 );
 
 export type Asset = typeof assetsTable.$inferSelect;

@@ -1,8 +1,8 @@
 'use client';
 
-import { useLanguage } from '@/libraries/src/Language/Language';
+import { signOut } from '@/libraries/services/auth/auth';
 import { Button } from '@/libraries/shared/shadcn/ui/button';
-import { signOut } from '@/libraries/src/Authentication';
+import { useLanguage } from '@/libraries/src/Language/Language';
 
 export default () => {
     const { t } = useLanguage();

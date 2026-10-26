@@ -1,6 +1,7 @@
+import { AlertTriangleIcon, InfoIcon } from 'lucide-react';
+
 import { Alert, AlertAction, AlertDescription, AlertTitle } from '@/libraries/shared/shadcn/ui/alert';
 import { Button } from '@/libraries/shared/shadcn/ui/button';
-import { AlertTriangleIcon, InfoIcon } from 'lucide-react';
 import { useAlert } from '@/libraries/src/Alert/Alert';
 
 export interface JIncludeMessageType {

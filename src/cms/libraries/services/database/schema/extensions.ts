@@ -24,11 +24,11 @@ export const extensionsTable = p.pgTable(
         state: p.bigint('state', { mode: 'number' }).default(0),
         note: p.varchar('note', { length: 255 }),
     },
-    table => ({
-        elementClientIdIdx: p.index('extensions_element_clientid').on(table.element, table.clientId),
-        elementFolderClientIdIdx: p.index('extensions_element_folder_clientid').on(table.element, table.folder, table.clientId),
-        extensionIdx: p.index('extensions_extension').on(table.type, table.element, table.folder, table.clientId),
-    }),
+    table => [
+        p.index('extensions_element_clientid').on(table.element, table.clientId),
+        p.index('extensions_element_folder_clientid').on(table.element, table.folder, table.clientId),
+        p.index('extensions_extension').on(table.type, table.element, table.folder, table.clientId),
+    ],
 );
 
 export type Extension = typeof extensionsTable.$inferSelect;

@@ -1,0 +1,22 @@
+{
+    "client": "administrator",
+    "name": "English (en-GB)",
+    "version": "6.0.3",
+    "creationDate": "2026-02",
+    "author": "Joomla! Project",
+    "authorEmail": "admin@joomla.org",
+    "authorUrl": "www.joomla.org",
+    "copyright": "(C) 2005 Open Source Matters, Inc.",
+    "license": "GNU General Public License version 2 or later; see LICENSE.txt",
+    "description": "<![CDATA[en-GB administrator language]]>",
+    "metadata": {
+        "name": "English (United Kingdom",
+        "nativeName": "English (United Kingdom",
+        "tag": "en-GB",
+        "rtl": "0",
+        "locale": "en_GB.utf8, en_GB.UTF-8, en_GB, eng_GB, en, english, english-uk, uk, gbr, britain, england, great britain, uk, united kingdom, united-kingdom",
+        "firstDay": "0",
+        "weekEnd": "0,6",
+        "calendar": "gregorian"
+    }
+}

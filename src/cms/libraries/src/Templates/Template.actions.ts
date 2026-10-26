@@ -1,5 +1,6 @@
-import { TemplateNoFound } from '@/libraries/src/Templates/Template.not-found';
 import type { ComponentType, PropsWithChildren } from 'react';
+
+import { TemplateNoFound } from '@/libraries/src/Templates/Template.not-found';
 
 export const renderTemplate = (
     clientId: number,

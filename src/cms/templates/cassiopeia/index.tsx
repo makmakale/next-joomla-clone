@@ -1,13 +1,15 @@
-import { useModuleHelper } from '@/libraries/src/Module/ModuleHelper';
-import { useTemplate } from '@/libraries/src/Templates/Template';
-import { useLanguage } from '@/libraries/src/Language/Language';
-import JInclude from '@/libraries/shared/components/include';
-import JLink from '@/libraries/shared/components/Link';
-import logoSvg from './images/logo.svg';
-import JConfig from '@/configuration';
 import Image from 'next/image';
 
+import JConfig from '@/configuration';
+
+import JLink from '@/libraries/shared/components/Link';
+import JInclude from '@/libraries/shared/components/include';
+import { useLanguage } from '@/libraries/src/Language/Language';
+import { useModuleHelper } from '@/libraries/src/Module/ModuleHelper';
+import { useTemplate } from '@/libraries/src/Templates/Template';
+
 import './css/template.css';
+import logoSvg from './images/logo.svg';
 
 const Cassiopeia = () => {
     const { params } = useTemplate();

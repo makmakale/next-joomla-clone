@@ -1,3 +1,5 @@
+'use client';
+
 import { useModule } from '@/libraries/src/Module/Module';
 
 export const useDispatcher = () => {

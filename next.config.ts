@@ -1,5 +1,6 @@
-import packageJson from './package.json';
 import type { NextConfig } from 'next';
+
+import packageJson from './package.json';
 
 const nextConfig: NextConfig = {
     /* config options here */
@@ -26,6 +27,9 @@ const nextConfig: NextConfig = {
     },
     env: {
         APP_VERSION: packageJson.version,
+    },
+    modularizeImports: {
+        lodash: { transform: 'lodash/{{member}}' },
     },
 };
 

@@ -22,11 +22,11 @@ export const modulesTable = p.pgTable(
         clientId: p.smallint('client_id').default(0).notNull(),
         language: p.varchar('language', { length: 7 }).notNull(),
     },
-    table => ({
-        publishedIdx: p.index('modules_published').on(table.published, table.access),
-        newsfeedsIdx: p.index('modules_newsfeeds').on(table.module, table.published),
-        languageIdx: p.index('modules_idx_language').on(table.language),
-    }),
+    table => [
+        p.index('modules_published').on(table.published, table.access),
+        p.index('modules_newsfeeds').on(table.module, table.published),
+        p.index('modules_idx_language').on(table.language),
+    ],
 );
 
 export type Module = typeof modulesTable.$inferSelect;

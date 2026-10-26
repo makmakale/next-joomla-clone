@@ -1,5 +1,9 @@
 {
     "JTEST_MESSAGE": "Administrator should be here",
     "JTOGGLE_SIDEBAR_MENU": "Toggle Menu",
-    "JBROWSERTARGET_NEW_TITLE": "Open {title} in new window"
+    "JBROWSERTARGET_NEW_TITLE": "Open {title} in new window",
+    "JDEFAULTLANGUAGE": "Language - Default",
+    "JLOGIN": "Log in",
+    "JGLOBAL_USERNAME": "Username",
+    "JGLOBAL_PASSWORD": "Password"
 }

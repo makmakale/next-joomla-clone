@@ -1,11 +1,16 @@
 'use client';
 
+import { createContext, use } from 'react';
+
+import { useSearchParams } from 'next/navigation';
+
+import { authenticate } from '@/libraries/services/auth/auth';
+import type { AuthCredentialsSchema } from '@/libraries/services/auth/auth.types';
 import WebApplication from '@/libraries/src/Application/WebApplication';
 import LanguageProvider from '@/libraries/src/Language/Language';
-import type { ApplicationProps } from './Application.types';
 import Template from '@/libraries/src/Templates/Template';
-import { useSearchParams } from 'next/navigation';
-import { createContext, use } from 'react';
+
+import type { ApplicationProps } from './Application.types';
 
 const useContextValue = ({ initialValues }: ApplicationProps) => {
     const { clientId, session } = initialValues;
@@ -16,6 +21,10 @@ const useContextValue = ({ initialValues }: ApplicationProps) => {
     const view = searchParams.get('view') || option.replace('com_', '');
     const layout = searchParams.get('layout') || 'default';
 
+    const login = async (data: AuthCredentialsSchema, params?: object) => {
+        return authenticate(data, params);
+    };
+
     return {
         ...initialValues,
         getInput: () =>
@@ -24,6 +33,7 @@ const useContextValue = ({ initialValues }: ApplicationProps) => {
                 ['view', view.toLowerCase()],
                 ['layout', layout.toLowerCase()],
             ]),
+        login,
     };
 };
 
@@ -41,11 +51,11 @@ export default function ApplicationProvider(props: ApplicationProps) {
 
     return (
         <ApplicationContext.Provider value={value}>
-            <LanguageProvider>
-                <WebApplication>
+            <WebApplication>
+                <LanguageProvider>
                     <Template />
-                </WebApplication>
-            </LanguageProvider>
+                </LanguageProvider>
+            </WebApplication>
         </ApplicationContext.Provider>
     );
 }

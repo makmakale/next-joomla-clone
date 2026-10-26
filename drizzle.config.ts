@@ -1,7 +1,8 @@
-import { defineConfig } from 'drizzle-kit';
-import type { Config } from 'drizzle-kit';
-import JConfig from '@/configuration';
 import 'dotenv/config';
+
+import JConfig from '@/configuration';
+import type { Config } from 'drizzle-kit';
+import { defineConfig } from 'drizzle-kit';
 
 export default defineConfig({
     schema: './src/cms/libraries/services/database/schema/index.ts',

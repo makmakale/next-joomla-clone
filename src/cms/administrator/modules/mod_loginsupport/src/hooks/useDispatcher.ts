@@ -1,3 +1,5 @@
+'use client';
+
 import { useLanguage } from '@/libraries/src/Language/Language';
 import { useModule } from '@/libraries/src/Module/Module';
 

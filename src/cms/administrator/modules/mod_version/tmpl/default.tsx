@@ -1,6 +1,7 @@
-import { useLanguage } from '@/libraries/src/Language/Language';
-import { useDispatcher } from '../src/Dispatcher/Dispatcher';
 import JIcon from '@/libraries/shared/components/Icon';
+import { useLanguage } from '@/libraries/src/Language/Language';
+
+import { useDispatcher } from '../src/hooks';
 
 export default () => {
     const { version } = useDispatcher();
