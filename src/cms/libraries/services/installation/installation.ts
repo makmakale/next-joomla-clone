@@ -6,7 +6,9 @@ import { cmsConfigTable, db, usersTable } from '@/libraries/services/database';
 
 const GLOBAL_CONFIG_KEY = 'global-config';
 
-export const isInstalled = async () => {
+let installed = false;
+
+export const checkInstalled = async () => {
     const [config] = await db
         .select({ params: cmsConfigTable.params })
         .from(cmsConfigTable)
@@ -20,4 +22,12 @@ export const isInstalled = async () => {
     const [user] = await db.select({ id: usersTable.id }).from(usersTable).limit(1);
 
     return Boolean(user);
+};
+
+export const isInstalled = async () => {
+    if (installed) return true;
+
+    installed = await checkInstalled();
+
+    return installed;
 };
