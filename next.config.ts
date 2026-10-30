@@ -31,6 +31,7 @@ const nextConfig: NextConfig = {
     modularizeImports: {
         lodash: { transform: 'lodash/{{member}}' },
     },
+    serverExternalPackages: ['pg'],
 };
 
 export default nextConfig;
