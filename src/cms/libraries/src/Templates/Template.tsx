@@ -1,13 +1,17 @@
 'use client';
 
+import { createContext, use, useEffect } from 'react';
+import type { PropsWithChildren } from 'react';
+
+import dynamic from 'next/dynamic';
+import { usePathname } from 'next/navigation';
+
+import get from 'lodash/get';
+
 import { useApplication } from '@/libraries/src/Application/Application';
 import { useLanguage } from '@/libraries/src/Language/Language';
-import { createContext, use, useEffect } from 'react';
+
 import { renderTemplate } from './Template.actions';
-import type { PropsWithChildren } from 'react';
-import { usePathname } from 'next/navigation';
-import dynamic from 'next/dynamic';
-import get from 'lodash/get';
 
 const useContextValue = () => {
     const { session } = useApplication();

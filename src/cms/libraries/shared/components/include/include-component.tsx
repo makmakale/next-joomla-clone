@@ -1,8 +1,9 @@
 'use client';
 
-import type { AppInput } from '@/libraries/src/Application/Application.types';
-import { useApplication } from '@/libraries/src/Application/Application';
 import dynamic from 'next/dynamic';
+
+import { useApplication } from '@/libraries/src/Application/Application';
+import type { AppInput } from '@/libraries/src/Application/Application.types';
 
 export interface JIncludeComponentType {
     type: 'component';

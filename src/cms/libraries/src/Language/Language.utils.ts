@@ -1,5 +1,6 @@
-import type { LocaleParams } from './Language.types';
 import isEmpty from 'lodash/isEmpty';
+
+import type { LocaleParams } from './Language.types';
 
 export function replaceParams(str: string, params?: LocaleParams) {
     if (!isEmpty(params)) {

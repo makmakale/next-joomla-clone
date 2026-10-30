@@ -1,0 +1,50 @@
+import * as p from 'drizzle-orm/pg-core';
+
+export const contentTable = p.pgTable(
+    'content',
+    {
+        id: p.serial('id').notNull().primaryKey(),
+        assetId: p.bigint('asset_id', { mode: 'number' }).default(0).notNull(),
+        title: p.varchar('title', { length: 255 }).default('').notNull(),
+        alias: p.varchar('alias', { length: 255 }).default('').notNull(),
+        introtext: p.text('introtext').notNull(),
+        fulltext: p.text('fulltext').notNull(),
+        state: p.smallint('state').default(0).notNull(),
+        catid: p.bigint('catid', { mode: 'number' }).default(0).notNull(),
+        created: p.timestamp('created', { mode: 'date' }).notNull(),
+        createdBy: p.bigint('created_by', { mode: 'number' }).default(0).notNull(),
+        createdByAlias: p.varchar('created_by_alias', { length: 255 }).default('').notNull(),
+        modified: p.timestamp('modified', { mode: 'date' }).notNull(),
+        modifiedBy: p.bigint('modified_by', { mode: 'number' }).default(0).notNull(),
+        checkedOut: p.integer('checked_out'),
+        checkedOutTime: p.timestamp('checked_out_time', { mode: 'date' }),
+        publishUp: p.timestamp('publish_up', { mode: 'date' }),
+        publishDown: p.timestamp('publish_down', { mode: 'date' }),
+        images: p.jsonb('images').notNull().default({}),
+        urls: p.jsonb('urls').notNull().default({}),
+        attribs: p.jsonb('attribs').notNull().default({}),
+        version: p.bigint('version', { mode: 'number' }).default(1).notNull(),
+        ordering: p.bigint('ordering', { mode: 'number' }).default(0).notNull(),
+        metakey: p.text('metakey'),
+        metadesc: p.text('metadesc').notNull(),
+        access: p.bigint('access', { mode: 'number' }).default(0).notNull(),
+        hits: p.bigint('hits', { mode: 'number' }).default(0).notNull(),
+        metadata: p.jsonb('metadata').notNull().default({}),
+        featured: p.boolean('featured').default(false).notNull(),
+        language: p.varchar('language', { length: 7 }).default('').notNull(),
+        note: p.varchar('note', { length: 255 }).default('').notNull(),
+    },
+    table => [
+        p.index('content_idx_access').on(table.access),
+        p.index('content_idx_checkout').on(table.checkedOut),
+        p.index('content_idx_state').on(table.state),
+        p.index('content_idx_catid').on(table.catid),
+        p.index('content_idx_createdby').on(table.createdBy),
+        p.index('content_idx_featured_catid').on(table.featured, table.catid),
+        p.index('content_idx_language').on(table.language),
+        p.index('content_idx_alias').on(table.alias),
+    ],
+);
+
+export type Content = typeof contentTable.$inferSelect;
+export type NewContent = typeof contentTable.$inferInsert;

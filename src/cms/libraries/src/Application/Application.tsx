@@ -1,11 +1,14 @@
 'use client';
 
+import { createContext, use } from 'react';
+
+import { useSearchParams } from 'next/navigation';
+
 import WebApplication from '@/libraries/src/Application/WebApplication';
 import LanguageProvider from '@/libraries/src/Language/Language';
-import type { ApplicationProps } from './Application.types';
 import Template from '@/libraries/src/Templates/Template';
-import { useSearchParams } from 'next/navigation';
-import { createContext, use } from 'react';
+
+import type { ApplicationProps } from './Application.types';
 
 const useContextValue = ({ initialValues }: ApplicationProps) => {
     const { clientId, session } = initialValues;
@@ -41,11 +44,11 @@ export default function ApplicationProvider(props: ApplicationProps) {
 
     return (
         <ApplicationContext.Provider value={value}>
-            <LanguageProvider>
-                <WebApplication>
+            <WebApplication>
+                <LanguageProvider>
                     <Template />
-                </WebApplication>
-            </LanguageProvider>
+                </LanguageProvider>
+            </WebApplication>
         </ApplicationContext.Provider>
     );
 }

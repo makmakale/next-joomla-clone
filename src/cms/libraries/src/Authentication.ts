@@ -1,8 +1,10 @@
 'use server';
 
-import { setSession } from '@/libraries/src/Session';
 import { cookies } from 'next/headers';
+
 import JConfig from '@/configuration';
+
+import { setSession } from '@/libraries/src/Session';
 
 // TODO: signIn
 export const signIn = async (clientName: string) => {

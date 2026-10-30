@@ -1,7 +1,8 @@
 'use server';
 
-import { db, extensionsTable, templateStyles } from '@/libraries/services/database';
 import { and, eq } from 'drizzle-orm';
+
+import { db, extensionsTable, templateStyles } from '@/libraries/services/database';
 
 export const getAdminTemplate = async () => {
     const [template] = await db

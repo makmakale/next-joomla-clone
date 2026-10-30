@@ -1,72 +1,93 @@
 'use server';
 
-import { administratorRouting } from '@/libraries/services/i18n/administrator/routing';
-import { siteRouting } from '@/libraries/services/i18n/site/routing';
-import { cookies, headers } from 'next/headers';
+import { and, eq } from 'drizzle-orm';
 
-export const getLocaleFromHeaders = async (): Promise<string> => {
-    const acceptLanguage = (await headers()).get('accept-language') || '';
-    const tags = acceptLanguage.match(/[a-zA-Z]{2}-[a-zA-Z]{2}/g) ?? [];
-
-    return tags[0] || '';
-};
-
-export const getLocaleFromCookies = async (name: string): Promise<string> => {
-    const cookie = (await cookies()).get(`joomla.${name}.locale`);
-
-    return cookie?.value ?? '';
-};
-
-export const isValidLocale = async (locale: string, name: string): Promise<boolean> => {
-    if (name === 'administrator') {
-        return administratorRouting.locales.includes(locale);
-    }
-
-    return siteRouting.locales.includes(locale);
-};
-
-export const getLocale = async (name: string) => {
-    const cookieLocale = await getLocaleFromCookies(name);
-
-    if (cookieLocale && (await isValidLocale(cookieLocale, name))) {
-        return cookieLocale;
-    }
-
-    const headersLocale = await getLocaleFromHeaders();
-
-    if (headersLocale && (await isValidLocale(headersLocale, name))) {
-        return headersLocale;
-    }
-
-    if (name === 'administrator') {
-        return administratorRouting.defaultLocale;
-    }
-
-    return siteRouting.defaultLocale;
-};
-
-export const getAdminLocale = async () => getLocale('administrator');
-
-export const setLocale = async (name: string, locale: string): Promise<void> => {
-    const cookieStore = await cookies();
-    const cookieName = name === 'administrator' ? administratorRouting.localeCookie.name : siteRouting.localeCookie.name;
-
-    cookieStore.set(cookieName, locale, {
-        path: '/',
-        maxAge: 60 * 60 * 24 * 365,
-        sameSite: 'lax',
-    });
-};
+import { db, extensionsTable } from '@/libraries/services/database';
+import type { InstalledLanguageWithMetadata, LanguageMetadata } from '@/libraries/src/Language/Language.types';
 
 export const loadLanguageFile = async (clientId: number, locale: string, langPath: string) => {
     try {
-        const res =
-            clientId === 1
-                ? await import(`@/cms/administrator/language/${locale}/${langPath}.json`)
-                : await import(`@/cms/language/${locale}/${langPath}.json`);
-
-        return res?.default;
+        return clientId === 1
+            ? (await import(`@/cms/administrator/language/${locale}/${langPath}.json`)).default
+            : (await import(`@/cms/language/${locale}/${langPath}.json`)).default;
     } catch {
-        return {};
+        return undefined;
     }
 };
+
+export const getInstalledLanguages = async ({
+    clientId,
+    processMetaData = false,
+    processManifest = false,
+}: {
+    clientId: number;
+    processMetaData?: boolean;
+    processManifest?: boolean;
+}) => {
+    const installedLanguages = await db
+        .select({
+            element: extensionsTable.element,
+            name: extensionsTable.name,
+            clientId: extensionsTable.clientId,
+            extensionId: extensionsTable.extensionId,
+        })
+        .from(extensionsTable)
+        .where(
+            and(
+                eq(extensionsTable.type, 'language'),
+                eq(extensionsTable.state, 0),
+                eq(extensionsTable.enabled, true),
+                eq(extensionsTable.clientId, clientId),
+            ),
+        );
+
+    const languages: InstalledLanguageWithMetadata[] = [];
+
+    for (let language of installedLanguages) {
+        if (processMetaData) {
+            const metadata = await loadLanguageMetadata(clientId, language.element);
+
+            language = {
+                ...language,
+                metadata: metadata?.metadata ?? { tag: language.element, nativeName: language.name },
+            } as InstalledLanguageWithMetadata;
+        }
+
+        languages.push(language as InstalledLanguageWithMetadata);
+    }
+
+    return languages;
+};
+
+// TODO: caching
+export const createLanguageList = async (clientId: number, caching: boolean = false, installed: boolean = false) => {
+    const languages = installed
+        ? await getInstalledLanguages({
+              clientId,
+              processMetaData: true,
+          })
+        : [];
+
+    const list = [];
+
+    for (const language of languages) {
+        const metadata = (installed ? language.metadata : language) as LanguageMetadata; // TODO bad typing
+
+        list.push({
+            label: metadata.nativeName ?? metadata.name,
+            value: metadata.tag,
+        });
+    }
+
+    return list;
+};
+
+async function loadLanguageMetadata(clientId: number, language: string) {
+    try {
+        return clientId === 1
+            ? (await import(`@/cms/administrator/language/${language}/langmetadata.json`)).default
+            : (await import(`@/cms/language/${language}/langmetadata.json`)).default;
+    } catch {
+        return undefined;
+    }
+}

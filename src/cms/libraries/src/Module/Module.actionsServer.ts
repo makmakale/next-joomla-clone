@@ -1,8 +1,9 @@
 'use server';
 
+import { and, eq, inArray } from 'drizzle-orm';
+
 import { db, extensionsTable, modulesTable } from '@/libraries/services/database';
 import { getAdminSession } from '@/libraries/src/Session';
-import { and, eq, inArray } from 'drizzle-orm';
 
 export async function getModuleList(clientId: number) {
     const session = await getAdminSession();

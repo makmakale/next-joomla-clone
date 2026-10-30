@@ -1,5 +1,15 @@
 'use client';
 
+import { useState } from 'react';
+
+import { useDispatcher } from '@/cms/administrator/modules/mod_login/src/Dispatcher/Dispatcher';
+
+import JIcon from '@/libraries/shared/components/Icon';
+import JLink from '@/libraries/shared/components/Link';
+import { Button } from '@/libraries/shared/shadcn/ui/button';
+import { Field, FieldGroup, FieldLabel, FieldLegend, FieldSet } from '@/libraries/shared/shadcn/ui/field';
+import { Input } from '@/libraries/shared/shadcn/ui/input';
+import { InputGroup, InputGroupAddon, InputGroupButton, InputGroupInput } from '@/libraries/shared/shadcn/ui/input-group';
 import {
     Select,
     SelectContent,
@@ -8,16 +18,8 @@ import {
     SelectTrigger,
     SelectValue,
 } from '@/libraries/shared/shadcn/ui/select';
-import { InputGroup, InputGroupAddon, InputGroupButton, InputGroupInput } from '@/libraries/shared/shadcn/ui/input-group';
-import { Field, FieldGroup, FieldLabel, FieldLegend, FieldSet } from '@/libraries/shared/shadcn/ui/field';
-import { useDispatcher } from '@/cms/administrator/modules/mod_login/src/Dispatcher/Dispatcher';
-import { useLanguage } from '@/libraries/src/Language/Language';
-import { Button } from '@/libraries/shared/shadcn/ui/button';
-import { Input } from '@/libraries/shared/shadcn/ui/input';
 import { signIn } from '@/libraries/src/Authentication';
-import JLink from '@/libraries/shared/components/Link';
-import JIcon from '@/libraries/shared/components/Icon';
-import { useState } from 'react';
+import { useLanguage } from '@/libraries/src/Language/Language';
 
 export default () => {
     const { t, locale } = useLanguage();
@@ -86,7 +88,7 @@ export default () => {
                     <input type="hidden" name="return" value="<?php echo $return; ?>" />
                 </FieldGroup>
             </form>
-            <div className="text-center mt-4">
+            <div className="mt-4 text-center">
                 <JLink href="#" target="_blank" rel="noopener nofollow">
                     {t('MOD_LOGIN_CREDENTIALS')}
                 </JLink>

@@ -1,8 +1,9 @@
-import { Card, CardContent, CardHeader, CardTitle } from '@/libraries/shared/shadcn/ui/card';
-import { useLanguage } from '@/libraries/src/Language/Language';
-import { useDispatcher } from '../src/Dispatcher/Dispatcher';
-import HTMLHelper from '@/libraries/src/HTML/HTMLHelper';
 import JIcon from '@/libraries/shared/components/Icon';
+import { Card, CardContent, CardHeader, CardTitle } from '@/libraries/shared/shadcn/ui/card';
+import HTMLHelper from '@/libraries/src/HTML/HTMLHelper';
+import { useLanguage } from '@/libraries/src/Language/Language';
+
+import { useDispatcher } from '../src/hooks';
 
 export default () => {
     const { params } = useDispatcher();
@@ -11,7 +12,7 @@ export default () => {
     return (
         <Card>
             <CardHeader>
-                <CardTitle className="text-sm text-center bg-secondary py-2">{t('MOD_LOGINSUPPORT_HEADLINE')}</CardTitle>
+                <CardTitle className="bg-secondary py-2 text-center text-sm">{t('MOD_LOGINSUPPORT_HEADLINE')}</CardTitle>
             </CardHeader>
             <CardContent className="text-xs">
                 <ul className="space-y-3 [&>li]:justify-center">
