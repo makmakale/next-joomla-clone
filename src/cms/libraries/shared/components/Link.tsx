@@ -1,7 +1,8 @@
 'use client';
 
-import { useApplication } from '@/libraries/src/Application/Application';
 import Link from 'next/link';
+
+import { useApplication } from '@/libraries/src/Application/Application';
 
 type JLinkProps = Omit<React.ComponentProps<typeof Link>, 'href'> & {
     href: string;

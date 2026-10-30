@@ -1,10 +1,12 @@
 'use client';
 
-import { Dialog as SheetPrimitive } from '@base-ui/react/dialog';
-import { Button } from '@/libraries/shared/shadcn/ui/button';
-import { XIcon } from 'lucide-react';
 import * as React from 'react';
+
+import { Dialog as SheetPrimitive } from '@base-ui/react/dialog';
 import { cn } from 'cn';
+import { XIcon } from 'lucide-react';
+
+import { Button } from '@/libraries/shared/shadcn/ui/button';
 
 function Sheet({ ...props }: SheetPrimitive.Root.Props) {
     return <SheetPrimitive.Root data-slot="sheet" {...props} />;

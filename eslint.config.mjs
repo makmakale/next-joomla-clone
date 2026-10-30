@@ -1,6 +1,6 @@
-import {defineConfig, globalIgnores} from "eslint/config";
-import nextVitals from "eslint-config-next/core-web-vitals";
-import nextTs from "eslint-config-next/typescript";
+import nextVitals from 'eslint-config-next/core-web-vitals';
+import nextTs from 'eslint-config-next/typescript';
+import { defineConfig, globalIgnores } from 'eslint/config';
 
 const eslintConfig = defineConfig([
     ...nextVitals,
@@ -8,16 +8,16 @@ const eslintConfig = defineConfig([
     // Override default ignores of eslint-config-next.
     globalIgnores([
         // Default ignores of eslint-config-next:
-        ".next/**",
-        "out/**",
-        "build/**",
-        "next-env.d.ts",
+        '.next/**',
+        'out/**',
+        'build/**',
+        'next-env.d.ts',
     ]),
     {
         settings: {
-            "import/resolver": {
-                "typescript": {},
-            }
+            'import/resolver': {
+                typescript: {},
+            },
         },
         rules: {
             'react/display-name': 'off',
@@ -34,7 +34,7 @@ const eslintConfig = defineConfig([
             ],
             '@typescript-eslint/consistent-type-imports': [
                 'error',
-                {prefer: 'type-imports', fixStyle: 'separate-type-imports'},
+                { prefer: 'type-imports', fixStyle: 'separate-type-imports' },
             ],
             'padding-line-between-statements': [
                 'error',
@@ -42,6 +42,18 @@ const eslintConfig = defineConfig([
                     blankLine: 'always',
                     prev: '*',
                     next: 'return',
+                },
+            ],
+            '@typescript-eslint/no-restricted-imports': [
+                'error',
+                {
+                    paths: [
+                        {
+                            name: 'lodash',
+                            message: 'Function should be imported directly: e.g. lodash/get',
+                            allowTypeImports: true,
+                        },
+                    ],
                 },
             ],
         },

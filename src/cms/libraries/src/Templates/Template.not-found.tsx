@@ -1,5 +1,6 @@
-import { Alert, AlertDescription, AlertTitle } from '@/libraries/shared/shadcn/ui/alert';
 import { AlertCircleIcon } from 'lucide-react';
+
+import { Alert, AlertDescription, AlertTitle } from '@/libraries/shared/shadcn/ui/alert';
 
 export const TemplateNoFound = () => {
     return (

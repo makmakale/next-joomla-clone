@@ -1,9 +1,9 @@
 'use client';
 
+import { Button } from '@/libraries/shared/shadcn/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/libraries/shared/shadcn/ui/card';
 import { useApplication } from '@/libraries/src/Application/Application';
 import { signIn, signOut } from '@/libraries/src/Authentication';
-import { Button } from '@/libraries/shared/shadcn/ui/button';
 
 export default () => {
     const { session, name } = useApplication();

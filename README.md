@@ -1,3 +1,5 @@
 # Next.js Joomla Clone
 
-[PROD - next-joomla.netlify.app](https://next-joomla.netlify.app/) 
+NJC - Next Joomla Clone
+
+[PROD](https://next-joomla.netlify.app/) 

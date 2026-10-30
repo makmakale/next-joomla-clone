@@ -1,0 +1,51 @@
+import * as p from 'drizzle-orm/pg-core';
+
+export const bannersTable = p.pgTable(
+    'banners',
+    {
+        id: p.serial('id').notNull().primaryKey(),
+        cid: p.bigint('cid', { mode: 'number' }).default(0).notNull(),
+        type: p.bigint('type', { mode: 'number' }).default(0).notNull(),
+        name: p.varchar('name', { length: 255 }).default('').notNull(),
+        alias: p.varchar('alias', { length: 255 }).default('').notNull(),
+        imptotal: p.bigint('imptotal', { mode: 'number' }).default(0).notNull(),
+        impmade: p.bigint('impmade', { mode: 'number' }).default(0).notNull(),
+        clicks: p.bigint('clicks', { mode: 'number' }).default(0).notNull(),
+        clickurl: p.varchar('clickurl', { length: 2048 }).default('').notNull(),
+        state: p.smallint('state').default(0).notNull(),
+        catid: p.bigint('catid', { mode: 'number' }).default(0).notNull(),
+        description: p.text('description').notNull(),
+        custombannercode: p.varchar('custombannercode', { length: 2048 }).notNull(),
+        sticky: p.boolean('sticky').default(false).notNull(),
+        ordering: p.bigint('ordering', { mode: 'number' }).default(0).notNull(),
+        metakey: p.text('metakey'),
+        params: p.jsonb('params').notNull().default({}),
+        ownPrefix: p.boolean('own_prefix').default(false).notNull(),
+        metakeyPrefix: p.varchar('metakey_prefix', { length: 255 }).default('').notNull(),
+        purchaseType: p.smallint('purchase_type').default(-1).notNull(),
+        trackClicks: p.smallint('track_clicks').default(-1).notNull(),
+        trackImpressions: p.smallint('track_impressions').default(-1).notNull(),
+        checkedOut: p.integer('checked_out'),
+        checkedOutTime: p.timestamp('checked_out_time', { mode: 'date' }),
+        publishUp: p.timestamp('publish_up', { mode: 'date' }),
+        publishDown: p.timestamp('publish_down', { mode: 'date' }),
+        reset: p.timestamp('reset', { mode: 'date' }),
+        created: p.timestamp('created', { mode: 'date' }).notNull(),
+        language: p.varchar('language', { length: 7 }).default('').notNull(),
+        createdBy: p.bigint('created_by', { mode: 'number' }).default(0).notNull(),
+        createdByAlias: p.varchar('created_by_alias', { length: 255 }).default('').notNull(),
+        modified: p.timestamp('modified', { mode: 'date' }).notNull(),
+        modifiedBy: p.bigint('modified_by', { mode: 'number' }).default(0).notNull(),
+        version: p.bigint('version', { mode: 'number' }).default(1).notNull(),
+    },
+    table => [
+        p.index('banners_idx_state').on(table.state),
+        p.index('banners_idx_own_prefix').on(table.ownPrefix),
+        p.index('banners_idx_metakey_prefix').on(table.metakeyPrefix),
+        p.index('banners_idx_banner_catid').on(table.catid),
+        p.index('banners_idx_language').on(table.language),
+    ],
+);
+
+export type Banner = typeof bannersTable.$inferSelect;
+export type NewBanner = typeof bannersTable.$inferInsert;

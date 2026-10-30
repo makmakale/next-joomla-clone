@@ -1,10 +1,11 @@
 'use client';
 
-import { useApplication } from '@/libraries/src/Application/Application';
-import type { JModuleProps } from '@/libraries/src/Module/Module.types';
-import { useLanguage } from '@/libraries/src/Language/Language';
 import { createContext, use, useEffect } from 'react';
 import type { PropsWithChildren } from 'react';
+
+import { useApplication } from '@/libraries/src/Application/Application';
+import { useLanguage } from '@/libraries/src/Language/Language';
+import type { JModuleProps } from '@/libraries/src/Module/Module.types';
 
 const useCtxValue = ({ module }: JModuleProps) => {
     const { load } = useLanguage();

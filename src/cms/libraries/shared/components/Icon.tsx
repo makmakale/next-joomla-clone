@@ -1,4 +1,4 @@
-import { cn } from '@/libraries/shared/shadcn/utils';
+import { cn } from 'cn';
 
 export type JIconProps = {
     icon: string | undefined;

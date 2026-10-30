@@ -1,11 +1,12 @@
 'use client';
 
+import type { PropsWithChildren } from 'react';
+
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
-import ThemeProvider from '@/libraries/src/Styles/ThemeProvider';
-import AlertProvider from '@/libraries/src/Alert/Alert';
 
 import '@/libraries/shared/shadcn/globals.css';
-import type { PropsWithChildren } from 'react';
+import AlertProvider from '@/libraries/src/Alert/Alert';
+import ThemeProvider from '@/libraries/src/Styles/ThemeProvider';
 
 let browserQueryClient: QueryClient | undefined;
 

@@ -1,10 +1,15 @@
-import { getAdminTemplate } from '@/cms/administrator/components/com_templates/src/Model/StyleModel';
-import { getAdminLocale } from '@/libraries/src/Language/Language.actionsServer';
-import { getModuleList } from '@/libraries/src/Module/Module.actionsServer';
-import Application from '@/libraries/src/Application/Application';
-import { getAdminSession } from '@/libraries/src/Session';
 import { Roboto } from 'next/font/google';
+import { redirect } from 'next/navigation';
+
 import type { Metadata } from 'next';
+
+import { getAdminTemplate } from '@/cms/administrator/components/com_templates/src/Model/StyleModel';
+
+import { isInstalled } from '@/libraries/services/installation/installation';
+import { getLocale } from '@/libraries/services/language';
+import Application from '@/libraries/src/Application/Application';
+import { getModuleList } from '@/libraries/src/Module/Module.actionsServer';
+import { getAdminSession } from '@/libraries/src/Session';
 
 const roboto = Roboto({ subsets: ['cyrillic'], variable: '--font-sans-serif' });
 
@@ -18,8 +23,12 @@ export const metadata: Metadata = {
     },
 };
 
+export const dynamic = 'force-dynamic';
+
 export default async function RootAdministratorLayout() {
-    const locale = await getAdminLocale();
+    if (!(await isInstalled())) redirect('/installation');
+
+    const locale = await getLocale();
     const session = await getAdminSession();
     const modules = await getModuleList(1);
     const template = await getAdminTemplate();

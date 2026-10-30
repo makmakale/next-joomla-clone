@@ -1,12 +1,15 @@
 'use client';
 
-import { useApplication } from '@/libraries/src/Application/Application';
 import { createContext, use, useEffect, useState } from 'react';
+import type { PropsWithChildren } from 'react';
+
+import get from 'lodash/get';
+
+import { useApplication } from '@/libraries/src/Application/Application';
+
 import { loadLanguageFile } from './Language.actionsServer';
 import type { LocaleParams } from './Language.types';
 import { replaceParams } from './Language.utils';
-import type { PropsWithChildren } from 'react';
-import get from 'lodash/get';
 
 const useContextValue = () => {
     const { clientId, locale } = useApplication();
