@@ -4,7 +4,7 @@ import { cookies, headers } from 'next/headers';
 
 import { detectLocale } from './language.detection';
 
-async function getLocaleFromHeaders(): Promise<string> {
+export async function getLocaleFromHeaders(): Promise<string> {
     const appClientId = (await headers()).get('x-client-id') ?? '0';
     const acceptLanguage = (await headers()).get('accept-language') || '';
 
