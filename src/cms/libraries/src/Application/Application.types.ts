@@ -2,14 +2,16 @@ import type { JModuleType } from '@/libraries/src/Module/Module.types';
 import type { ClientActiveTemplate } from '@/libraries/src/Templates/Template.types';
 
 export interface ApplicationProps {
-    initialValues: {
-        clientId: number;
-        name: string;
-        locale: string;
-        session?: unknown;
-        modules: JModuleType[];
-        template: ClientActiveTemplate;
-    };
+    clientId: number;
+    name: string;
+
+    defaultOption?: string;
+    defaultView?: string;
+
+    session?: unknown;
+
+    modules?: JModuleType[];
+    template?: ClientActiveTemplate;
 }
 
 export type AppInput = {

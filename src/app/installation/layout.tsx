@@ -12,5 +12,5 @@ export const metadata: Metadata = {
 export default async function InstallationLayout({ children }: { children: React.ReactNode }) {
     const locale = await getLocaleFromHeaders();
 
-    return <HTMLDocument initLang={locale}>{children}</HTMLDocument>;
+    return <HTMLDocument locale={locale}>{children}</HTMLDocument>;
 }

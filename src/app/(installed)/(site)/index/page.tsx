@@ -1,1 +1,3 @@
-export default () => null;
+import SiteApplication from '@/libraries/src/Application/SiteApplication';
+
+export default () => <SiteApplication />;

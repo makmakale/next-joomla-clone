@@ -1,32 +1,39 @@
 'use client';
 
-import { createContext, use } from 'react';
+import { createContext, use, useCallback } from 'react';
 
 import { useSearchParams } from 'next/navigation';
 
+import type { ApplicationProps } from '@/libraries/src/Application/Application.types';
 import WebApplication from '@/libraries/src/Application/WebApplication';
+import { useHTMLDocument } from '@/libraries/src/HTML/HTMLDocument';
 import LanguageProvider from '@/libraries/src/Language/Language';
 import Template from '@/libraries/src/Templates/Template';
 
-import type { ApplicationProps } from './Application.types';
-
-const useContextValue = ({ initialValues }: ApplicationProps) => {
-    const { clientId, session } = initialValues;
+const useContextValue = (props: ApplicationProps) => {
+    const { defaultOption, defaultView } = props;
     const searchParams = useSearchParams();
+    const { locale } = useHTMLDocument();
 
-    const defaultOption = clientId === 1 ? (session ? 'com_cpanel' : 'com_login') : 'com_content';
-    const option = searchParams.get('option') || defaultOption;
-    const view = searchParams.get('view') || option.replace('com_', '');
+    const option = searchParams.get('option') || defaultOption || '';
+    const view = searchParams.get('view') || defaultView || option.replace('com_', '');
     const layout = searchParams.get('layout') || 'default';
 
-    return {
-        ...initialValues,
-        getInput: () =>
+    const getInput = useCallback(
+        () =>
             new Map([
                 ['option', option.toLowerCase()],
                 ['view', view.toLowerCase()],
                 ['layout', layout.toLowerCase()],
             ]),
+        [option, view, layout],
+    );
+    console.log('input', getInput());
+
+    return {
+        ...props,
+        locale,
+        getInput,
     };
 };
 

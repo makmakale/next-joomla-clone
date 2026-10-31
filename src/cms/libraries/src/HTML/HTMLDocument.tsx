@@ -7,12 +7,16 @@ import { Roboto } from 'next/font/google';
 
 import '@/libraries/shared/shadcn/globals.css';
 
-interface HTMLDocumentProps {
-    initLang: string;
+const roboto = Roboto({ subsets: ['cyrillic'], variable: '--font-sans-serif' });
+
+interface HTMLDocumentProps extends PropsWithChildren {
+    locale?: string;
 }
 
-const useContextValue = ({ initLang }: HTMLDocumentProps) => {
-    return { locale: initLang };
+const useContextValue = ({ locale }: Omit<HTMLDocumentProps, 'children'>) => {
+    return {
+        locale: locale ?? navigator.language,
+    };
 };
 
 const HTMLDocumentContext = createContext<ReturnType<typeof useContextValue> | null>(null);
@@ -24,9 +28,7 @@ export const useHTMLDocument = () => {
     return context;
 };
 
-const roboto = Roboto({ subsets: ['cyrillic'], variable: '--font-sans-serif' });
-
-export default function HTMLDocument({ children, ...props }: PropsWithChildren<HTMLDocumentProps>) {
+export default function HTMLDocument({ children, ...props }: HTMLDocumentProps) {
     const value = useContextValue(props);
 
     return (
