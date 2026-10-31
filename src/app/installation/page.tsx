@@ -1,4 +1,4 @@
-export default function InstallationPage() {
+export default () => {
     return (
         <main className="flex min-h-screen items-center justify-center p-6">
             <div className="w-full max-w-md text-center">
@@ -9,4 +9,4 @@ export default function InstallationPage() {
             </div>
         </main>
     );
-}
+};
