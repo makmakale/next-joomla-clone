@@ -16,13 +16,11 @@ const useContextValue = () => {
     const [messages, setMessages] = useState({});
 
     useEffect(() => {
+        if (!locale) return;
+
         const loadMessages = async () => {
             try {
-                const joomla =
-                    clientId === 1
-                        ? (await import(`@/cms/administrator/language/${locale}/joomla.json`))?.default
-                        : (await import(`@/cms/language/${locale}/joomla.json`))?.default;
-
+                const joomla = await loadLanguageFile(clientId, locale, 'joomla');
                 if (joomla) {
                     setMessages(joomla);
                 }
@@ -45,7 +43,9 @@ const useContextValue = () => {
 
         for (const _langPath of pathArr) {
             const res = await loadLanguageFile(clientId, locale, _langPath);
-            setMessages(prev => ({ ...prev, ...res }));
+            if (res) {
+                setMessages(prev => ({ ...prev, ...res }));
+            }
         }
     }
 

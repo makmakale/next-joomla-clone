@@ -1,5 +1,7 @@
 'use client';
 
+import { cn } from 'cn';
+
 import {
     SelectContent,
     SelectGroup,
@@ -15,12 +17,13 @@ type SelectProps = {
     value?: string;
     onChange: React.ComponentProps<typeof UISelect>['onValueChange'];
     invalid?: boolean;
+    className?: string;
 };
 
-const Select = ({ items, name, value, onChange, invalid }: SelectProps) => {
+const Select = ({ items, name, value, onChange, invalid, className }: SelectProps) => {
     return (
-        <UISelect items={items} name={name} value={value} onValueChange={onChange}>
-            <SelectTrigger id={name} className="w-full" aria-invalid={invalid}>
+        <UISelect items={items} name={name} defaultValue={value} value={value} onValueChange={onChange}>
+            <SelectTrigger id={name} className={cn('w-full', className)} aria-invalid={invalid}>
                 <SelectValue />
             </SelectTrigger>
             <SelectContent alignItemWithTrigger={false}>

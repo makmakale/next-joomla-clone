@@ -1,0 +1,9 @@
+[
+    {
+        "name": "language",
+        "type": "select",
+        "label": "INSTL_SELECT_LANGUAGE_TITLE",
+        "className": "form-select required ms-2",
+        "defaultValue": "en-GB"
+    }
+]

@@ -1,5 +1,6 @@
 'use client';
 
+import type { PropsWithChildren } from 'react';
 import { createContext, use, useCallback } from 'react';
 
 import { useSearchParams } from 'next/navigation';
@@ -8,7 +9,6 @@ import type { ApplicationProps } from '@/libraries/src/Application/Application.t
 import WebApplication from '@/libraries/src/Application/WebApplication';
 import { useHTMLDocument } from '@/libraries/src/HTML/HTMLDocument';
 import LanguageProvider from '@/libraries/src/Language/Language';
-import Template from '@/libraries/src/Templates/Template';
 
 const useContextValue = (props: ApplicationProps) => {
     const { defaultOption, defaultView } = props;
@@ -28,7 +28,6 @@ const useContextValue = (props: ApplicationProps) => {
             ]),
         [option, view, layout],
     );
-    console.log('input', getInput());
 
     return {
         ...props,
@@ -46,15 +45,13 @@ export const useApplication = () => {
     return context;
 };
 
-export default function ApplicationProvider(props: ApplicationProps) {
+export default function ApplicationProvider({ children, ...props }: PropsWithChildren<ApplicationProps>) {
     const value = useContextValue(props);
 
     return (
         <ApplicationContext.Provider value={value}>
             <WebApplication>
-                <LanguageProvider>
-                    <Template />
-                </LanguageProvider>
+                <LanguageProvider>{children}</LanguageProvider>
             </WebApplication>
         </ApplicationContext.Provider>
     );
