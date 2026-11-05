@@ -3,7 +3,7 @@
 import { useApplication } from '@/libraries/src/Application/Application';
 
 export const useModuleHelper = () => {
-    const { modules } = useApplication();
+    const { modules = [] } = useApplication();
 
     const getModules = (positionName: string) => {
         return modules.filter(mod => mod.position === positionName);

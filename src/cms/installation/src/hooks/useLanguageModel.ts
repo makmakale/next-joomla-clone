@@ -3,7 +3,7 @@
 import { useEffect, useRef, useState } from 'react';
 
 import { zodResolver } from '@hookform/resolvers/zod';
-import { useForm } from 'react-hook-form';
+import { useForm, useWatch } from 'react-hook-form';
 
 import type { LanguageSchema } from '@/cms/installation/forms';
 import { langSchema } from '@/cms/installation/forms';
@@ -21,7 +21,7 @@ export const useLanguageModel = () => {
         resolver: zodResolver(langSchema),
     });
 
-    const langWatch = languageForm.watch('language');
+    const langWatch = useWatch({ control: languageForm.control, name: 'language' });
     const langWatchRef = useRef(locale);
 
     useEffect(() => {
