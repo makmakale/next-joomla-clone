@@ -1,3 +1,3 @@
-export * from '@/cms/installation/sql/postgresql/base';
-export * from '@/cms/installation/sql/postgresql/extensions';
-export * from '@/cms/installation/sql/postgresql/supports';
+export * from '../postgresql/base';
+export * from '../postgresql/extensions';
+export * from '../postgresql/supports';

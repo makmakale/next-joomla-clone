@@ -1,3 +1,3 @@
-import AdministratorApplication from '@/libraries/src/Application/AdministratorApplication';
+import Administrator from '@/cms/administrator';
 
-export default () => <AdministratorApplication />;
+export default () => <Administrator />;

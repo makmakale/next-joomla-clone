@@ -3,6 +3,7 @@ import { getSiteTemplates } from '@/cms/administrator/components/com_templates/s
 import ApplicationProvider from '@/libraries/src/Application/Application';
 import { getModuleList } from '@/libraries/src/Module/Module.actionsServer';
 import { getSession } from '@/libraries/src/Session';
+import Template from '@/libraries/src/Templates/Template';
 
 export default async function SiteApplication() {
     const session = await getSession('site');
@@ -17,6 +18,8 @@ export default async function SiteApplication() {
             session={session}
             template={template}
             modules={modules}
-        />
+        >
+            <Template />
+        </ApplicationProvider>
     );
 }

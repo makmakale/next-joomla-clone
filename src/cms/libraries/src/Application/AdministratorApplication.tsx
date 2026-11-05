@@ -3,6 +3,7 @@ import { getAdminTemplate } from '@/cms/administrator/components/com_templates/s
 import ApplicationProvider from '@/libraries/src/Application/Application';
 import { getModuleList } from '@/libraries/src/Module/Module.actionsServer';
 import { getAdminSession } from '@/libraries/src/Session';
+import Template from '@/libraries/src/Templates/Template';
 
 export default async function AdministratorApplication() {
     const session = await getAdminSession();
@@ -17,6 +18,8 @@ export default async function AdministratorApplication() {
             session={session}
             template={template}
             modules={modules}
-        />
+        >
+            <Template />
+        </ApplicationProvider>
     );
 }

@@ -1,3 +1,3 @@
-import SiteApplication from '@/libraries/src/Application/SiteApplication';
+import Site from '@/cms';
 
-export default () => <SiteApplication />;
+export default () => <Site />;

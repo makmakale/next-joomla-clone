@@ -1,6 +1,7 @@
 'use client';
 
 import type { PropsWithChildren } from 'react';
+import { useCallback, useState } from 'react';
 import { createContext, use } from 'react';
 
 import { Roboto } from 'next/font/google';
@@ -14,8 +15,15 @@ interface HTMLDocumentProps extends PropsWithChildren {
 }
 
 const useContextValue = ({ locale }: Omit<HTMLDocumentProps, 'children'>) => {
+    const [docLang, setDocLang] = useState<string>(locale ?? navigator.language);
+
+    const changeLanguage = useCallback((lang: string) => {
+        setDocLang(lang);
+    }, []);
+
     return {
-        locale: locale ?? navigator.language,
+        locale: docLang,
+        changeLanguage,
     };
 };
 
@@ -33,7 +41,7 @@ export default function HTMLDocument({ children, ...props }: HTMLDocumentProps) 
 
     return (
         <HTMLDocumentContext.Provider value={value}>
-            <html lang={value.locale} suppressHydrationWarning>
+            <html lang={value.locale.toLowerCase()} suppressHydrationWarning>
                 <body className={roboto.className}>{children}</body>
             </html>
         </HTMLDocumentContext.Provider>
