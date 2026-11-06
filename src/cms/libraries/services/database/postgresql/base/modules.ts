@@ -14,7 +14,7 @@ export const modulesTable = p.pgTable(
         checkedOutTime: p.timestamp('checked_out_time', { mode: 'date' }),
         publishUp: p.timestamp('publish_up', { mode: 'date' }),
         publishDown: p.timestamp('publish_down', { mode: 'date' }),
-        published: p.boolean('published').default(false).notNull(),
+        published: p.smallint('published').default(0).notNull(),
         module: p.varchar('module', { length: 50 }).default('').notNull(),
         access: p.bigint('access', { mode: 'number' }).default(0).notNull(),
         showTitle: p.boolean('showtitle').default(true).notNull(),

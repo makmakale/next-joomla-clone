@@ -1,3 +1,3 @@
-import Administrator from '@/cms/administrator';
+import App from '@/cms/administrator';
 
-export default () => <Administrator />;
+export default () => <App />;

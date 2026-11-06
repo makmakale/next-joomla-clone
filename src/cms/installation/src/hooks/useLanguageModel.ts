@@ -3,10 +3,15 @@
 import { useEffect, useRef, useState } from 'react';
 
 import { zodResolver } from '@hookform/resolvers/zod';
+import { useQuery } from '@tanstack/react-query';
 import { useForm, useWatch } from 'react-hook-form';
 
 import type { LanguageSchema } from '@/cms/installation/forms';
 import { langSchema } from '@/cms/installation/forms';
+import {
+    getInstalledLangsAdministrator,
+    getInstalledLangsFrontend,
+} from '@/cms/installation/src/controller/LanguageController';
 
 import { useHTMLDocument } from '@/libraries/src/HTML/HTMLDocument';
 
@@ -32,9 +37,23 @@ export const useLanguageModel = () => {
         }
     }, [langWatch]);
 
+    const { data: adminLanguages } = useQuery({
+        queryKey: ['GET_INSTALLED_LANGUAGES_ADMINISTRATOR'],
+        queryFn: () => getInstalledLangsAdministrator(),
+    });
+
+    const { data: siteLanguages } = useQuery({
+        queryKey: ['GET_INSTALLED_LANGUAGES_SITE'],
+        queryFn: () => getInstalledLangsFrontend(),
+    });
+
     return {
         languageForm,
         open,
         setOpen,
+        installedLanguages: {
+            administrator: adminLanguages,
+            frontend: siteLanguages,
+        },
     };
 };

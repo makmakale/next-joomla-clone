@@ -1,3 +1,5 @@
+'use client';
+
 import type { ComponentProps } from 'react';
 
 import Image from 'next/image';
@@ -9,19 +11,19 @@ import logo from '@/cms/installation/template/images/logo.svg';
 import JIcon from '@/libraries/shared/components/Icon';
 import { useLanguage } from '@/libraries/src/Language/Language';
 
-const InstallationBody = ({ className, ...props }: ComponentProps<'div'>) => {
+const JInstallBody = ({ className, ...props }: ComponentProps<'div'>) => {
     return <div className={cn('flex min-h-screen flex-col items-center justify-center', className)} {...props} />;
 };
 
-const InstallationContent = ({ className, ...props }: ComponentProps<'div'>) => {
+const JInstallContent = ({ className, ...props }: ComponentProps<'div'>) => {
     return <div className={cn('w-full max-w-160 flex-1 space-y-6 py-4', className)} {...props} />;
 };
 
-const InstallationCard = ({ className, ...props }: ComponentProps<'div'>) => {
+const JInstallStep = ({ className, ...props }: ComponentProps<'div'>) => {
     return <div className={cn('rounded-md border p-4 shadow-lg', className)} {...props} />;
 };
 
-const InstallationHeader = () => {
+const JInstallHeader = () => {
     const { t } = useLanguage();
 
     return (
@@ -43,9 +45,18 @@ const InstallationHeader = () => {
     );
 };
 
+const InstallationFooter = () => {
+    return (
+        <div className="flex w-full items-center justify-center gap-1 py-3 text-sm shadow-[0_0_1px_1px_#00000040]">
+            <a href="https://www.joomla.org">Joomla!</a> is Free Software released under the GNU General Public License.
+        </div>
+    );
+};
+
 export const Installation = {
-    Body: InstallationBody,
-    Header: InstallationHeader,
-    Content: InstallationContent,
-    Card: InstallationCard,
+    Body: JInstallBody,
+    Header: JInstallHeader,
+    Content: JInstallContent,
+    Footer: InstallationFooter,
+    Step: JInstallStep,
 };

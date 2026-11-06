@@ -23,6 +23,10 @@ const nextConfig: NextConfig = {
                 source: '/administrator',
                 destination: '/administrator/index',
             },
+            {
+                source: '/installation',
+                destination: '/installation/index',
+            },
         ];
     },
     env: {

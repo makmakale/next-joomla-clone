@@ -18,6 +18,14 @@ export type LanguageMetadata = {
     name: string;
     nativeName?: string;
 };
+
 export type InstalledLanguageWithMetadata = InstalledLanguage & {
     metadata: LanguageMetadata;
+};
+
+export type TranslateFnType = (text: string, params?: LocaleParams) => string;
+
+export type JTextProps = {
+    text: string;
+    params?: LocaleParams;
 };

@@ -5,43 +5,26 @@ import { useState } from 'react';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
 
-import configurationDist from '@/cms/installation/configuration-dist';
 import type { SetupSchema } from '@/cms/installation/forms';
 import { formSteps, setupSchema } from '@/cms/installation/forms';
-
-import { useLanguage } from '@/libraries/src/Language/Language';
+import { useInstallationProgress } from '@/cms/installation/src/hooks/useInstallationProgress';
+import { InstallationView } from '@/cms/installation/src/types';
 
 export const useStepsModel = () => {
+    const [view, setView] = useState(InstallationView.Setup);
     const [step, setStep] = useState(1);
-    const { t } = useLanguage();
 
+    // TODO: clear form values before push
     const stepsForm = useForm<SetupSchema>({
         defaultValues: {
-            site_name: '',
-            admin_user: '',
-            admin_username: '',
-            admin_password: '',
-            admin_email: '',
+            site_name: 'test',
+            admin_user: 'test',
+            admin_username: 'test',
+            admin_password: 'testtesttesttest',
+            admin_email: 'test@test.test',
         },
         resolver: zodResolver(setupSchema),
     });
-
-    const onSubmit = async (data: SetupSchema) => {
-        console.log('onSubmit:step', step);
-        console.log('save configuration', {
-            ...configurationDist,
-            sitename: data.site_name,
-            fromname: data.site_name,
-            mailfrom: data.admin_email,
-            offline_message: t('offline_message'),
-        });
-        console.log('save admin user', {
-            name: data.admin_user,
-            username: data.admin_username,
-            password: data.admin_password,
-            email: data.admin_email,
-        });
-    };
 
     const nextStep = async () => {
         const currentFields = formSteps[step - 1].fields;
@@ -51,10 +34,22 @@ export const useStepsModel = () => {
         }
     };
 
+    const { startInstallation, progressBar, installResults } = useInstallationProgress();
+
+    const onSubmit = async (data: SetupSchema) => {
+        setStep(prevStep => prevStep + 1);
+        await startInstallation(data);
+        // TODO: if !hasErrors
+        setView(InstallationView.Remove);
+    };
+
     return {
+        view,
         step,
         stepsForm,
         onSubmit,
         nextStep,
+        progressBar,
+        installResults,
     };
 };

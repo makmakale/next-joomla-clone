@@ -27,7 +27,7 @@ export async function getModuleList(clientId: number) {
         )
         .where(
             and(
-                eq(modulesTable.published, true),
+                eq(modulesTable.published, 1),
                 eq(extensionsTable.enabled, true),
                 eq(modulesTable.clientId, clientId),
                 inArray(modulesTable.access, groups),

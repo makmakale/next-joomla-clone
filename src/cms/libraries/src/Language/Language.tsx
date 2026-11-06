@@ -8,7 +8,7 @@ import get from 'lodash/get';
 import { useApplication } from '@/libraries/src/Application/Application';
 
 import { loadLanguageFile } from './Language.actionsServer';
-import type { LocaleParams } from './Language.types';
+import type { TranslateFnType } from './Language.types';
 import { replaceParams } from './Language.utils';
 
 const useContextValue = () => {
@@ -32,11 +32,11 @@ const useContextValue = () => {
         loadMessages();
     }, [clientId, locale]);
 
-    function t(text: string, params?: LocaleParams) {
+    const t: TranslateFnType = (text, params) => {
         const translatedStr = get(messages, text, text);
 
         return replaceParams(translatedStr, params);
-    }
+    };
 
     async function load(langPath: string | string[]) {
         const pathArr = Array.isArray(langPath) ? langPath : [langPath];

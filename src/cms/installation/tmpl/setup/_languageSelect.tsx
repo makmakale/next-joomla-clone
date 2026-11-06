@@ -1,28 +1,29 @@
+import { cn } from 'cn';
+
 import langFieldsConfig from '@/cms/installation/forms/language.json';
 import { languages } from '@/cms/installation/language';
-import { useInstTemplate } from '@/cms/installation/src/context/InstallationContext';
+import { useInstallationWizard } from '@/cms/installation/src/context/InstallationContext';
 import { Installation } from '@/cms/installation/template/ui/installation';
 
 import JIcon from '@/libraries/shared/components/Icon';
+import JText from '@/libraries/shared/components/Text';
 import { Button } from '@/libraries/shared/shadcn/ui/button';
 import { Dialog, DialogContent, DialogHeader, DialogTrigger } from '@/libraries/shared/shadcn/ui/dialog';
 import { FieldGroup, FieldLegend } from '@/libraries/shared/shadcn/ui/field';
 import JForm from '@/libraries/src/Form/Form';
 import FormField from '@/libraries/src/Form/FormField';
-import { useLanguage } from '@/libraries/src/Language/Language';
 
-export const LanguageForm = () => {
-    const { languageForm, languageMeta, open, setOpen } = useInstTemplate();
-    const { t } = useLanguage();
+const LanguageSelect = () => {
+    const { step, languageForm, languageMeta, open, setOpen } = useInstallationWizard();
 
     return (
-        <JForm id="languageForm" form={languageForm} fields={langFieldsConfig}>
-            <Installation.Card>
+        <JForm id="languageForm" form={languageForm} fields={langFieldsConfig} className={cn({ hidden: step !== 1 })}>
+            <Installation.Step>
                 <FieldGroup>
                     <div className="flex items-center gap-2">
                         <div>
                             <JIcon icon="globe" className="me-1" />
-                            {t('INSTL_SELECTED_INSTALL_LANGUAGE')}
+                            <JText text="INSTL_SELECTED_INSTALL_LANGUAGE" />
                         </div>
                         <div className="font-bold">
                             {languageMeta.name} | {languageMeta.nativeName}
@@ -32,7 +33,7 @@ export const LanguageForm = () => {
                                 render={
                                     <Button size="sm">
                                         <JIcon icon="repeat" />
-                                        {t('INSTL_CHANGE_INSTALL_LANG_SHORT')}
+                                        <JText text="INSTL_CHANGE_INSTALL_LANG_SHORT" />
                                     </Button>
                                 }
                             />
@@ -40,7 +41,7 @@ export const LanguageForm = () => {
                                 <DialogHeader>
                                     <FieldLegend>
                                         <JIcon icon="language" className="me-1" />
-                                        {t('INSTL_SELECT_INSTALL_LANG')}
+                                        <JText text="INSTL_SELECT_INSTALL_LANG" />
                                     </FieldLegend>
                                     <FieldGroup>
                                         <FormField name="language" params={{ items: languages }} />
@@ -50,7 +51,9 @@ export const LanguageForm = () => {
                         </Dialog>
                     </div>
                 </FieldGroup>
-            </Installation.Card>
+            </Installation.Step>
         </JForm>
     );
 };
+
+export default LanguageSelect;

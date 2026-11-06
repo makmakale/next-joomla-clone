@@ -21,17 +21,17 @@ const useCtxValue = () => {
     return { languageMeta, ...languageModel, ...stepsModel };
 };
 
-const InstTemplateContext = createContext<ReturnType<typeof useCtxValue> | null>(null);
+const InstallationWizardContext = createContext<ReturnType<typeof useCtxValue> | null>(null);
 
-export const useInstTemplate = () => {
-    const context = use(InstTemplateContext);
-    if (!context) throw new Error('useInstTemplate should be used within <InstTemplateProvider>');
+export const useInstallationWizard = () => {
+    const context = use(InstallationWizardContext);
+    if (!context) throw new Error('useInstallationWizard should be used within <InstallationWizardProvider>');
 
     return context;
 };
 
-export default function InstTemplateProvider({ children }: PropsWithChildren) {
+export default function InstallationWizardProvider({ children }: PropsWithChildren) {
     const value = useCtxValue();
 
-    return <InstTemplateContext.Provider value={value}>{children}</InstTemplateContext.Provider>;
+    return <InstallationWizardContext.Provider value={value}>{children}</InstallationWizardContext.Provider>;
 }

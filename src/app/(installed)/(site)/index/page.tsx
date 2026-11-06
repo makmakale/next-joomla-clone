@@ -1,3 +1,3 @@
-import Site from '@/cms';
+import App from '@/cms';
 
-export default () => <Site />;
+export default () => <App />;

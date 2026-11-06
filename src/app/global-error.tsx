@@ -1,6 +1,7 @@
 'use client';
 
-import { Card, CardContent, CardHeader, CardTitle } from '@/libraries/shared/shadcn/ui/card';
+import FatalError from '@/cms/templates/system/fatal-error';
+
 import HTMLDocument from '@/libraries/src/HTML/HTMLDocument';
 
 export default function GlobalError({ error }: { error: Error; retry: () => void }) {
@@ -12,16 +13,7 @@ export default function GlobalError({ error }: { error: Error; retry: () => void
 
     return (
         <HTMLDocument>
-            <main className="flex h-dvh w-full items-center justify-center bg-red-100">
-                <Card className="min-w-96">
-                    <CardHeader>
-                        <CardTitle>Error</CardTitle>
-                    </CardHeader>
-                    <CardContent>
-                        <p>{message}</p>
-                    </CardContent>
-                </Card>
-            </main>
+            <FatalError message={message} />
         </HTMLDocument>
     );
 }

@@ -3,10 +3,10 @@ import * as p from 'drizzle-orm/pg-core';
 export const modulesMenuTable = p.pgTable(
     'modules_menu',
     {
-        moduleid: p.bigint('moduleid', { mode: 'number' }).default(0).notNull(),
-        menuid: p.bigint('menuid', { mode: 'number' }).default(0).notNull(),
+        moduleId: p.bigint('moduleid', { mode: 'number' }).default(0).notNull(),
+        menuId: p.bigint('menuid', { mode: 'number' }).default(0).notNull(),
     },
-    table => [p.primaryKey({ columns: [table.moduleid, table.menuid] })],
+    table => [p.primaryKey({ columns: [table.moduleId, table.menuId] })],
 );
 
 export type ModulesMenu = typeof modulesMenuTable.$inferSelect;

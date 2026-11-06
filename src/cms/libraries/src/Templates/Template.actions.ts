@@ -1,17 +1,19 @@
 import type { ComponentType, PropsWithChildren } from 'react';
 
-import { TemplateNoFound } from '@/libraries/src/Templates/Template.not-found';
-
 export const renderTemplate = (
     clientId: number,
     name?: string,
     session?: unknown,
 ): Promise<ComponentType<PropsWithChildren>> => {
+    if (!name) {
+        throw new Error('Template not defined');
+    }
+
     try {
         return clientId === 1
-            ? import(`@/cms/administrator/templates/${name}${!session ? '/login' : ''}`).catch(() => TemplateNoFound)
-            : import(`@/cms/templates/${name}`).catch(() => TemplateNoFound);
-    } catch {
-        return Promise.resolve(TemplateNoFound);
+            ? import(`@/cms/administrator/templates/${name}${!session ? '/login' : ''}`)
+            : import(`@/cms/templates/${name}`);
+    } catch (err) {
+        throw new Error(`Template ${name} not found`, { cause: err });
     }
 };
