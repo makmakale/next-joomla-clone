@@ -8,7 +8,6 @@ import { useSearchParams } from 'next/navigation';
 import type { ApplicationProps } from '@/libraries/src/Application/Application.types';
 import WebApplication from '@/libraries/src/Application/WebApplication';
 import { useHTMLDocument } from '@/libraries/src/HTML/HTMLDocument';
-import LanguageProvider from '@/libraries/src/Language/Language';
 
 const useContextValue = (props: ApplicationProps) => {
     const { defaultOption, defaultView } = props;
@@ -50,9 +49,7 @@ export default function ApplicationProvider({ children, ...props }: PropsWithChi
 
     return (
         <ApplicationContext.Provider value={value}>
-            <WebApplication>
-                <LanguageProvider>{children}</LanguageProvider>
-            </WebApplication>
+            <WebApplication>{children}</WebApplication>
         </ApplicationContext.Provider>
     );
 }

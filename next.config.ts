@@ -5,6 +5,8 @@ import packageJson from './package.json';
 const nextConfig: NextConfig = {
     /* config options here */
     reactCompiler: true,
+    // cacheComponents: true,
+    // partialPrefetching: true,
     turbopack: {
         rules: {
             '*.css': {

@@ -2,6 +2,8 @@
 
 import { useState } from 'react';
 
+import { usePathname, useRouter, useSearchParams } from 'next/navigation';
+
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
 
@@ -10,9 +12,15 @@ import { formSteps, setupSchema } from '@/cms/installation/forms';
 import { useInstallationProgress } from '@/cms/installation/src/hooks/useInstallationProgress';
 import { InstallationView } from '@/cms/installation/src/types';
 
+import { useApplication } from '@/libraries/src/Application/Application';
+
 export const useStepsModel = () => {
-    const [view, setView] = useState(InstallationView.Setup);
     const [step, setStep] = useState(1);
+    const router = useRouter();
+    const pathname = usePathname();
+    const searchParams = useSearchParams();
+
+    const view = useApplication().getInput().get('view');
 
     // TODO: clear form values before push
     const stepsForm = useForm<SetupSchema>({
@@ -40,7 +48,9 @@ export const useStepsModel = () => {
         setStep(prevStep => prevStep + 1);
         await startInstallation(data);
         // TODO: if !hasErrors
-        setView(InstallationView.Remove);
+        const params = new URLSearchParams(searchParams.toString());
+        params.set('view', InstallationView.Remove);
+        router.push(pathname + '?' + params.toString());
     };
 
     return {

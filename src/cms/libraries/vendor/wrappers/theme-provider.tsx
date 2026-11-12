@@ -6,19 +6,19 @@ import { ThemeProvider as NextThemesProvider } from 'next-themes';
 
 import { useApplication } from '@/libraries/src/Application/Application';
 
-const ThemeProvider = (props: ComponentProps<typeof NextThemesProvider>) => {
+type ThemeProviderProps = ComponentProps<typeof NextThemesProvider>;
+
+export const ThemeProvider = (props: ThemeProviderProps) => {
     const { name } = useApplication();
 
     return (
         <NextThemesProvider
             attribute="class"
             defaultTheme={name === 'administrator' ? 'dark' : 'light'}
-            storageKey={`joomla.${name}.theme`}
+            storageKey={`web.theme.${name}`}
             enableSystem
             disableTransitionOnChange
             {...props}
         />
     );
 };
-
-export default ThemeProvider;

@@ -1,27 +1,15 @@
-'use client';
-
 import type { PropsWithChildren } from 'react';
 
-import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
-
 import AlertProvider from '@/libraries/src/Alert/Alert';
-import ThemeProvider from '@/libraries/src/Styles/ThemeProvider';
-
-let browserQueryClient: QueryClient | undefined;
-
-function getQueryClient() {
-    if (typeof window === 'undefined') return new QueryClient();
-    browserQueryClient ??= new QueryClient();
-
-    return browserQueryClient;
-}
+import LanguageProvider from '@/libraries/src/Language/Language';
+import { ThemeProvider } from '@/libraries/vendor/wrappers';
 
 const WebApplication = ({ children }: PropsWithChildren) => {
     return (
         <ThemeProvider>
-            <QueryClientProvider client={getQueryClient()}>
+            <LanguageProvider>
                 <AlertProvider>{children}</AlertProvider>
-            </QueryClientProvider>
+            </LanguageProvider>
         </ThemeProvider>
     );
 };
