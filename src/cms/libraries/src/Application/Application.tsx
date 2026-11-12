@@ -1,37 +1,14 @@
 'use client';
 
 import type { PropsWithChildren } from 'react';
-import { createContext, use, useCallback } from 'react';
-
-import { useSearchParams } from 'next/navigation';
+import { createContext, use } from 'react';
 
 import type { ApplicationProps } from '@/libraries/src/Application/Application.types';
-import WebApplication from '@/libraries/src/Application/WebApplication';
-import { useHTMLDocument } from '@/libraries/src/HTML/HTMLDocument';
+import Wrapper from '@/libraries/src/Wrapper';
 
 const useContextValue = (props: ApplicationProps) => {
-    const { defaultOption, defaultView } = props;
-    const searchParams = useSearchParams();
-    const { locale } = useHTMLDocument();
-
-    const option = searchParams.get('option') || defaultOption || '';
-    const view = searchParams.get('view') || defaultView || option.replace('com_', '');
-    const layout = searchParams.get('layout') || 'default';
-
-    const getInput = useCallback(
-        () =>
-            new Map([
-                ['option', option.toLowerCase()],
-                ['view', view.toLowerCase()],
-                ['layout', layout.toLowerCase()],
-            ]),
-        [option, view, layout],
-    );
-
     return {
         ...props,
-        locale,
-        getInput,
     };
 };
 
@@ -48,8 +25,8 @@ export default function ApplicationProvider({ children, ...props }: PropsWithChi
     const value = useContextValue(props);
 
     return (
-        <ApplicationContext.Provider value={value}>
-            <WebApplication>{children}</WebApplication>
-        </ApplicationContext.Provider>
+        <Wrapper>
+            <ApplicationContext.Provider value={value}>{children}</ApplicationContext.Provider>
+        </Wrapper>
     );
 }

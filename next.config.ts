@@ -15,22 +15,6 @@ const nextConfig: NextConfig = {
             },
         },
     },
-    async rewrites() {
-        return [
-            {
-                source: '/',
-                destination: '/index',
-            },
-            {
-                source: '/administrator',
-                destination: '/administrator/index',
-            },
-            {
-                source: '/installation',
-                destination: '/installation/index',
-            },
-        ];
-    },
     env: {
         APP_VERSION: packageJson.version,
     },

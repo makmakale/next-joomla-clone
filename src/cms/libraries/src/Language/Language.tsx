@@ -1,55 +1,33 @@
 'use client';
 
-import { createContext, use, useEffect, useState } from 'react';
+import { createContext, use, useCallback, useLayoutEffect, useState } from 'react';
 import type { PropsWithChildren } from 'react';
 
-import get from 'lodash/get';
+import type { Locale } from '@/libraries/src/Language/Language.types';
 
-import { useApplication } from '@/libraries/src/Application/Application';
+interface Props {
+    name: string;
+    defaultLocale?: string;
+}
 
-import { loadLanguageFile } from './Language.actionsServer';
-import type { TranslateFnType } from './Language.types';
-import { replaceParams } from './Language.utils';
+const useContextValue = ({ name, defaultLocale }: Props) => {
+    const [locale, setLocale] = useState<Locale>(defaultLocale ?? navigator.language);
 
-const useContextValue = () => {
-    const { clientId, locale } = useApplication();
-    const [messages, setMessages] = useState({});
-
-    useEffect(() => {
-        if (!locale) return;
-
-        const loadMessages = async () => {
-            try {
-                const joomla = await loadLanguageFile(clientId, locale, 'joomla');
-                if (joomla) {
-                    setMessages(joomla);
-                }
-            } catch (e) {
-                console.error(e);
-            }
-        };
-
-        loadMessages();
-    }, [clientId, locale]);
-
-    const t: TranslateFnType = (text, params) => {
-        const translatedStr = get(messages, text, text);
-
-        return replaceParams(translatedStr, params);
-    };
-
-    async function load(langPath: string | string[]) {
-        const pathArr = Array.isArray(langPath) ? langPath : [langPath];
-
-        for (const _langPath of pathArr) {
-            const res = await loadLanguageFile(clientId, locale, _langPath);
-            if (res) {
-                setMessages(prev => ({ ...prev, ...res }));
-            }
+    useLayoutEffect(() => {
+        if (!defaultLocale) {
+            document.cookie = `web.locale.${name}=${navigator.language}; path=/; max-age=31560000`;
         }
-    }
+    }, [name, locale]);
 
-    return { locale, t, load, messages };
+    const changeLanguage = useCallback(
+        (newLocale: string) => {
+            setLocale(newLocale);
+            document.cookie = `web.locale.${name}=${newLocale}; path=/; max-age=31560000`;
+        },
+        [name],
+    );
+
+    return { locale, changeLanguage };
 };
 
 const LanguageContext = createContext<ReturnType<typeof useContextValue> | null>(null);
@@ -61,8 +39,8 @@ export const useLanguage = () => {
     return context;
 };
 
-export default function LanguageProvider({ children }: PropsWithChildren) {
-    const value = useContextValue();
+export default function LanguageProvider({ children, ...props }: PropsWithChildren<Props>) {
+    const value = useContextValue(props);
 
     return <LanguageContext.Provider value={value}>{children}</LanguageContext.Provider>;
 }

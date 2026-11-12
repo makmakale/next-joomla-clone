@@ -5,8 +5,6 @@ const JConfig = {
     dbPass: process.env.DB_PASSWORD!,
     dbName: process.env.DB_NAME!,
     dbSsl: process.env.NODE_ENV === 'production',
-    siteName: process.env.NEXT_PUBLIC_SITENAME,
-    lifetime: Number(process.env.NEXT_PUBLIC_LIFETIME) || 15,
 };
 
 export default JConfig;
