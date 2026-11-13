@@ -7,6 +7,7 @@ import type { Metadata } from 'next';
 import ApplicationProvider from '@/libraries/src/Application/Application';
 import HTMLDocument from '@/libraries/src/HTML/HTMLDocument';
 import LanguageProvider from '@/libraries/src/Language/Language';
+import SessionProvider from '@/libraries/src/Session/provider/SessionProvider';
 import { linkedIcons } from '@/libraries/vendor/icons';
 
 export const metadata: Metadata = {
@@ -15,17 +16,20 @@ export const metadata: Metadata = {
 
 async function Layout({ children }: LayoutProps<'/administrator'>) {
     const defaultLocale = (await cookies()).get('web.locale.administrator')?.value;
+    const session = (await cookies()).get('web.session.administrator')?.value;
 
     return (
         <LanguageProvider name="administrator" defaultLocale={defaultLocale}>
             <ApplicationProvider clientId={1} name="administrator">
-                <HTMLDocument>{children}</HTMLDocument>
+                <SessionProvider cookieSession={session}>
+                    <HTMLDocument>{children}</HTMLDocument>
+                </SessionProvider>
             </ApplicationProvider>
         </LanguageProvider>
     );
 }
 
-export default (props: LayoutProps<'/'>) => {
+export default (props: LayoutProps<'/administrator'>) => {
     return (
         <Suspense fallback={null}>
             <Layout {...props} />

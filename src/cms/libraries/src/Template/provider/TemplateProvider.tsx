@@ -9,13 +9,14 @@ import { usePathname } from 'next/navigation';
 import get from 'lodash/get';
 
 import { useApplication } from '@/libraries/src/Application/Application';
+import { useSessionContext } from '@/libraries/src/Session';
 
 interface Props {
     template: { template: string; params: Record<string, unknown> };
 }
 
 function useCtxValue({ template }: Props) {
-    const session = null; // TODO
+    const session = useSessionContext();
     const pathname = usePathname();
 
     return {
