@@ -1,3 +1,5 @@
+import { Suspense } from 'react';
+
 import { cookies } from 'next/headers';
 
 import type { Metadata } from 'next';
@@ -11,7 +13,7 @@ export const metadata: Metadata = {
     icons: { other: linkedIcons },
 };
 
-export default async ({ children }: LayoutProps<'/installation'>) => {
+async function Layout({ children }: LayoutProps<'/installation'>) {
     const defaultLocale = (await cookies()).get('web.locale.installation')?.value;
 
     return (
@@ -20,5 +22,13 @@ export default async ({ children }: LayoutProps<'/installation'>) => {
                 <HTMLDocument>{children}</HTMLDocument>
             </ApplicationProvider>
         </LanguageProvider>
+    );
+}
+
+export default (props: LayoutProps<'/'>) => {
+    return (
+        <Suspense fallback={null}>
+            <Layout {...props} />
+        </Suspense>
     );
 };

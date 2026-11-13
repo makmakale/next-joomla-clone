@@ -9,7 +9,7 @@ const SiteComponent = () => {
     const { locale, changeLanguage } = useLanguage();
 
     return (
-        <div className="flex h-dvh flex-col items-center justify-center gap-4 text-7xl font-bold">
+        <div className="flex flex-col items-center justify-center gap-4 text-7xl font-bold">
             <div>
                 {name}:{locale}
             </div>

@@ -5,8 +5,8 @@ import packageJson from './package.json';
 const nextConfig: NextConfig = {
     /* config options here */
     reactCompiler: true,
-    // cacheComponents: true,
-    // partialPrefetching: true,
+    cacheComponents: true,
+    partialPrefetching: true,
     turbopack: {
         rules: {
             '*.css': {
@@ -14,6 +14,12 @@ const nextConfig: NextConfig = {
                 as: '*.css',
             },
         },
+        ignoreIssue: [
+            {
+                path: '**/src/cms/**',
+                description: /<dynamic>/,
+            },
+        ],
     },
     env: {
         APP_VERSION: packageJson.version,
