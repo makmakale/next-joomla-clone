@@ -4,7 +4,7 @@ import type { ComponentProps } from 'react';
 
 import { ThemeProvider as NextThemesProvider } from 'next-themes';
 
-import { useApplication } from '@/libraries/src/Application/Application';
+import { useApplication } from '@/libraries/src/Application/provider/ApplicationProvider';
 
 type ThemeProviderProps = ComponentProps<typeof NextThemesProvider>;
 

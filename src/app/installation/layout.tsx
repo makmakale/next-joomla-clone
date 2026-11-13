@@ -1,10 +1,12 @@
 import { Suspense } from 'react';
 
 import { cookies } from 'next/headers';
+import { redirect } from 'next/navigation';
 
 import type { Metadata } from 'next';
 
-import ApplicationProvider from '@/libraries/src/Application/Application';
+import { isInstalled } from '@/libraries/services/configuration';
+import { ApplicationProvider } from '@/libraries/src/Application';
 import HTMLDocument from '@/libraries/src/HTML/HTMLDocument';
 import LanguageProvider from '@/libraries/src/Language/Language';
 import SessionProvider from '@/libraries/src/Session/provider/SessionProvider';
@@ -29,7 +31,11 @@ async function Layout({ children }: LayoutProps<'/installation'>) {
     );
 }
 
-export default (props: LayoutProps<'/installation'>) => {
+export default async (props: LayoutProps<'/installation'>) => {
+    if (process.env.NODE_ENV === 'production') {
+        if (await isInstalled()) redirect('/');
+    }
+
     return (
         <Suspense fallback={null}>
             <Layout {...props} />

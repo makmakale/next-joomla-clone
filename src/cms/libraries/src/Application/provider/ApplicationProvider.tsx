@@ -3,8 +3,13 @@
 import type { PropsWithChildren } from 'react';
 import { createContext, use } from 'react';
 
-import type { ApplicationProps } from '@/libraries/src/Application/Application.types';
 import Wrapper from '@/libraries/src/Wrapper';
+
+interface ApplicationProps {
+    clientId: number;
+    name: string;
+    configuration?: Record<string, unknown>;
+}
 
 const useContextValue = (props: ApplicationProps) => {
     return {
@@ -21,7 +26,7 @@ export const useApplication = () => {
     return context;
 };
 
-export default function ApplicationProvider({ children, ...props }: PropsWithChildren<ApplicationProps>) {
+export function ApplicationProvider({ children, ...props }: PropsWithChildren<ApplicationProps>) {
     const value = useContextValue(props);
 
     return (

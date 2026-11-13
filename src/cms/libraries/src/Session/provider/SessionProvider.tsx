@@ -4,7 +4,7 @@ import type { PropsWithChildren } from 'react';
 import { useCallback } from 'react';
 import { createContext, use, useState } from 'react';
 
-import { useApplication } from '@/libraries/src/Application/Application';
+import { useApplication } from '@/libraries/src/Application/provider/ApplicationProvider';
 
 interface Props {
     cookieSession?: string;

@@ -1,7 +1,7 @@
 'use client';
 
 import { Button } from '@/libraries/shared/shadcn/ui/button';
-import { useApplication } from '@/libraries/src/Application/Application';
+import { useApplication } from '@/libraries/src/Application/provider/ApplicationProvider';
 import { useLanguage } from '@/libraries/src/Language/Language';
 import { useSessionContext } from '@/libraries/src/Session';
 

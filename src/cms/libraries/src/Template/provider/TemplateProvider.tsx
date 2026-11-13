@@ -8,7 +8,7 @@ import { usePathname } from 'next/navigation';
 
 import get from 'lodash/get';
 
-import { useApplication } from '@/libraries/src/Application/Application';
+import { useApplication } from '@/libraries/src/Application/provider/ApplicationProvider';
 import { useSessionContext } from '@/libraries/src/Session';
 
 interface Props {
