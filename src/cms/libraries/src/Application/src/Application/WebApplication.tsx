@@ -1,14 +1,15 @@
 import type { PropsWithChildren } from 'react';
 
 import AlertProvider from '@/libraries/src/Alert/Alert';
+import Wrapper from '@/libraries/src/Wrapper';
 import { ThemeProvider } from '@/libraries/vendor/wrappers';
 
-const WebApplication = ({ children }: PropsWithChildren) => {
+export const WebApplication = ({ children }: PropsWithChildren) => {
     return (
         <ThemeProvider>
-            <AlertProvider>{children}</AlertProvider>
+            <Wrapper>
+                <AlertProvider>{children}</AlertProvider>
+            </Wrapper>
         </ThemeProvider>
     );
 };
-
-export default WebApplication;

@@ -55,7 +55,7 @@ export const useSessionContext = () => {
     return context;
 };
 
-export default function SessionProvider({ children, ...props }: PropsWithChildren<Props>) {
+export function SessionProvider({ children, ...props }: PropsWithChildren<Props>) {
     const value = useCtxValue(props);
 
     return <SessionContext.Provider value={value}>{children}</SessionContext.Provider>;

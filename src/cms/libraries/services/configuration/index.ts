@@ -9,8 +9,6 @@ const GLOBAL_CONFIG_KEY = 'global-config';
 let installed = false;
 
 export const getConfiguration = async () => {
-    'use cache';
-
     const [config] = await db
         .select({ params: cmsConfigTable.params })
         .from(cmsConfigTable)
@@ -33,8 +31,6 @@ export const checkInstalled = async () => {
 };
 
 export const isInstalled = async () => {
-    'use cache';
-
     if (installed) return true;
 
     installed = await checkInstalled();

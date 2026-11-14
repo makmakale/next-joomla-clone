@@ -10,12 +10,13 @@ import get from 'lodash/get';
 
 import { useApplication } from '@/libraries/src/Application/provider/ApplicationProvider';
 import { useSessionContext } from '@/libraries/src/Session';
+import type { getAdminTemplate, getSiteTemplate } from '@/libraries/src/Template';
 
-interface Props {
-    template: { template: string; params: Record<string, unknown> };
+export interface TemplateProps {
+    template: Awaited<ReturnType<typeof getSiteTemplate>> | Awaited<ReturnType<typeof getAdminTemplate>>;
 }
 
-function useCtxValue({ template }: Props) {
+function useCtxValue({ template }: TemplateProps) {
     const session = useSessionContext();
     const pathname = usePathname();
 
@@ -39,7 +40,7 @@ export function useTemplateContext() {
     return context;
 }
 
-export function TemplateProvider({ children, ...props }: PropsWithChildren<Props>) {
+export function TemplateProvider({ children, ...props }: PropsWithChildren<TemplateProps>) {
     const { template } = props;
     const value = useCtxValue(props);
     const { clientId } = useApplication();

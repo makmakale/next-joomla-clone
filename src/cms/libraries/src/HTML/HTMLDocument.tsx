@@ -6,8 +6,8 @@ import { Roboto } from 'next/font/google';
 import Link from 'next/link';
 
 import '@/libraries/shared/shadcn/globals.css';
-import WebApplication from '@/libraries/src/Application/WebApplication';
-import { useLanguage } from '@/libraries/src/Language/Language';
+import { WebApplication } from '@/libraries/src/Application';
+import { useLanguage } from '@/libraries/src/Language';
 
 const roboto = Roboto({ subsets: ['cyrillic'], variable: '--font-sans-serif' });
 
@@ -17,7 +17,7 @@ export default function HTMLDocument({ children }: PropsWithChildren) {
     return (
         <html lang={locale.toLowerCase()} suppressHydrationWarning>
             <body className={roboto.className}>
-                <div className="z-50 flex w-full gap-4 bg-red-300 px-4">
+                <div className="absolute top-0 z-50 flex w-full gap-4 bg-red-300 px-4">
                     <Link href="/">Site</Link>
                     <Link href="/administrator">Administrator</Link>
                     <Link href="/installation">Installation</Link>

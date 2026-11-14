@@ -1,8 +1,9 @@
 'use client';
 
+import JText from '@/libraries/shared/components/Text';
 import { Button } from '@/libraries/shared/shadcn/ui/button';
 import { useApplication } from '@/libraries/src/Application/provider/ApplicationProvider';
-import { useLanguage } from '@/libraries/src/Language/Language';
+import { useLanguage } from '@/libraries/src/Language';
 import { useSessionContext } from '@/libraries/src/Session';
 
 const SiteComponent = () => {
@@ -12,6 +13,7 @@ const SiteComponent = () => {
 
     return (
         <div className="flex flex-col items-center justify-center gap-4 text-7xl font-bold">
+            <JText text="JTEST_MESSAGE" />
             <div>
                 {name}:{locale}
             </div>

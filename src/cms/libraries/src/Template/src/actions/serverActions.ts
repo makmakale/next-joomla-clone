@@ -5,8 +5,6 @@ import * as p from 'drizzle-orm';
 import { db, extensionsTable, templateStyles } from '@/libraries/services/database';
 
 export async function getSiteTemplate() {
-    'use cache';
-
     const [template] = await db
         .select({
             id: templateStyles.id,
@@ -32,8 +30,6 @@ export async function getSiteTemplate() {
 }
 
 export async function getAdminTemplate() {
-    'use cache';
-
     const [template] = await db
         .select({
             template: templateStyles.template,

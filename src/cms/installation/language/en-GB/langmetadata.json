@@ -1,0 +1,18 @@
+{
+    "client": "installation",
+    "name": "English (United Kingdom)",
+    "version": "6.0.3",
+    "creationDate": "2026-02",
+    "author": "Joomla! Project",
+    "copyright": "(C) 2005 Open Source Matters, Inc.",
+    "license": "GNU General Public License version 2 or later; see LICENSE.txt",
+    "files": {
+        "filename": "joomla.json"
+    },
+    "metadata": {
+        "name": "English (en-GB)",
+        "nativeName": "English (United Kingdom)",
+        "tag": "en-GB",
+        "rtl": 0
+    }
+}

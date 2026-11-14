@@ -1,9 +1,10 @@
 'use client';
 
 import type { PropsWithChildren } from 'react';
+import { useCallback } from 'react';
 import { createContext, use } from 'react';
 
-import Wrapper from '@/libraries/src/Wrapper';
+import { useSearchParams } from 'next/navigation';
 
 interface ApplicationProps {
     clientId: number;
@@ -12,8 +13,25 @@ interface ApplicationProps {
 }
 
 const useContextValue = (props: ApplicationProps) => {
+    const searchParams = useSearchParams();
+
+    const option = searchParams.get('option') || '';
+    const view = searchParams.get('view') || option.replace('com_', '');
+    const layout = searchParams.get('layout') || 'default';
+
+    const getInput = useCallback(
+        () =>
+            new Map([
+                ['option', option.toLowerCase()],
+                ['view', view.toLowerCase()],
+                ['layout', layout.toLowerCase()],
+            ]),
+        [option, view, layout],
+    );
+
     return {
         ...props,
+        getInput,
     };
 };
 
@@ -29,9 +47,5 @@ export const useApplication = () => {
 export function ApplicationProvider({ children, ...props }: PropsWithChildren<ApplicationProps>) {
     const value = useContextValue(props);
 
-    return (
-        <Wrapper>
-            <ApplicationContext.Provider value={value}>{children}</ApplicationContext.Provider>
-        </Wrapper>
-    );
+    return <ApplicationContext.Provider value={value}>{children}</ApplicationContext.Provider>;
 }
