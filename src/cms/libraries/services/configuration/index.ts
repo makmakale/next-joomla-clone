@@ -14,14 +14,13 @@ export const getConfiguration = async () => {
         .from(cmsConfigTable)
         .where(eq(cmsConfigTable.key, GLOBAL_CONFIG_KEY));
 
-    return config;
+    return config.params;
 };
 
 export const checkInstalled = async () => {
     const config = await getConfiguration();
 
-    const hasGlobalConfig =
-        Boolean(config?.params) && typeof config!.params === 'object' && Object.keys(config!.params as object).length > 0;
+    const hasGlobalConfig = Boolean(config) && typeof config === 'object' && Object.keys(config as object).length > 0;
 
     if (!hasGlobalConfig) return false;
 
