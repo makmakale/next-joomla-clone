@@ -21,6 +21,7 @@ const useContextValue = (props: ApplicationProps) => {
 
     return {
         ...props,
+        config,
     };
 };
 

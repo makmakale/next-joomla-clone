@@ -1,3 +1,4 @@
+import Demo from '@/app/(installed)/(site)/components/demo';
 import type { Metadata, ResolvingMetadata } from 'next';
 
 export async function generateMetadata(props: PageProps<'/'>, parent: ResolvingMetadata): Promise<Metadata> {
@@ -7,5 +8,5 @@ export async function generateMetadata(props: PageProps<'/'>, parent: ResolvingM
 }
 
 export default async () => {
-    return 'Site';
+    return <Demo />;
 };

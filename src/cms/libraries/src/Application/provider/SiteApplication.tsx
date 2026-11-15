@@ -5,14 +5,13 @@ import { useLayoutEffect } from 'react';
 
 import { Application } from '@/libraries/src/Application';
 import { useAppInput } from '@/libraries/src/Application';
+import Language from '@/libraries/src/Language/provider/Language';
 import { ThemeProvider } from '@/libraries/vendor/wrappers';
 
 export function SiteApplication({ children }: PropsWithChildren) {
     const input = useAppInput();
 
     useLayoutEffect(() => {
-        document.cookie = `web.locale.site=${navigator.language}; path=/; max-age=31560000`;
-        document.documentElement.lang = navigator.language.toLowerCase();
         document.body.classList.add('site');
 
         if (!input.queryData.option) {
@@ -27,7 +26,7 @@ export function SiteApplication({ children }: PropsWithChildren) {
     return (
         <Application clientId={0} name="site">
             <ThemeProvider storageKey="web.theme.site" defaultTheme="light">
-                {children}
+                <Language>{children}</Language>
             </ThemeProvider>
         </Application>
     );
