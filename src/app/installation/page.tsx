@@ -1,11 +1,5 @@
-import type { Metadata, ResolvingMetadata } from 'next';
-
-export async function generateMetadata(props: PageProps<'/installation'>, parent: ResolvingMetadata): Promise<Metadata> {
-    return {
-        title: 'Installation',
-    };
-}
+import InstallWizard from '@/cms/installation/template';
 
 export default async () => {
-    return 'Installation';
+    return <InstallWizard />;
 };
