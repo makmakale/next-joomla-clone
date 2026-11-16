@@ -13,10 +13,10 @@ import {
     getInstalledLangsFrontend,
 } from '@/cms/installation/src/controller/LanguageController';
 
-import { useHTMLDocument } from '@/libraries/src/HTML/HTMLDocument';
+import { useLanguageContext } from '@/libraries/src/Language';
 
 export const useLanguageModel = () => {
-    const { locale, changeLanguage } = useHTMLDocument();
+    const { locale, changeLang } = useLanguageContext();
     const [open, setOpen] = useState(false);
 
     const languageForm = useForm<LanguageSchema>({
@@ -31,7 +31,7 @@ export const useLanguageModel = () => {
 
     useEffect(() => {
         if (langWatch !== langWatchRef.current) {
-            changeLanguage(langWatch);
+            changeLang(langWatch);
             langWatchRef.current = langWatch;
             setOpen(false);
         }

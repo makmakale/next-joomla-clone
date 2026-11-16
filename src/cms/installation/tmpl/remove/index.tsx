@@ -2,7 +2,7 @@
 
 import { cn } from 'cn';
 
-import { useInstallationWizard } from '@/cms/installation/src/context/InstallationContext';
+import { useInstallationContext } from '@/cms/installation';
 import { Installation } from '@/cms/installation/template/ui/installation';
 import InstlDefaultLanguages from '@/cms/installation/tmpl/remove/_defaultLanguages';
 import InstlInstallLanguages from '@/cms/installation/tmpl/remove/_installLanguages';
@@ -13,7 +13,9 @@ import JText from '@/libraries/shared/components/Text';
 import { CardContent, CardHeader, CardTitle } from '@/libraries/shared/shadcn/ui/card';
 
 const Remove = () => {
-    const { view } = useInstallationWizard();
+    const {
+        stepsModel: { view },
+    } = useInstallationContext();
 
     return (
         <div className={cn('space-y-6', { hidden: view !== 'remove' })}>

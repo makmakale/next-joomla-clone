@@ -9,7 +9,7 @@ import { cn } from 'cn';
 import logo from '@/cms/installation/template/images/logo.svg';
 
 import JIcon from '@/libraries/shared/components/Icon';
-import { useLanguage } from '@/libraries/src/Language/Language';
+import { useTranslations } from '@/libraries/src/Language';
 
 const JInstallBody = ({ className, ...props }: ComponentProps<'div'>) => {
     return <div className={cn('flex min-h-screen flex-col items-center justify-center', className)} {...props} />;
@@ -24,7 +24,7 @@ const JInstallStep = ({ className, ...props }: ComponentProps<'div'>) => {
 };
 
 const JInstallHeader = () => {
-    const { t } = useLanguage();
+    const t = useTranslations();
 
     return (
         <div className="bg-foreground text-background w-full rounded-none">

@@ -2,7 +2,7 @@
 
 import { cn } from 'cn';
 
-import { useInstallationWizard } from '@/cms/installation/src/context/InstallationContext';
+import { useInstallationContext } from '@/cms/installation';
 import { Installation } from '@/cms/installation/template/ui';
 
 import JIcon from '@/libraries/shared/components/Icon';
@@ -11,7 +11,9 @@ import { FieldLegend, FieldSet } from '@/libraries/shared/shadcn/ui/field';
 import { Progress, ProgressLabel, ProgressValue } from '@/libraries/shared/shadcn/ui/progress';
 
 const SetupStep3 = () => {
-    const { step, progressBar } = useInstallationWizard();
+    const {
+        stepsModel: { step, progressBar },
+    } = useInstallationContext();
 
     return (
         <Installation.Step className={cn({ hidden: step !== 3 })}>

@@ -1,6 +1,6 @@
 'use client';
 
-import { useInstallationWizard } from '@/cms/installation/src/context/InstallationContext';
+import { useInstallationContext } from '@/cms/installation';
 
 import JText from '@/libraries/shared/components/Text';
 import { Button } from '@/libraries/shared/shadcn/ui/button';
@@ -17,7 +17,9 @@ import {
 } from '@/libraries/shared/shadcn/ui/table';
 
 const InstlDefaultLanguages = () => {
-    const { installedLanguages } = useInstallationWizard();
+    const {
+        languageModel: { installedLanguages },
+    } = useInstallationContext();
 
     return (
         <div className="flex flex-col gap-4">

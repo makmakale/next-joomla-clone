@@ -2,7 +2,7 @@
 
 import { cn } from 'cn';
 
-import { useInstallationWizard } from '@/cms/installation/src/context/InstallationContext';
+import { useInstallationContext } from '@/cms/installation';
 import { Installation } from '@/cms/installation/template/ui';
 
 import JIcon from '@/libraries/shared/components/Icon';
@@ -12,7 +12,9 @@ import { FieldGroup, FieldLegend, FieldSet } from '@/libraries/shared/shadcn/ui/
 import FormField from '@/libraries/src/Form/FormField';
 
 const SetupStep2 = () => {
-    const { step } = useInstallationWizard();
+    const {
+        stepsModel: { step },
+    } = useInstallationContext();
 
     return (
         <Installation.Step className={cn({ hidden: step !== 2 })}>

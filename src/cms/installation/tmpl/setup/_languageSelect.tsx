@@ -1,8 +1,8 @@
 import { cn } from 'cn';
 
+import { useInstallationContext } from '@/cms/installation';
 import langFieldsConfig from '@/cms/installation/forms/language.json';
 import { languages } from '@/cms/installation/language';
-import { useInstallationWizard } from '@/cms/installation/src/context/InstallationContext';
 import { Installation } from '@/cms/installation/template/ui/installation';
 
 import JIcon from '@/libraries/shared/components/Icon';
@@ -12,9 +12,14 @@ import { Dialog, DialogContent, DialogHeader, DialogTrigger } from '@/libraries/
 import { FieldGroup, FieldLegend } from '@/libraries/shared/shadcn/ui/field';
 import JForm from '@/libraries/src/Form/Form';
 import FormField from '@/libraries/src/Form/FormField';
+import { useLanguageContext } from '@/libraries/src/Language';
 
 const LanguageSelect = () => {
-    const { step, languageForm, languageMeta, open, setOpen } = useInstallationWizard();
+    const {
+        stepsModel: { step },
+        languageModel: { languageForm, open, setOpen },
+    } = useInstallationContext();
+    const { languageMeta } = useLanguageContext();
 
     return (
         <JForm id="languageForm" form={languageForm} fields={langFieldsConfig} className={cn({ hidden: step !== 1 })}>
@@ -26,7 +31,7 @@ const LanguageSelect = () => {
                             <JText text="INSTL_SELECTED_INSTALL_LANGUAGE" />
                         </div>
                         <div className="font-bold">
-                            {languageMeta.name} | {languageMeta.nativeName}
+                            {languageMeta?.name} | {languageMeta?.nativeName}
                         </div>
                         <Dialog open={open} onOpenChange={setOpen}>
                             <DialogTrigger

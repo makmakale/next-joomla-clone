@@ -2,7 +2,7 @@
 
 import { cn } from 'cn';
 
-import { useInstallationWizard } from '@/cms/installation/src/context/InstallationContext';
+import { useInstallationContext } from '@/cms/installation';
 
 import JForm from '@/libraries/src/Form/Form';
 
@@ -13,7 +13,9 @@ import SetupStep2 from './_step2';
 import SetupStep3 from './_step3';
 
 const Setup = () => {
-    const { view, stepsForm, onSubmit } = useInstallationWizard();
+    const {
+        stepsModel: { view, stepsForm, onSubmit },
+    } = useInstallationContext();
 
     return (
         <div className={cn({ hidden: view !== 'setup' })}>
