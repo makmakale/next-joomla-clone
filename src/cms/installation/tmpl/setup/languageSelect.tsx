@@ -1,3 +1,5 @@
+'use client';
+
 import { cn } from 'cn';
 
 import { useInstallationContext } from '@/cms/installation';
@@ -19,7 +21,7 @@ const LanguageSelect = () => {
         stepsModel: { step },
         languageModel: { languageForm, open, setOpen },
     } = useInstallationContext();
-    const { languageMeta } = useLanguageContext();
+    const { metadata } = useLanguageContext();
 
     return (
         <JForm id="languageForm" form={languageForm} fields={langFieldsConfig} className={cn({ hidden: step !== 1 })}>
@@ -31,7 +33,7 @@ const LanguageSelect = () => {
                             <JText text="INSTL_SELECTED_INSTALL_LANGUAGE" />
                         </div>
                         <div className="font-bold">
-                            {languageMeta?.name} | {languageMeta?.nativeName}
+                            {metadata?.name} | {metadata?.nativeName}
                         </div>
                         <Dialog open={open} onOpenChange={setOpen}>
                             <DialogTrigger

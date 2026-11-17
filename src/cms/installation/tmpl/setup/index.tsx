@@ -7,10 +7,10 @@ import { useInstallationContext } from '@/cms/installation';
 import JForm from '@/libraries/src/Form/Form';
 
 import setupFieldsConfig from '../../forms/setup.json';
-import LanguageSelect from './_languageSelect';
-import SetupStep1 from './_step1';
-import SetupStep2 from './_step2';
-import SetupStep3 from './_step3';
+import LanguageSelect from './languageSelect';
+import SetupStep1 from './step1';
+import SetupStep2 from './step2';
+import SetupStep3 from './step3';
 
 const Setup = () => {
     const {

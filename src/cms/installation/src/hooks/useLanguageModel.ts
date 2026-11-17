@@ -39,12 +39,12 @@ export const useLanguageModel = () => {
 
     const { data: adminLanguages } = useQuery({
         queryKey: ['GET_INSTALLED_LANGUAGES_ADMINISTRATOR'],
-        queryFn: () => getInstalledLangsAdministrator(),
+        queryFn: getInstalledLangsAdministrator,
     });
 
     const { data: siteLanguages } = useQuery({
         queryKey: ['GET_INSTALLED_LANGUAGES_SITE'],
-        queryFn: () => getInstalledLangsFrontend(),
+        queryFn: getInstalledLangsFrontend,
     });
 
     return {

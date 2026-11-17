@@ -3,6 +3,7 @@
 import type { PropsWithChildren } from 'react';
 import { createContext, use } from 'react';
 
+import type { LanguageProps } from '@/libraries/src/Language';
 import { useCtxValue } from '@/libraries/src/Language';
 
 const LanguageContext = createContext<ReturnType<typeof useCtxValue> | null>(null);
@@ -14,10 +15,8 @@ export const useLanguageContext = () => {
     return context;
 };
 
-export default function Language({ children }: PropsWithChildren) {
-    const value = useCtxValue();
-
-    if (value.isLoading) return null;
+export default function Language({ children, ...props }: PropsWithChildren<LanguageProps>) {
+    const value = useCtxValue(props);
 
     return <LanguageContext.Provider value={value}>{children}</LanguageContext.Provider>;
 }

@@ -7,7 +7,7 @@ import { useForm } from 'react-hook-form';
 
 import type { SetupSchema } from '@/cms/installation/forms';
 import { formSteps, setupSchema } from '@/cms/installation/forms';
-import { useInstallationProgress } from '@/cms/installation/src/hooks/useInstallationProgress';
+import { useInstallationProgress } from '@/cms/installation/src/hooks/InstallationProgress/useInstallationProgress';
 import { InstallationView } from '@/cms/installation/src/types';
 
 export const useStepsModel = () => {

@@ -9,12 +9,10 @@ import { INSTALL_STEPS, getInstallSteps } from '@/cms/installation/src/controlle
 
 export const useInstallationProgress = () => {
     const [progress, setProgress] = useState(0);
-    // const [progressMax, setProgressMax] = useState(0);
     const [installResults, setInstallResults] = useState<{ success: boolean; message?: string }[]>([]);
 
     const startInstallation = useCallback(async (data: SetupSchema) => {
         const queue = getInstallSteps(data);
-        // setProgressMax(queue.length);
 
         for (const action of queue) {
             const result = await action.run();

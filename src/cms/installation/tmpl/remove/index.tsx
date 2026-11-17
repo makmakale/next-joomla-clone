@@ -4,9 +4,9 @@ import { cn } from 'cn';
 
 import { useInstallationContext } from '@/cms/installation';
 import { Installation } from '@/cms/installation/template/ui/installation';
-import InstlDefaultLanguages from '@/cms/installation/tmpl/remove/_defaultLanguages';
-import InstlInstallLanguages from '@/cms/installation/tmpl/remove/_installLanguages';
-import InstlRecommended from '@/cms/installation/tmpl/remove/_recommended';
+import InstlDefaultLanguages from '@/cms/installation/tmpl/remove/defaultLanguages';
+import InstlInstallLanguages from '@/cms/installation/tmpl/remove/installLanguages';
+import InstlRecommended from '@/cms/installation/tmpl/remove/recommended';
 
 import JIcon from '@/libraries/shared/components/Icon';
 import JText from '@/libraries/shared/components/Text';
