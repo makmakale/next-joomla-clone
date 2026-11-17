@@ -4,7 +4,7 @@ import { useState } from 'react';
 
 import { useSearchParams } from 'next/navigation';
 
-type AppInputType = {
+export type AppInputType = {
     option?: string;
     view?: string;
     task?: string;

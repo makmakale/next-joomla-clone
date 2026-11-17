@@ -4,6 +4,7 @@ import type { PropsWithChildren } from 'react';
 import { createContext, use } from 'react';
 
 import { useCtxValue } from '@/cms/installation';
+import type { InstallApplicationProps } from '@/cms/installation';
 
 const InstallationContext = createContext<ReturnType<typeof useCtxValue> | null>(null);
 
@@ -14,8 +15,8 @@ export const useInstallationContext = () => {
     return context;
 };
 
-export function InstallApplication({ children }: PropsWithChildren) {
-    const value = useCtxValue();
+export function InstallApplication({ children, ...props }: PropsWithChildren<InstallApplicationProps>) {
+    const value = useCtxValue(props);
 
     return <InstallationContext.Provider value={value}>{children}</InstallationContext.Provider>;
 }

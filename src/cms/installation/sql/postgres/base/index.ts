@@ -1,4 +1,4 @@
-import type { InstallStep } from '@/cms/installation/src/controller/InstallationController';
+import type { InstallStep } from '@/cms/installation';
 
 import { seedAssets } from './assets';
 import { seedExtensions } from './extensions';

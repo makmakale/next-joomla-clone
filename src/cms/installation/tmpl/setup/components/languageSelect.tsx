@@ -1,10 +1,7 @@
 'use client';
 
-import { cn } from 'cn';
-
 import { useInstallationContext } from '@/cms/installation';
 import langFieldsConfig from '@/cms/installation/forms/language.json';
-import { languages } from '@/cms/installation/language';
 import { Installation } from '@/cms/installation/template/ui/installation';
 
 import JIcon from '@/libraries/shared/components/Icon';
@@ -18,13 +15,13 @@ import { useLanguageContext } from '@/libraries/src/Language';
 
 const LanguageSelect = () => {
     const {
-        stepsModel: { step },
+        languageOptions,
         languageModel: { languageForm, open, setOpen },
     } = useInstallationContext();
     const { metadata } = useLanguageContext();
 
     return (
-        <JForm id="languageForm" form={languageForm} fields={langFieldsConfig} className={cn({ hidden: step !== 1 })}>
+        <JForm id="languageForm" form={languageForm} fields={langFieldsConfig}>
             <Installation.Step>
                 <FieldGroup>
                     <div className="flex items-center gap-2">
@@ -51,7 +48,7 @@ const LanguageSelect = () => {
                                         <JText text="INSTL_SELECT_INSTALL_LANG" />
                                     </FieldLegend>
                                     <FieldGroup>
-                                        <FormField name="language" params={{ items: languages }} />
+                                        <FormField name="language" params={{ items: languageOptions }} />
                                     </FieldGroup>
                                 </DialogHeader>
                             </DialogContent>

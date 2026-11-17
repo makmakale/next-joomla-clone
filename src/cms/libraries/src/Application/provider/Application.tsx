@@ -1,12 +1,17 @@
 'use client';
 
 import type { PropsWithChildren } from 'react';
+import { useCallback } from 'react';
+import { useState } from 'react';
 import { createContext, use } from 'react';
 
-import { useQuery } from '@tanstack/react-query';
+import { useSearchParams } from 'next/navigation';
 
 import { getConfiguration } from '@/libraries/services/configuration';
+import type { AppInputType } from '@/libraries/src/Application';
 import { TanstackQuery } from '@/libraries/vendor/wrappers';
+
+import { useQuery } from '@tanstack/react-query';
 
 interface ApplicationProps {
     clientId: number;
@@ -19,9 +24,21 @@ const useContextValue = (props: ApplicationProps) => {
         queryFn: getConfiguration,
     });
 
+    const searchParams = useSearchParams();
+    const [input, setInput] = useState<AppInputType>({
+        layout: 'default',
+        ...Object.fromEntries(searchParams.entries()),
+    });
+
+    const changeInput = useCallback((key: string, val: unknown) => {
+        setInput(prev => ({ ...prev, [key]: val }));
+    }, []);
+
     return {
         ...props,
         config,
+        getInput: () => new Map(Object.entries(input)),
+        changeInput,
     };
 };
 

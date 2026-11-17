@@ -3,8 +3,8 @@
 import { revalidatePath } from 'next/cache';
 import { cookies, headers } from 'next/headers';
 
-import { promises as fs } from 'fs';
-import path from 'path';
+import { promises as fs } from 'node:fs';
+import path from 'node:path';
 
 import { getClientName } from '@/libraries/services/application';
 import type { Locale, Messages } from '@/libraries/src/Language';
@@ -17,8 +17,10 @@ export async function getLocaleFromHeaders() {
     return tags[0] ?? 'en-GB';
 }
 
-export const getLocale = async (clientName: string): Promise<string> => {
-    return (await cookies()).get(`web.locale.${clientName}`)?.value ?? (await getLocaleFromHeaders());
+export const getLocale = async (clientName?: string): Promise<string> => {
+    const name = clientName ?? (await getClientName());
+
+    return (await cookies()).get(`web.locale.${name}`)?.value ?? (await getLocaleFromHeaders());
 };
 
 export const setLocaleAsync = async (clientName: string, value: string): Promise<void> => {

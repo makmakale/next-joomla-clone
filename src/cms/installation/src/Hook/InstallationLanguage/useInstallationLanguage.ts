@@ -2,20 +2,18 @@
 
 import { useEffect, useRef, useState } from 'react';
 
-import { zodResolver } from '@hookform/resolvers/zod';
-import { useQuery } from '@tanstack/react-query';
 import { useForm, useWatch } from 'react-hook-form';
 
+import { getItems } from '@/cms/installation';
 import type { LanguageSchema } from '@/cms/installation/forms';
 import { langSchema } from '@/cms/installation/forms';
-import {
-    getInstalledLangsAdministrator,
-    getInstalledLangsFrontend,
-} from '@/cms/installation/src/controller/LanguageController';
 
 import { useLanguageContext } from '@/libraries/src/Language';
 
-export const useLanguageModel = () => {
+import { zodResolver } from '@hookform/resolvers/zod';
+import { useQuery } from '@tanstack/react-query';
+
+export const useInstallationLanguage = () => {
     const { locale, changeLang } = useLanguageContext();
     const [open, setOpen] = useState(false);
 
@@ -37,23 +35,15 @@ export const useLanguageModel = () => {
         }
     }, [langWatch]);
 
-    const { data: adminLanguages } = useQuery({
-        queryKey: ['GET_INSTALLED_LANGUAGES_ADMINISTRATOR'],
-        queryFn: getInstalledLangsAdministrator,
-    });
-
-    const { data: siteLanguages } = useQuery({
-        queryKey: ['GET_INSTALLED_LANGUAGES_SITE'],
-        queryFn: getInstalledLangsFrontend,
+    const { data: additionalLanguages = [] } = useQuery({
+        queryKey: ['additional_langs'],
+        queryFn: getItems,
     });
 
     return {
         languageForm,
         open,
         setOpen,
-        installedLanguages: {
-            administrator: adminLanguages,
-            frontend: siteLanguages,
-        },
+        items: additionalLanguages,
     };
 };

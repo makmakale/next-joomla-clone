@@ -1,5 +1,7 @@
 'use client';
 
+import { cn } from 'cn';
+
 import { useInstallationContext } from '@/cms/installation';
 
 import JText from '@/libraries/shared/components/Text';
@@ -16,14 +18,12 @@ import {
     TableRow,
 } from '@/libraries/shared/shadcn/ui/table';
 
-const InstlDefaultLanguages = () => {
-    const {
-        languageModel: { installedLanguages },
-    } = useInstallationContext();
+const SetDefaultLanguages = () => {
+    const { installedLanguages } = useInstallationContext();
 
     return (
         <div className="flex flex-col gap-4">
-            <Table>
+            <Table className={cn({ hidden: installedLanguages.administrator.length <= 1 })}>
                 <TableCaption>
                     <JText text="INSTL_DEFAULTLANGUAGE_DESC" />
                 </TableCaption>
@@ -41,7 +41,7 @@ const InstlDefaultLanguages = () => {
                     </TableRow>
                 </TableHeader>
                 <TableBody>
-                    {installedLanguages.administrator?.map((lang, i) => (
+                    {installedLanguages.administrator.map((lang, i) => (
                         <TableRow key={`admin-language-${lang.name}`}>
                             <TableCell>
                                 <Input
@@ -62,7 +62,7 @@ const InstlDefaultLanguages = () => {
                 </TableBody>
             </Table>
 
-            <Table>
+            <Table className={cn({ hidden: installedLanguages.frontend.length <= 1 })}>
                 <TableCaption>
                     <JText text="INSTL_DEFAULTLANGUAGE_DESC_FRONTEND" />
                 </TableCaption>
@@ -80,7 +80,7 @@ const InstlDefaultLanguages = () => {
                     </TableRow>
                 </TableHeader>
                 <TableBody>
-                    {installedLanguages.administrator?.map((lang, i) => (
+                    {installedLanguages.administrator.map((lang, i) => (
                         <TableRow key={`site-language-${lang.name}`}>
                             <TableCell>
                                 <Input
@@ -108,4 +108,4 @@ const InstlDefaultLanguages = () => {
     );
 };
 
-export default InstlDefaultLanguages;
+export default SetDefaultLanguages;

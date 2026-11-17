@@ -2,10 +2,10 @@
 
 import { useCallback, useState } from 'react';
 
-import type { Progress as ProgressPrimitive } from '@base-ui/react/progress';
-
+import { INSTALL_STEPS, getInstallSteps } from '@/cms/installation';
 import type { SetupSchema } from '@/cms/installation/forms';
-import { INSTALL_STEPS, getInstallSteps } from '@/cms/installation/src/controller/InstallationController';
+
+import type { Progress as ProgressPrimitive } from '@base-ui/react/progress';
 
 export const useInstallationProgress = () => {
     const [progress, setProgress] = useState(0);

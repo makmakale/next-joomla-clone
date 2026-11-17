@@ -2,23 +2,25 @@
 
 import { cn } from 'cn';
 
-import { useInstallationContext } from '@/cms/installation';
+import { InstallationView } from '@/cms/installation';
 import { Installation } from '@/cms/installation/template/ui/installation';
-import InstlDefaultLanguages from '@/cms/installation/tmpl/remove/defaultLanguages';
-import InstlInstallLanguages from '@/cms/installation/tmpl/remove/installLanguages';
+import SetDefaultLanguages from '@/cms/installation/tmpl/remove/defaultLanguages';
+import InstallAdditionalLanguages from '@/cms/installation/tmpl/remove/installLanguages';
 import InstlRecommended from '@/cms/installation/tmpl/remove/recommended';
 
 import JIcon from '@/libraries/shared/components/Icon';
 import JText from '@/libraries/shared/components/Text';
 import { CardContent, CardHeader, CardTitle } from '@/libraries/shared/shadcn/ui/card';
+import { useApplication } from '@/libraries/src/Application';
 
 const Remove = () => {
-    const {
-        stepsModel: { view },
-    } = useInstallationContext();
+    const { getInput } = useApplication();
+
+    const input = getInput();
+    const view = input.get('view');
 
     return (
-        <div className={cn('space-y-6', { hidden: view !== 'remove' })}>
+        <div className={cn('space-y-6', { hidden: view !== InstallationView.Remove })}>
             <Installation.Step>
                 <CardHeader>
                     <CardTitle>
@@ -33,9 +35,9 @@ const Remove = () => {
                     </h2>
 
                     <div className="flex flex-col gap-4">
-                        <InstlInstallLanguages />
+                        <InstallAdditionalLanguages />
 
-                        <InstlDefaultLanguages />
+                        <SetDefaultLanguages />
                     </div>
                 </CardContent>
             </Installation.Step>
