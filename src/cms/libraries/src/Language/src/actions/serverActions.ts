@@ -26,9 +26,9 @@ export const setLocale = async (clientName: string, value: string): Promise<void
     revalidatePath(clientName === 'site' ? '/' : `/${clientName}`);
 };
 
-export async function loadLangMessages(fileName: string, clientName?: string): Promise<Messages> {
+export async function loadLangMessages(fileName: string, clientName?: string, lang?: string): Promise<Messages> {
     const client = clientName ?? (await getClientName());
-    const locale = await getLocale(client);
+    const locale = lang ?? (await getLocale(client));
 
     const basePath = path.join(process.cwd(), 'src/cms', client === 'site' ? 'language' : `${client}/language`);
 

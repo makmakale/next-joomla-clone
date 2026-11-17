@@ -1,60 +1,58 @@
 'use client';
 
-import { useCallback, useLayoutEffect, useState } from 'react';
+import { useCallback, useLayoutEffect } from 'react';
 
-import { useMutation, useQuery } from '@tanstack/react-query';
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 
 import { useApplication } from '@/libraries/src/Application';
-import type { InstallProps, Messages } from '@/libraries/src/Language';
 import { loadLangMessages } from '@/libraries/src/Language';
 import { getLanguageMetadata } from '@/libraries/src/Language';
 import { getLocale, setLocale as setLocaleAsync } from '@/libraries/src/Language';
 
-export const useCtxValue = ({ initialMessages = {} }: InstallProps) => {
+export const useCtxValue = () => {
     const { name: clientName } = useApplication();
-    const [messages, setMessages] = useState<Messages>({});
+    const queryClient = useQueryClient();
 
-    const { data: locale } = useQuery({
+    const { isFetching: localeLoading, data: locale } = useQuery({
         queryKey: ['GET_LANGUAGE', clientName],
         queryFn: () => getLocale(clientName),
     });
 
-    const { data: joomlaMessages } = useQuery({
+    const { isFetching: joomlaMessagesLoading, data: joomlaMessages } = useQuery({
         queryKey: ['GET_TRANSLATIONS', clientName, locale],
-        queryFn: () => loadLangMessages('joomla', clientName),
+        queryFn: () => loadLangMessages('joomla', clientName, locale),
         enabled: !!locale,
     });
 
     const { mutate } = useMutation({
         mutationFn: (lang: string) => setLocaleAsync(clientName, lang),
+        onSuccess: () => {
+            queryClient.invalidateQueries({ queryKey: ['GET_LANGUAGE'] });
+            queryClient.invalidateQueries({ queryKey: ['GET_TRANSLATIONS'] });
+            queryClient.invalidateQueries({ queryKey: ['GET_LANGUAGE_METADATA'] });
+        },
     });
 
     useLayoutEffect(() => {
         if (!locale) return;
 
         if (!document.documentElement.lang) {
-            mutate(locale);
             document.documentElement.lang = locale.toLowerCase();
         }
-    }, [clientName, locale]);
+    }, [locale]);
 
-    const changeLang = useCallback(
-        (lang: string) => {
-            mutate(lang);
-            document.documentElement.lang = lang.toLowerCase();
-        },
-        [mutate],
-    );
-
-    const mergeMessages = useCallback((newMessages: Messages) => {
-        setMessages(prev => ({ ...prev, ...newMessages }));
+    const changeLang = useCallback((lang: string) => {
+        document.documentElement.lang = lang.toLowerCase();
+        mutate(lang);
     }, []);
 
-    const { data: languageMeta } = useQuery({
-        queryKey: ['metadata'],
+    const { isFetching: metaDataLoading, data: languageMeta } = useQuery({
+        queryKey: ['GET_LANGUAGE_METADATA', locale],
         queryFn: () => getLanguageMetadata(clientName, locale!),
         enabled: !!locale,
     });
 
-    return { locale, changeLang, messages: { ...joomlaMessages }, mergeMessages, languageMeta };
+    const isLoading = [localeLoading, joomlaMessagesLoading, metaDataLoading].some(Boolean);
+
+    return { isLoading, locale, changeLang, messages: { ...joomlaMessages }, languageMeta };
 };
