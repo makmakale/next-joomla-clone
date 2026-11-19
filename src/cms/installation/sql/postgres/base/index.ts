@@ -1,4 +1,4 @@
-import type { InstallStep } from '@/cms/installation';
+import type { InstallationStep } from '@/cms/installation';
 
 import { seedAssets } from './assets';
 import { seedExtensions } from './extensions';
@@ -18,7 +18,7 @@ import { seedWorkflowStages } from './workflowStages';
 import { seedWorkflowTransitions } from './workflowTransitions';
 import { seedWorkflows } from './workflows';
 
-export const BASE_STEPS: InstallStep[] = [
+export const BASE_STEPS: InstallationStep[] = [
     { id: 'assets', label: 'Дерево прав доступа (ACL)', run: seedAssets },
     { id: 'extensions', label: 'Регистрация расширений', run: seedExtensions },
     { id: 'languages', label: 'Языки', run: seedLanguages },

@@ -1,15 +1,21 @@
 'use client';
 
-import { Installation } from '@/cms/installation/template/ui';
+import { cn } from 'cn';
+
+import { RemoveSteps, useInstallationContext } from '@/cms/installation';
 
 import JText from '@/libraries/shared/components/Text';
 import { Button } from '@/libraries/shared/shadcn/ui/button';
-import { CardContent } from '@/libraries/shared/shadcn/ui/card';
+import { Card, CardContent } from '@/libraries/shared/shadcn/ui/card';
 
 const InstlRecommended = () => {
+    const {
+        setupModel: { step },
+    } = useInstallationContext();
+
     return (
-        <Installation.Step>
-            <CardContent>
+        <Card className={cn({ hidden: step !== RemoveSteps.Congrat })}>
+            <CardContent className="pt-6">
                 <div className="flex flex-col gap-2">
                     <p>
                         <JText text="INSTL_PRECHECK_RECOMMENDED_SETTINGS_DESC" />
@@ -23,7 +29,7 @@ const InstlRecommended = () => {
                     </Button>
                 </div>
             </CardContent>
-        </Installation.Step>
+        </Card>
     );
 };
 

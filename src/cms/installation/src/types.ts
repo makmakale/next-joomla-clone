@@ -1,3 +1,5 @@
+import type { Update } from '@/libraries/services/database';
+
 export enum InstallationView {
     Setup = 'setup',
     Remove = 'remove',
@@ -11,6 +13,13 @@ export enum SetupSteps {
 
 export type SetupStepName = (typeof SetupSteps)[keyof typeof SetupSteps];
 
+export enum RemoveSteps {
+    Congrat = 'installCongrat',
+    Languages = 'installLanguages',
+}
+
+export type RemoveStepName = (typeof RemoveSteps)[keyof typeof RemoveSteps];
+
 export type InstallLanguageMetadata = {
     language: string;
     name: string;
@@ -23,4 +32,17 @@ export type InstallApplicationProps = {
         frontend: InstallLanguageMetadata[];
         administrator: InstallLanguageMetadata[];
     };
+};
+
+export type UpdateLanguageType = {
+    [K in 'updateId' | 'name' | 'element' | 'version']: NonNullable<Update[K]>;
+};
+
+export type InstallationStep = {
+    id: string;
+    label: string;
+    run: () => Promise<{
+        success: boolean;
+        message?: string;
+    }>;
 };

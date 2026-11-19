@@ -1,32 +1,22 @@
-'use client';
-
 import type { PropsWithChildren } from 'react';
-import { useLayoutEffect } from 'react';
 
 import { Application } from '@/libraries/src/Application';
-import { useAppInput } from '@/libraries/src/Application';
+import { getLanguageMetadata, getLocale, loadMessages } from '@/libraries/src/Language';
 import Language from '@/libraries/src/Language/provider/Language';
 import { ThemeProvider } from '@/libraries/vendor/wrappers';
 
-export function SiteApplication({ children }: PropsWithChildren) {
-    const input = useAppInput();
-
-    useLayoutEffect(() => {
-        document.body.classList.add('site');
-
-        if (!input.queryData.option) {
-            input.set('option', 'com_content');
-        }
-
-        if (!input.queryData.view) {
-            input.set('view', 'articles');
-        }
-    }, [input]);
+export async function SiteApplication({ children }: PropsWithChildren) {
+    // Language
+    const locale = await getLocale('site');
+    const metadata = await getLanguageMetadata('site', locale);
+    const messages = await loadMessages(undefined, locale);
 
     return (
         <Application clientId={0} name="site">
             <ThemeProvider storageKey="web.theme.site" defaultTheme="light">
-                <Language>{children}</Language>
+                <Language locale={locale} messages={messages} metadata={metadata}>
+                    {children}
+                </Language>
             </ThemeProvider>
         </Application>
     );

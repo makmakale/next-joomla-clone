@@ -28,5 +28,5 @@ export type SelectFieldProps = FormFieldWithNameAndLabel &
         items: Record<'value' | 'label', string>[];
         className?: string;
         labelClassName?: string;
-        onChange: ComponentProps<typeof Select>['onValueChange'];
+        onChange: (value: unknown) => void;
     };

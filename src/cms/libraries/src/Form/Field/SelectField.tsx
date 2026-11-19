@@ -1,6 +1,9 @@
+import type { ComponentProps } from 'react';
+
 import { Controller, useFormContext } from 'react-hook-form';
 
 import { Field, FieldContent, FieldError, FieldLabel } from '@/libraries/shared/shadcn/ui/field';
+import type { Select } from '@/libraries/shared/shadcn/ui/select';
 import { useJFormContext } from '@/libraries/src/Form/Form';
 import type { SelectFieldProps } from '@/libraries/src/Form/FormField.types';
 import HTMLHelper from '@/libraries/src/HTML/HTMLHelper';
@@ -19,27 +22,34 @@ const SelectField = (props: SelectFieldProps) => {
         <Controller
             name={name}
             control={control}
-            render={({ field, fieldState }) => (
-                <Field data-invalid={fieldState.invalid}>
-                    <FieldContent>
-                        {!!label && (
-                            <FieldLabel htmlFor={name} className={labelClassName}>
-                                {t(label)}
-                            </FieldLabel>
-                        )}
-                        {!!errorMsg && <FieldError>{t(errorMsg)}</FieldError>}
-                    </FieldContent>
+            render={({ field, fieldState }) => {
+                const handleChange: ComponentProps<typeof Select>['onValueChange'] = val => {
+                    field.onChange(val);
+                    onChange?.(val);
+                };
 
-                    <HTMLHelper.Select
-                        name={name}
-                        value={field.value}
-                        invalid={fieldState.invalid}
-                        items={items}
-                        onChange={(val, e) => (onChange ? onChange(val, e) : field.onChange(val))}
-                        className={className}
-                    />
-                </Field>
-            )}
+                return (
+                    <Field data-invalid={fieldState.invalid}>
+                        <FieldContent>
+                            {!!label && (
+                                <FieldLabel htmlFor={name} className={labelClassName}>
+                                    {t(label)}
+                                </FieldLabel>
+                            )}
+                            {!!errorMsg && <FieldError>{t(errorMsg)}</FieldError>}
+                        </FieldContent>
+
+                        <HTMLHelper.Select
+                            name={name}
+                            value={field.value}
+                            invalid={fieldState.invalid}
+                            items={items}
+                            onChange={handleChange}
+                            className={className}
+                        />
+                    </Field>
+                );
+            }}
         />
     );
 };

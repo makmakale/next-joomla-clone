@@ -1,14 +1,14 @@
 'use client';
 
-import { useState } from 'react';
+import { cn } from 'cn';
 
-import { useInstallationContext } from '@/cms/installation';
+import { RemoveSteps, useInstallationContext } from '@/cms/installation';
 
 import JIcon from '@/libraries/shared/components/Icon';
 import JText from '@/libraries/shared/components/Text';
 import { Badge } from '@/libraries/shared/shadcn/ui/badge';
 import { Button } from '@/libraries/shared/shadcn/ui/button';
-import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from '@/libraries/shared/shadcn/ui/dialog';
+import { Card, CardContent, CardFooter, CardHeader, CardTitle } from '@/libraries/shared/shadcn/ui/card';
 import { Input } from '@/libraries/shared/shadcn/ui/input';
 import { Label } from '@/libraries/shared/shadcn/ui/label';
 import {
@@ -22,53 +22,35 @@ import {
 } from '@/libraries/shared/shadcn/ui/table';
 import { Tooltip, TooltipContent, TooltipTrigger } from '@/libraries/shared/shadcn/ui/tooltip';
 
+import { NoInternet } from './noInternet';
+
 const InstallAdditionalLanguages = () => {
-    const [open, setOpen] = useState(false);
     const {
+        setupModel: { step },
         languageModel: { items },
     } = useInstallationContext();
 
     return (
-        <Dialog open={open} onOpenChange={setOpen}>
-            <DialogTrigger
-                render={
-                    <Button>
-                        <JText text="INSTL_COMPLETE_ADD_EXTRA_LANGUAGE" />
-                    </Button>
-                }
-            />
-            <DialogContent>
-                <DialogHeader>
-                    <DialogTitle>
-                        <JIcon icon="comment-dots" className="me-1" />
-                        <JText text="INSTL_LANGUAGES" />
-                    </DialogTitle>
-                </DialogHeader>
+        <Card className={cn({ hidden: step !== RemoveSteps.Languages })}>
+            <CardHeader>
+                <CardTitle>
+                    <JIcon icon="comment-dots" className="me-1" />
+                    <JText text="INSTL_LANGUAGES" />
+                </CardTitle>
+            </CardHeader>
 
+            <CardContent className="pt-6">
                 {!items.length ? (
-                    <>
-                        <p>
-                            <JText text="INSTL_LANGUAGES_WARNING_NO_INTERNET" />
-                        </p>
-                        <p>
-                            <Button onClick={() => setOpen(false)}>
-                                <JIcon icon="arrow-left" className="me-1" />
-                                <JText text="INSTL_LANGUAGES_WARNING_BACK_BUTTON" />
-                            </Button>
-                        </p>
-                        <p>
-                            <JText text="INSTL_LANGUAGES_WARNING_NO_INTERNET2" />
-                        </p>
-                    </>
+                    <NoInternet />
                 ) : (
-                    <Table>
-                        <TableCaption>
+                    <Table className="caption-top">
+                        <TableCaption className="text-left">
                             <JText text="INSTL_LANGUAGES_DESC" />
                         </TableCaption>
 
                         <TableHeader>
                             <TableRow>
-                                <TableHead>
+                                <TableHead className="invisible w-0">
                                     <JText text="INSTL_LANGUAGES_COLUMN_HEADER_LANGUAGE_SELECT" />
                                 </TableHead>
                                 <TableHead>
@@ -130,7 +112,10 @@ const InstallAdditionalLanguages = () => {
                         </TableBody>
                     </Table>
                 )}
-                <div className="mt-4 mb-3 grid gap-2">
+            </CardContent>
+
+            <CardFooter>
+                <div className="grid w-full gap-2">
                     <Button id="installLanguagesButton">
                         <JText text="INSTL_LANGUAGES_SELECTED" />
                     </Button>
@@ -138,8 +123,8 @@ const InstallAdditionalLanguages = () => {
                         <JText text="JSKIP" />
                     </Button>
                 </div>
-            </DialogContent>
-        </Dialog>
+            </CardFooter>
+        </Card>
     );
 };
 

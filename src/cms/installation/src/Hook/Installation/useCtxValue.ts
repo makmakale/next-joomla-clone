@@ -2,7 +2,7 @@
 
 import { useLayoutEffect } from 'react';
 
-import { InstallationView, SetupSteps, useInstallationLanguage, useInstallationSteps } from '@/cms/installation';
+import { InstallationView, SetupSteps, useInstallationLanguage, useSetupModel } from '@/cms/installation';
 import type { InstallApplicationProps } from '@/cms/installation';
 
 import { useApplication } from '@/libraries/src/Application';
@@ -17,14 +17,14 @@ export const useCtxValue = (props: InstallApplicationProps) => {
     useLayoutEffect(() => {
         if (!view) {
             changeInput('view', InstallationView.Setup);
-        }
-        if (!step) {
-            changeInput('step', SetupSteps.Step1);
+            if (!step) {
+                changeInput('step', SetupSteps.Step1);
+            }
         }
     }, [view, step]);
 
     const languageModel = useInstallationLanguage();
-    const stepsModel = useInstallationSteps();
+    const setupModel = useSetupModel();
 
-    return { ...props, languageModel, stepsModel };
+    return { ...props, languageModel, setupModel };
 };

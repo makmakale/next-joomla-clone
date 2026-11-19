@@ -7,6 +7,13 @@ import path from 'node:path';
 import { db, extensionsTable, updatesTable } from '@/libraries/services/database';
 import { getLocale } from '@/libraries/src/Language';
 
+import isEmpty from 'lodash/isEmpty';
+
+/**
+ * Get languages list from language folder.
+ *
+ * @return  array  The language select options.
+ */
 export async function getLanguageOptions() {
     const localesDir = path.join(process.cwd(), 'src/cms/installation/language');
     const entries = await fs.readdir(localesDir, { withFileTypes: true });
@@ -30,7 +37,14 @@ export async function getLanguageOptions() {
     return list.filter(item => !!item);
 }
 
-export const getLanguageList = async (clientId = 1) => {
+/**
+ * Get installed languages data.
+ *
+ * @param   clientId  The client ID to retrieve data for.
+ *
+ * @return  array  The language data.
+ */
+export async function getLanguageList(clientId = 1) {
     return db
         .select({ element: extensionsTable.element, name: extensionsTable.name })
         .from(extensionsTable)
@@ -42,16 +56,30 @@ export const getLanguageList = async (clientId = 1) => {
                 p.eq(extensionsTable.clientId, clientId),
             ),
         );
-};
+}
 
+/**
+ *
+ * Get Languages item data for the Administrator.
+ */
 export async function getInstalledLangsAdministrator() {
     return getInstalledLangs('administrator');
 }
 
+/**
+ *
+ * Get Languages item data for the Frontend.
+ */
 export async function getInstalledLangsFrontend() {
     return getInstalledLangs('site');
 }
 
+/**
+ *
+ *  * Get Languages item data.
+ *
+ @param clientName The client Name to retrieve data for.
+ */
 export async function getInstalledLangs(clientName = 'administrator') {
     const clientId = clientName === 'administrator' ? 1 : 0;
     const langlist = await getLanguageList(clientId);
@@ -62,17 +90,24 @@ export async function getInstalledLangs(clientName = 'administrator') {
     for (const lang of langlist) {
         const file = `@/cms/installation/language/${lang.element}/langmetadata.json`;
         try {
-            const json = (await import(file))?.default ?? {};
-            const { metadata = {} } = json;
+            const info = (await import(file))?.default;
 
-            data.push({ language: lang.element, name: metadata?.name, published: clientLang === lang.element });
+            if (isEmpty(info)) {
+                continue;
+            }
+
+            data.push({ language: lang.element, name: info.metadata?.name, published: clientLang === lang.element });
         } catch {}
     }
 
     return data;
 }
 
-export const getItems = async () => {
+/**
+ *
+ * Generate a list of language choices to install in the Joomla CMS.
+ */
+export async function getItems() {
     let list: {
         updateId: number;
         name: string | null;
@@ -110,4 +145,15 @@ export const getItems = async () => {
     }
 
     return list;
-};
+}
+
+/**
+ * Set the default language.
+ *
+ * @param  language    The language to be set as default.
+ * @param  clientName  The name of the CMS client.
+ */
+export async function setDefault(language: string, clientName: string = 'administrator'): Promise<boolean> {
+    // TODO
+    return true;
+}

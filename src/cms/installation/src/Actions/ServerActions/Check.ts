@@ -42,11 +42,13 @@ const fakeData: NewUpdate[] = [
 
 export async function loadUpdates() {
     try {
+        await db.delete(updatesTable);
+
         const results = await db.select().from(updatesTable);
         if (results.length > 0) {
             return;
         }
-        await db.insert(updatesTable).values(fakeData);
+        await db.insert(updatesTable).values(fakeData).onConflictDoNothing();
     } catch (e) {
         console.error(e);
     }

@@ -4,6 +4,7 @@ import { useEffect, useRef, useState } from 'react';
 
 import { useForm, useWatch } from 'react-hook-form';
 
+import type { UpdateLanguageType } from '@/cms/installation';
 import { getItems } from '@/cms/installation';
 import type { LanguageSchema } from '@/cms/installation/forms';
 import { langSchema } from '@/cms/installation/forms';
@@ -44,6 +45,6 @@ export const useInstallationLanguage = () => {
         languageForm,
         open,
         setOpen,
-        items: additionalLanguages,
+        items: additionalLanguages as UpdateLanguageType[],
     };
 };

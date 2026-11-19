@@ -6,26 +6,35 @@ import JIcon from '@/libraries/shared/components/Icon';
 import JText from '@/libraries/shared/components/Text';
 import JInclude from '@/libraries/shared/components/include';
 import { Button } from '@/libraries/shared/shadcn/ui/button';
+import {
+    Card,
+    CardAction,
+    CardContent,
+    CardDescription,
+    CardFooter,
+    CardHeader,
+    CardTitle,
+} from '@/libraries/shared/shadcn/ui/card';
 
 const InstallWizard = () => {
     return (
-        <div className="flex min-h-screen flex-col items-center justify-center">
-            <header className="bg-foreground text-background w-full rounded-none">
-                <div className="mx-auto flex items-center p-2">
-                    <div className="min-w-[150px]">
+        <div className="flex min-h-screen w-full items-center justify-center bg-gradient-to-r from-indigo-400 to-cyan-400 p-6">
+            <Card className="mx-auto min-h-[60vh] w-full max-w-7xl py-0">
+                <CardHeader className="bg-foreground p-4">
+                    <CardTitle>
                         <Image src={logo} alt="logo" width={150} />
-                    </div>
-                    <div className="flex w-full flex-wrap items-center justify-center md:pr-40">
-                        <h2 className="mx-1 mt-2 flex items-baseline text-3xl leading-snug font-bold">
-                            <JIcon icon="cogs" className="mx-2 hidden items-center md:block" />
-                            <JText text="INSTL_PAGE_TITLE" />
-                        </h2>
-                        <span className="mx-1 text-xs">Joomla! 6.0.3</span>
-                    </div>
-                    <div className="m-2 flex items-center justify-end">
+                    </CardTitle>
+                    <CardDescription className="justify-center">
+                        <div className="text-background flex w-full flex-wrap items-baseline justify-center">
+                            <h2 className="text-2xl font-bold">
+                                <JText text="INSTL_PAGE_TITLE" />
+                            </h2>
+                            <span className="mx-1 text-xs">Joomla! {process.env.APP_VERSION}</span>
+                        </div>
+                    </CardDescription>
+                    <CardAction>
                         <Button
                             nativeButton={false}
-                            className="w-fit"
                             render={
                                 <a href="https://docs.joomla.org/Special:MyLanguage/J4.x:Installing_Joomla" target="_blank">
                                     <JIcon icon="question" />
@@ -35,19 +44,21 @@ const InstallWizard = () => {
                                 </a>
                             }
                         />
+                    </CardAction>
+                </CardHeader>
+
+                <CardContent className="flex-1">
+                    <div className="flex w-full flex-1 flex-col items-center justify-center">
+                        <main className="w-full max-w-160 flex-1 space-y-6 py-4">
+                            <JInclude type="component" />
+                        </main>
                     </div>
-                </div>
-            </header>
+                </CardContent>
 
-            <div className="flex w-full flex-1 flex-col items-center justify-center">
-                <main className="w-full max-w-160 flex-1 space-y-6 py-4">
-                    <JInclude type="component" />
-                </main>
-
-                <footer className="flex w-full items-center justify-center gap-1 py-3 text-sm shadow-[0_0_1px_1px_#00000040]">
+                <CardFooter className="justify-center">
                     <a href="https://www.joomla.org">Joomla!</a> is Free Software released under the GNU General Public License.
-                </footer>
-            </div>
+                </CardFooter>
+            </Card>
         </div>
     );
 };

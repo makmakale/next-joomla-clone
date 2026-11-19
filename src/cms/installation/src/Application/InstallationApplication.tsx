@@ -1,22 +1,39 @@
-'use client';
+import { getInstalledLangsAdministrator, getInstalledLangsFrontend, getLanguageOptions, loadUpdates } from '@/cms/installation';
 
-import type { PropsWithChildren } from 'react';
-import { createContext, use } from 'react';
+import { Application } from '@/libraries/src/Application';
+import { getLanguageMetadata, getLocale, loadMessages } from '@/libraries/src/Language';
+import Language from '@/libraries/src/Language/provider/Language';
+import { ThemeProvider } from '@/libraries/vendor/wrappers';
 
-import { useCtxValue } from '@/cms/installation';
-import type { InstallApplicationProps } from '@/cms/installation';
+import { InstallProvider } from '../../includes/app';
 
-const InstallationContext = createContext<ReturnType<typeof useCtxValue> | null>(null);
+export async function InstallationApplication() {
+    // Language
+    const locale = await getLocale('installation');
+    const localeMetadata = await getLanguageMetadata('installation', locale);
+    const messages = await loadMessages(undefined, locale);
 
-export const useInstallationContext = () => {
-    const context = use(InstallationContext);
-    if (!context) throw new Error('useInstallation should be used within <InstallApplication>');
+    // check updates
+    await loadUpdates();
 
-    return context;
-};
+    // language options
+    const languageOptions = await getLanguageOptions();
 
-export function InstallApplication({ children, ...props }: PropsWithChildren<InstallApplicationProps>) {
-    const value = useCtxValue(props);
+    // Installed languages
+    const siteLanguages = await getInstalledLangsFrontend();
+    const adminLanguages = await getInstalledLangsAdministrator();
+    const installedLanguages = {
+        administrator: adminLanguages,
+        frontend: siteLanguages,
+    };
 
-    return <InstallationContext.Provider value={value}>{children}</InstallationContext.Provider>;
+    return (
+        <Application clientId={2} name="installation">
+            <ThemeProvider storageKey="web.theme.installation" defaultTheme="light">
+                <Language locale={locale} metadata={localeMetadata} messages={messages}>
+                    <InstallProvider languageOptions={languageOptions} installedLanguages={installedLanguages} />
+                </Language>
+            </ThemeProvider>
+        </Application>
+    );
 }

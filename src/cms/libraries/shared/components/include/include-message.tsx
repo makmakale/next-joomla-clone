@@ -15,7 +15,7 @@ export function JIncludeMessage() {
     };
 
     return (
-        <Alert variant={message.type}>
+        <Alert variant="default">
             {message.type === 'info' && <InfoIcon />}
             {message.type === 'warning' && <AlertTriangleIcon />}
             {message.type === 'error' && <AlertTriangleIcon />}

@@ -2,23 +2,26 @@
 
 import { useForm } from 'react-hook-form';
 
-import { InstallationView, SetupSteps, useInstallationProgress } from '@/cms/installation';
+import { InstallationView, RemoveSteps, SetupSteps, useInstallationProgress } from '@/cms/installation';
 import type { SetupSchema } from '@/cms/installation/forms';
 import { formSteps, setupSchema } from '@/cms/installation/forms';
 
 import { useApplication } from '@/libraries/src/Application';
+import { useLanguageContext } from '@/libraries/src/Language';
 
 import { zodResolver } from '@hookform/resolvers/zod';
 
-export const useInstallationSteps = () => {
+export const useSetupModel = () => {
     const { getInput, changeInput } = useApplication();
+    const { locale } = useLanguageContext();
 
     const input = getInput();
-    const step = input.get('step') ?? SetupSteps.Step1;
+    const step = input.get('step');
 
     // TODO: clear form values before push
     const stepsForm = useForm<SetupSchema>({
         defaultValues: {
+            language: locale,
             site_name: 'test',
             admin_user: 'test',
             admin_username: 'test',
@@ -45,6 +48,7 @@ export const useInstallationSteps = () => {
         await startInstallation(data);
         // TODO: if !hasErrors
         changeInput('view', InstallationView.Remove);
+        changeInput('step', RemoveSteps.Congrat);
     };
 
     return {
