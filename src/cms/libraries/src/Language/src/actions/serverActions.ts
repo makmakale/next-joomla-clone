@@ -7,7 +7,7 @@ import { promises as fs } from 'node:fs';
 import path from 'node:path';
 
 import { getClientName } from '@/libraries/services/application';
-import type { Locale, Messages } from '@/libraries/src/Language';
+import type { Locale, LocaleMetadata, Messages } from '@/libraries/src/Language';
 import { createTranslator } from '@/libraries/src/Language';
 
 export async function getLocaleFromHeaders() {
@@ -60,7 +60,7 @@ export async function getTranslations(namespace?: string) {
     return createTranslator(messages);
 }
 
-export async function getLanguageMetadata(clientName: string, locale: string) {
+export async function getLanguageMetadata(clientName: string, locale: string): Promise<LocaleMetadata | undefined> {
     try {
         const res = await import(
             `@/cms/${clientName === 'site' ? 'language' : `${clientName}/language`}/${locale}/langmetadata.json`
@@ -68,6 +68,14 @@ export async function getLanguageMetadata(clientName: string, locale: string) {
 
         return res?.default?.metadata;
     } catch {
-        return locale;
+        try {
+            const res = await import(
+                `@/cms/${clientName === 'site' ? 'language' : `${clientName}/language`}/en-GB/langmetadata.json`
+            );
+
+            return res?.default?.metadata;
+        } catch {
+            return undefined;
+        }
     }
 }

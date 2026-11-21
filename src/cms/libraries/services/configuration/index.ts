@@ -4,6 +4,9 @@ import { eq } from 'drizzle-orm';
 
 import { cmsConfigTable, db, usersTable } from '@/libraries/services/database';
 
+import isEmpty from 'lodash/isEmpty';
+import isObject from 'lodash/isObject';
+
 const GLOBAL_CONFIG_KEY = 'global-config';
 
 let installed = false;
@@ -20,7 +23,7 @@ export const getConfiguration = async () => {
 export const checkInstalled = async () => {
     const config = await getConfiguration();
 
-    const hasGlobalConfig = Boolean(config) && typeof config === 'object' && Object.keys(config as object).length > 0;
+    const hasGlobalConfig = isObject(config) && !isEmpty(config);
 
     if (!hasGlobalConfig) return false;
 

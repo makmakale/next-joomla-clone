@@ -4,28 +4,23 @@ import { cn } from 'cn';
 
 import { InstallationView, RemoveSteps, useInstallationContext } from '@/cms/installation';
 import SetDefaultLanguages from '@/cms/installation/tmpl/remove/defaultLanguages';
-import InstlRecommended from '@/cms/installation/tmpl/remove/recommended';
+import Recommended from '@/cms/installation/tmpl/remove/recommended';
 
 import JIcon from '@/libraries/shared/components/Icon';
 import JText from '@/libraries/shared/components/Text';
 import { Button } from '@/libraries/shared/shadcn/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/libraries/shared/shadcn/ui/card';
-import { useApplication } from '@/libraries/src/Application';
 import { useLanguageContext } from '@/libraries/src/Language';
 
-import InstallAdditionalLanguages from './components/installLanguages';
+import AdditionalLanguages from './components/installLanguages';
 
 const Remove = () => {
-    const { getInput } = useApplication();
     const { metadata } = useLanguageContext();
     const {
-        setupModel: { step, goToStep },
+        removeModel: { view, step, goToStep },
     } = useInstallationContext();
 
-    const input = getInput();
-    const view = input.get('view');
-
-    const direction = metadata.rtl ? 'left' : 'right';
+    const direction = metadata?.rtl ? 'left' : 'right';
 
     return (
         <div className={cn('space-y-6', { hidden: view !== InstallationView.Remove })}>
@@ -37,13 +32,13 @@ const Remove = () => {
                     </CardTitle>
                 </CardHeader>
 
-                <CardContent className="pt-6">
+                <CardContent>
                     <h2 className="mt-6 mb-4 text-[calc(1.275rem+0.3vw)] font-semibold">
                         <JText text="INSTL_COMPLETE_TITLE" />
                     </h2>
 
                     <div className="flex flex-col gap-4">
-                        <Button onClick={() => goToStep('installAddFeatures')}>
+                        <Button onClick={() => goToStep('installLanguages')}>
                             <JText text="INSTL_COMPLETE_ADD_EXTRA_LANGUAGE" />
                             <JIcon icon={`chevron-${direction}`} className="me-1" />
                         </Button>
@@ -53,9 +48,9 @@ const Remove = () => {
                 </CardContent>
             </Card>
 
-            <InstlRecommended />
+            <Recommended />
 
-            <InstallAdditionalLanguages />
+            <AdditionalLanguages />
         </div>
     );
 };

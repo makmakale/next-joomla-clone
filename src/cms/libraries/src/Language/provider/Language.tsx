@@ -15,7 +15,7 @@ export const useLanguageContext = () => {
     return context;
 };
 
-export default function Language({ children, ...props }: PropsWithChildren<LanguageProps>) {
+export function Language({ children, ...props }: PropsWithChildren<LanguageProps>) {
     const value = useCtxValue(props);
 
     return <LanguageContext.Provider value={value}>{children}</LanguageContext.Provider>;

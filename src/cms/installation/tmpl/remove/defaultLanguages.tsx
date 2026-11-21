@@ -1,5 +1,7 @@
 'use client';
 
+import { useState } from 'react';
+
 import { cn } from 'cn';
 
 import { useInstallationContext } from '@/cms/installation';
@@ -20,6 +22,12 @@ import {
 
 const SetDefaultLanguages = () => {
     const { installedLanguages } = useInstallationContext();
+    const [published, setPublished] = useState({
+        administrator: installedLanguages.administrator.find(l => l.published)?.language,
+        frontend: installedLanguages.frontend.find(l => l.published)?.language,
+    });
+
+    const showButton = installedLanguages.frontend.length > 1 || installedLanguages.administrator.length > 1;
 
     return (
         <div className="flex flex-col gap-4">
@@ -50,7 +58,8 @@ const SetDefaultLanguages = () => {
                                     id={`admin-language-cb${i}`}
                                     value={lang.language}
                                     className="size-4"
-                                    checked={lang.published}
+                                    checked={published.administrator === lang.language}
+                                    onChange={() => setPublished(prev => ({ ...prev, administrator: lang.language }))}
                                 />
                             </TableCell>
                             <TableCell>
@@ -89,7 +98,8 @@ const SetDefaultLanguages = () => {
                                     id={`site-language-cb${i}`}
                                     value={lang.language}
                                     className="size-4"
-                                    checked={lang.published}
+                                    checked={published.frontend === lang.language}
+                                    onChange={() => setPublished(prev => ({ ...prev, frontend: lang.language }))}
                                 />
                             </TableCell>
                             <TableCell>
@@ -101,7 +111,7 @@ const SetDefaultLanguages = () => {
                 </TableBody>
             </Table>
 
-            <Button>
+            <Button className={cn({ hidden: !showButton })}>
                 <JText text="INSTL_DEFAULTLANGUAGE_SET_DEFAULT_LANGUAGE" />
             </Button>
         </div>

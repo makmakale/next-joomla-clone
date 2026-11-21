@@ -8,6 +8,6 @@ export type LocaleMetadata = {
 };
 export interface LanguageProps {
     locale: Locale;
-    metadata: LocaleMetadata;
+    metadata: LocaleMetadata | undefined;
     messages: Messages;
 }

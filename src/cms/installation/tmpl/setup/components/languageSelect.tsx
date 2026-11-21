@@ -32,11 +32,15 @@ const LanguageSelect = () => {
                     <JIcon icon="globe" className="me-1" />
                     <JText text="INSTL_SELECTED_INSTALL_LANGUAGE" />
                 </CardTitle>
-                <CardDescription>
-                    <div className="font-bold">
-                        {metadata?.name} | {metadata?.nativeName}
-                    </div>
-                </CardDescription>
+
+                {metadata ? (
+                    <CardDescription>
+                        <div className="font-bold">
+                            {metadata?.name} | {metadata?.nativeName}
+                        </div>
+                    </CardDescription>
+                ) : null}
+
                 <CardAction>
                     <Dialog open={open} onOpenChange={setOpen}>
                         <DialogTrigger

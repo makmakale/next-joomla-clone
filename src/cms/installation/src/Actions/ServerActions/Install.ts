@@ -2,7 +2,6 @@ import type { InstallationStep } from '@/cms/installation';
 import type { SetupSchema } from '@/cms/installation/forms';
 import { clearInstallationData } from '@/cms/installation/sql/clear';
 import { setGlobalConfig } from '@/cms/installation/sql/config';
-
 import { seedAssets } from '@/cms/installation/sql/postgres/base/assets';
 import { seedExtensions } from '@/cms/installation/sql/postgres/base/extensions';
 import { seedLanguages } from '@/cms/installation/sql/postgres/base/languages';
@@ -20,10 +19,12 @@ import { seedViewLevels } from '@/cms/installation/sql/postgres/base/viewLevels'
 import { seedWorkflowStages } from '@/cms/installation/sql/postgres/base/workflowStages';
 import { seedWorkflowTransitions } from '@/cms/installation/sql/postgres/base/workflowTransitions';
 import { seedWorkflows } from '@/cms/installation/sql/postgres/base/workflows';
+import { setSuperAdminUser } from '@/cms/installation/sql/users';
 
 export const getInstallSteps = (data?: SetupSchema): InstallationStep[] => [
     { id: 'clear', label: 'Очистка данных предыдущей установки', run: clearInstallationData },
     { id: 'config', label: 'Конфигурация сайта', run: () => setGlobalConfig(data?.site_name) },
+    { id: 'user', label: 'Создание администратора', run: () => setSuperAdminUser(data) },
     { id: 'assets', label: 'Дерево прав доступа (ACL)', run: seedAssets },
     { id: 'extensions', label: 'Регистрация расширений', run: seedExtensions },
     { id: 'languages', label: 'Языки', run: seedLanguages },

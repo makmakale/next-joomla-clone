@@ -15,6 +15,7 @@ import {
     CardHeader,
     CardTitle,
 } from '@/libraries/shared/shadcn/ui/card';
+import Version from '@/libraries/src/Version';
 
 const InstallWizard = () => {
     return (
@@ -29,7 +30,7 @@ const InstallWizard = () => {
                             <h2 className="text-2xl font-bold">
                                 <JText text="INSTL_PAGE_TITLE" />
                             </h2>
-                            <span className="mx-1 text-xs">Joomla! {process.env.APP_VERSION}</span>
+                            <span className="mx-1 text-xs">Joomla! {new Version().getShortVersion()}</span>
                         </div>
                     </CardDescription>
                     <CardAction>
@@ -56,7 +57,10 @@ const InstallWizard = () => {
                 </CardContent>
 
                 <CardFooter className="justify-center">
-                    <a href="https://www.joomla.org">Joomla!</a> is Free Software released under the GNU General Public License.
+                    <a href="https://www.joomla.org" className="me-1">
+                        Joomla!
+                    </a>{' '}
+                    is Free Software released under the GNU General Public License.
                 </CardFooter>
             </Card>
         </div>

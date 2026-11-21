@@ -1,5 +1,7 @@
 import type { Metadata, ResolvingMetadata } from 'next';
 
+import Demo from './components/demo';
+
 export async function generateMetadata(props: PageProps<'/'>, parent: ResolvingMetadata): Promise<Metadata> {
     return {
         title: 'Administrator',
@@ -7,5 +9,5 @@ export async function generateMetadata(props: PageProps<'/'>, parent: ResolvingM
 }
 
 export default async () => {
-    return 'Administrator';
+    return <Demo />;
 };

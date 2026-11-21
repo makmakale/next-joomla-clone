@@ -2,7 +2,7 @@
 
 import { useLayoutEffect } from 'react';
 
-import { InstallationView, SetupSteps, useInstallationLanguage, useSetupModel } from '@/cms/installation';
+import { InstallationView, SetupSteps, useInstallationLanguage, useRemoveModel, useSetupModel } from '@/cms/installation';
 import type { InstallApplicationProps } from '@/cms/installation';
 
 import { useApplication } from '@/libraries/src/Application';
@@ -25,6 +25,7 @@ export const useCtxValue = (props: InstallApplicationProps) => {
 
     const languageModel = useInstallationLanguage();
     const setupModel = useSetupModel();
+    const removeModel = useRemoveModel();
 
-    return { ...props, languageModel, setupModel };
+    return { ...props, languageModel, setupModel, removeModel };
 };
