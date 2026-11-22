@@ -1,8 +1,7 @@
 import { getInstalledLangsAdministrator, getInstalledLangsFrontend, getLanguageOptions, loadUpdates } from '@/cms/installation';
 
 import { Application } from '@/libraries/src/Application';
-import { getLanguageMetadata, getLocale, loadMessages } from '@/libraries/src/Language';
-import Language from '@/libraries/src/Language/provider/Language';
+import { Language, getLanguageMetadata, getLocale, loadMessages } from '@/libraries/src/Language';
 import { ThemeProvider } from '@/libraries/vendor/wrappers';
 
 import { InstallProvider } from '../../includes/app';
