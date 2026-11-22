@@ -1,14 +1,13 @@
 'use server';
 
 import { eq, sql } from 'drizzle-orm';
-import type { NodePgDatabase } from 'drizzle-orm/node-postgres';
 
 import type { NewMenu } from '@/libraries/services/database';
 import { db, extensionsTable, menuTable } from '@/libraries/services/database';
 
 import { resetSerial } from '../../resetSerial';
 
-async function extId(db: NodePgDatabase<any>, name: string): Promise<number> {
+async function extId(name: string): Promise<number> {
     const [row] = await db
         .select({ id: extensionsTable.extensionId })
         .from(extensionsTable)
@@ -52,15 +51,15 @@ export const seedMenu = async () => {
                 ),
             );
 
-        const comBanners = await extId(db, 'com_banners');
-        const comCategories = await extId(db, 'com_categories');
-        const comContact = await extId(db, 'com_contact');
-        const comNewsfeeds = await extId(db, 'com_newsfeeds');
-        const comFinder = await extId(db, 'com_finder');
-        const comTags = await extId(db, 'com_tags');
-        const comAssociations = await extId(db, 'com_associations');
-        const comFields = await extId(db, 'com_fields');
-        const comContent = await extId(db, 'com_content');
+        const comBanners = await extId('com_banners');
+        const comCategories = await extId('com_categories');
+        const comContact = await extId('com_contact');
+        const comNewsfeeds = await extId('com_newsfeeds');
+        const comFinder = await extId('com_finder');
+        const comTags = await extId('com_tags');
+        const comAssociations = await extId('com_associations');
+        const comFields = await extId('com_fields');
+        const comContent = await extId('com_content');
 
         const componentRows: NewMenu[] = [
             transform(
