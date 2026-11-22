@@ -12,18 +12,12 @@ const nextConfig: NextConfig = {
                 as: '*.css',
             },
         },
-    },
-    async rewrites() {
-        return [
+        ignoreIssue: [
             {
-                source: '/',
-                destination: '/index',
+                path: '**/src/cms/**',
+                description: /<dynamic>/,
             },
-            {
-                source: '/administrator',
-                destination: '/administrator/index',
-            },
-        ];
+        ],
     },
     env: {
         APP_VERSION: packageJson.version,

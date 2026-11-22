@@ -2,19 +2,20 @@ import { AlertTriangleIcon, InfoIcon } from 'lucide-react';
 
 import { Alert, AlertAction, AlertDescription, AlertTitle } from '@/libraries/shared/shadcn/ui/alert';
 import { Button } from '@/libraries/shared/shadcn/ui/button';
-import { useAlert } from '@/libraries/src/Alert/Alert';
 
 export interface JIncludeMessageType {
     type: 'message';
 }
 
 export function JIncludeMessage() {
-    const { message, clearMessage } = useAlert();
-
-    if (!message) return null;
+    const message = {
+        type: 'error',
+        title: 'TODO',
+        description: 'Test alert',
+    };
 
     return (
-        <Alert variant={message.type}>
+        <Alert variant="default">
             {message.type === 'info' && <InfoIcon />}
             {message.type === 'warning' && <AlertTriangleIcon />}
             {message.type === 'error' && <AlertTriangleIcon />}
@@ -32,7 +33,7 @@ export function JIncludeMessage() {
             )}
 
             <AlertAction>
-                <Button variant="ghost" size="icon" onClick={clearMessage}>
+                <Button variant="ghost" size="icon">
                     <i className="fa-solid fa-xmark" />
                 </Button>
             </AlertAction>

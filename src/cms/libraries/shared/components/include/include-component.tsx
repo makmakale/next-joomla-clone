@@ -2,41 +2,53 @@
 
 import dynamic from 'next/dynamic';
 
-import { useApplication } from '@/libraries/src/Application/Application';
-import type { AppInput } from '@/libraries/src/Application/Application.types';
+import { useApplication } from '@/libraries/src/Application';
 
 export interface JIncludeComponentType {
     type: 'component';
 }
 
 export function JIncludeComponent() {
-    const { clientId, getInput } = useApplication();
-    const $input = getInput();
+    const { name, getInput } = useApplication();
 
-    const option = $input.get('option');
-    const view = $input.get('view');
-    const layout = $input.get('layout');
+    const input = getInput();
+    const option = input.get('option') ?? '';
+    const view = input.get('view') ?? '';
+    const layout = input.get('layout') ?? 'default';
 
-    const params = { option, view, layout } as AppInput;
-    const RenderComponent = dynamic(() => getComponent(clientId, params));
+    if (!view) return null;
+
+    const filePath = option ? `${option}/${view}/${layout}` : `${view}/${layout}`;
+
+    const RenderComponent = dynamic(() => getComponent(name, filePath), { ssr: false });
 
     return <RenderComponent />;
 }
 
-export const getComponent = async (clientId: number, params: AppInput) => {
-    const { option, view, layout } = params;
+export const getComponent = async (name: string, filePath: string) => {
+    switch (name) {
+        case 'installation':
+            try {
+                return await import(`@/cms/installation/tmpl/${filePath}`);
+            } catch {
+                return () => `@/cms/installation/tmpl/${filePath} not found`;
+            }
 
-    try {
-        return clientId === 1
-            ? await import(`@/cms/administrator/components/${option}/tmpl/${view}/${layout}`)
-            : await import(`@/cms/components/${option}/tmpl/${view}/${layout}`);
-    } catch {
-        return () => fallback(params);
+        case 'administrator':
+            try {
+                return await import(`@/cms/administrator/components/${filePath}`);
+            } catch {
+                return () => `@/cms/administrator/components/${filePath} not found`;
+            }
+
+        case 'site':
+            try {
+                return await import(`@/cms/components/${filePath}`);
+            } catch {
+                return () => `@/cms/components/${filePath} not found`;
+            }
+
+        default:
+            return () => `${filePath} not found for ${name}`;
     }
 };
-
-function fallback(params: AppInput) {
-    const { option, view, layout } = params;
-
-    return `${option}/tmpl/${view}/${layout} not found`;
-}

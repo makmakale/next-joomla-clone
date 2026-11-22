@@ -4,11 +4,11 @@ import { Field, FieldContent, FieldError, FieldLabel } from '@/libraries/shared/
 import { Input } from '@/libraries/shared/shadcn/ui/input';
 import { useJFormContext } from '@/libraries/src/Form/Form';
 import type { TextFieldProps } from '@/libraries/src/Form/FormField.types';
-import { useLanguage } from '@/libraries/src/Language/Language';
+import { useTranslations } from '@/libraries/src/Language';
 
 const TextField = ({ name, label, className, required, ...props }: TextFieldProps) => {
     const { control } = useFormContext();
-    const { t } = useLanguage();
+    const t = useTranslations();
 
     const { getFieldError } = useJFormContext();
     const errorMsg = getFieldError(name);

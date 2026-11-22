@@ -1,5 +1,7 @@
 import { z } from 'zod';
 
+import { SetupSteps } from '@/cms/installation';
+
 export const langSchema = z.object({
     language: z.string(),
 });
@@ -7,6 +9,7 @@ export const langSchema = z.object({
 export type LanguageSchema = z.infer<typeof langSchema>;
 
 export const setupSchema = z.object({
+    language: z.string(),
     site_name: z.string().min(1, 'JLIB_FORM_FIELD_REQUIRED_VALUE').max(30),
     admin_user: z.string().min(1, 'JLIB_FORM_FIELD_REQUIRED_VALUE'),
     admin_username: z.string().min(1, 'JLIB_FORM_FIELD_REQUIRED_VALUE'),
@@ -16,10 +19,13 @@ export const setupSchema = z.object({
 
 export type SetupSchema = z.infer<typeof setupSchema>;
 
-export const formSteps = [
-    { fields: ['site_name'] as const, schema: setupSchema.pick({ site_name: true }) },
-    {
+export const formSteps = {
+    [SetupSteps.Step1]: {
+        fields: ['language', 'site_name'] as const,
+        schema: setupSchema.pick({ language: true, site_name: true }),
+    },
+    [SetupSteps.Step2]: {
         fields: ['admin_user', 'admin_username', 'admin_password', 'admin_email'] as const,
         schema: setupSchema.omit({ admin_user: true }),
     },
-];
+};

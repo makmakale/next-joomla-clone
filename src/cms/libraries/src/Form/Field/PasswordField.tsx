@@ -7,13 +7,13 @@ import { Field, FieldContent, FieldDescription, FieldError, FieldLabel } from '@
 import { InputGroup, InputGroupAddon, InputGroupButton, InputGroupInput } from '@/libraries/shared/shadcn/ui/input-group';
 import { useJFormContext } from '@/libraries/src/Form/Form';
 import type { PasswordFieldProps } from '@/libraries/src/Form/FormField.types';
-import { useLanguage } from '@/libraries/src/Language/Language';
+import { useTranslations } from '@/libraries/src/Language';
 
 const TextField = ({ name, label, description, className, required, ...props }: PasswordFieldProps) => {
     const [showPassword, setShowPassword] = useState(false);
 
     const { control } = useFormContext();
-    const { t } = useLanguage();
+    const t = useTranslations();
 
     const { getFieldError } = useJFormContext();
     const errorMsg = getFieldError(name);

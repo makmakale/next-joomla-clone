@@ -4,7 +4,7 @@ export const menuTable = p.pgTable(
     'menu',
     {
         id: p.serial('id').notNull().primaryKey(),
-        menutype: p.varchar('menutype', { length: 24 }).notNull(),
+        menuType: p.varchar('menutype', { length: 24 }).notNull(),
         title: p.varchar('title', { length: 255 }).notNull(),
         alias: p.varchar('alias', { length: 255 }).notNull(),
         note: p.varchar('note', { length: 255 }).default('').notNull(),
@@ -34,8 +34,8 @@ export const menuTable = p.pgTable(
         p
             .uniqueIndex('menu_idx_client_id_parent_id_alias_language')
             .on(table.clientId, table.parentId, table.alias, table.language),
-        p.index('menu_idx_componentid').on(table.componentId, table.menutype, table.published, table.access),
-        p.index('menu_idx_menutype').on(table.menutype),
+        p.index('menu_idx_componentid').on(table.componentId, table.menuType, table.published, table.access),
+        p.index('menu_idx_menutype').on(table.menuType),
         p.index('menu_idx_left_right').on(table.lft, table.rgt),
         p.index('menu_idx_alias').on(table.alias),
         p.index('menu_idx_path').on(table.path),
