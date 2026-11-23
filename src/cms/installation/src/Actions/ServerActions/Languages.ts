@@ -47,17 +47,23 @@ export async function getLanguageOptions() {
  * @return  array  The language data.
  */
 export async function getLanguageList(clientId = 1) {
-    return db
-        .select({ element: extensionsTable.element, name: extensionsTable.name })
-        .from(extensionsTable)
-        .where(
-            p.and(
-                p.eq(extensionsTable.type, 'language'),
-                p.eq(extensionsTable.state, 0),
-                p.eq(extensionsTable.enabled, true),
-                p.eq(extensionsTable.clientId, clientId),
-            ),
-        );
+    try {
+        return db
+            .select({ element: extensionsTable.element, name: extensionsTable.name })
+            .from(extensionsTable)
+            .where(
+                p.and(
+                    p.eq(extensionsTable.type, 'language'),
+                    p.eq(extensionsTable.state, 0),
+                    p.eq(extensionsTable.enabled, true),
+                    p.eq(extensionsTable.clientId, clientId),
+                ),
+            );
+    } catch (err) {
+        console.error(err);
+
+        return [];
+    }
 }
 
 /**

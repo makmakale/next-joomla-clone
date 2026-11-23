@@ -976,7 +976,7 @@ const FAKE_UPDATES: NewUpdate[] = [
 
 export async function loadUpdates() {
     try {
-        await db.delete(updatesTable);
+        // await db.delete(updatesTable);
 
         const results = await db.select().from(updatesTable);
         if (results.length > 0) {
