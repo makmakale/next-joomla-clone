@@ -13,6 +13,7 @@
   "endOfLine": "auto",
   "importOrder": [
     "^dotenv/*",
+    "^server-only",
     "^react$",
     "^next/(.*)$",
     "<THIRD_PARTY_MODULES>",

@@ -19,8 +19,8 @@ import Version from '@/libraries/src/Version';
 
 const InstallWizard = () => {
     return (
-        <div className="flex min-h-screen w-full items-center justify-center bg-gradient-to-r from-indigo-400 to-cyan-400 p-6">
-            <Card className="mx-auto min-h-[60vh] w-full max-w-7xl py-0">
+        <div className="flex min-h-screen w-full flex-col items-center justify-center bg-gradient-to-r from-indigo-400 to-cyan-400 p-6">
+            <Card className="w-full flex-1 py-0">
                 <CardHeader className="bg-foreground p-4">
                     <CardTitle>
                         <Image src={logo} alt="logo" width={150} />

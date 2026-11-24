@@ -14,6 +14,7 @@ import { seedTemplateStyles } from '@/cms/installation/sql/postgres/base/templat
 import { seedTufMetadata } from '@/cms/installation/sql/postgres/base/tufMetadata';
 import { seedUpdateSites } from '@/cms/installation/sql/postgres/base/updateSites';
 import { seedUpdateSitesExtensions } from '@/cms/installation/sql/postgres/base/updateSitesExtensions';
+import { loadUpdates } from '@/cms/installation/sql/postgres/base/updates';
 import { seedUserGroups } from '@/cms/installation/sql/postgres/base/userGroups';
 import { seedViewLevels } from '@/cms/installation/sql/postgres/base/viewLevels';
 import { seedWorkflowStages } from '@/cms/installation/sql/postgres/base/workflowStages';
@@ -23,6 +24,7 @@ import { setSuperAdminUser } from '@/cms/installation/sql/users';
 
 export const getInstallSteps = (data?: SetupSchema): InstallationStep[] => [
     { id: 'clear', label: 'Очистка данных предыдущей установки', run: clearInstallationData },
+    { id: 'checkUpdates', label: 'Проверка обновлений', run: loadUpdates },
     { id: 'config', label: 'Конфигурация сайта', run: () => setGlobalConfig(data?.site_name) },
     { id: 'user', label: 'Создание администратора', run: () => setSuperAdminUser(data) },
     { id: 'assets', label: 'Дерево прав доступа (ACL)', run: seedAssets },

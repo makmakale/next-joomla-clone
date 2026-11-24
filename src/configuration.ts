@@ -5,6 +5,7 @@ const JConfig = {
     dbPass: process.env.DB_PASSWORD!,
     dbName: process.env.DB_NAME!,
     dbSsl: process.env.NODE_ENV === 'production',
+    sessionSecret: process.env.SESSION_SECRET,
 };
 
 export default JConfig;
