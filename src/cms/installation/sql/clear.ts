@@ -15,6 +15,7 @@ import {
     tufMetadataTable,
     updateSitesExtensionsTable,
     updateSitesTable,
+    updatesTable,
     userGroupsTable,
     viewLevelsTable,
     workflowStagesTable,
@@ -24,6 +25,7 @@ import {
 
 export const clearInstallationData = async () => {
     try {
+        await db.delete(updatesTable);
         await db.delete(cmsConfigTable);
         await db.delete(assetsTable);
         await db.delete(extensionsTable);

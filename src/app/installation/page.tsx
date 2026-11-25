@@ -1,7 +1,5 @@
 import type { Metadata } from 'next';
 
-import { InstallationApplication } from '@/cms/installation';
-
 import { getTranslations } from '@/libraries/src/Language';
 
 export const generateMetadata = async (): Promise<Metadata> => {
@@ -12,6 +10,4 @@ export const generateMetadata = async (): Promise<Metadata> => {
     };
 };
 
-export default async () => {
-    return <InstallationApplication />;
-};
+export default () => null;

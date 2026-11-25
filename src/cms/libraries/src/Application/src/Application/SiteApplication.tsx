@@ -1,9 +1,11 @@
+import type { PropsWithChildren } from 'react';
+
 import { Language, getLanguageMetadata, getLocale, loadMessages } from '@/libraries/src/Language';
 import { ThemeProvider } from '@/libraries/vendor/wrappers';
 
-import { Application } from './Application';
+import { Application } from '../../provider/Application';
 
-export async function SiteApplication({ children }: LayoutProps<'/'>) {
+export async function SiteApplication({ children }: PropsWithChildren) {
     // Language
     const locale = await getLocale('site');
     const metadata = await getLanguageMetadata('site', locale);

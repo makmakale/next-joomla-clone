@@ -18,7 +18,7 @@ export const getConfiguration = async () => {
             .from(cmsConfigTable)
             .where(eq(cmsConfigTable.key, GLOBAL_CONFIG_KEY));
 
-        return config?.params;
+        return (config?.params ?? {}) as Record<string, unknown>;
     } catch (err) {
         dbErrorHandler(err);
     }

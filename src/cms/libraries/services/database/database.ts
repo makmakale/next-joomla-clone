@@ -1,8 +1,10 @@
-import JConfig from '@/configuration';
-import { drizzle } from 'drizzle-orm/node-postgres';
+import 'server-only';
+
 import { Pool } from 'pg';
 
 import * as schema from './schema';
+import JConfig from '@/configuration';
+import { drizzle } from 'drizzle-orm/node-postgres';
 
 const globalDb = globalThis as typeof globalThis & { pgPool?: Pool };
 
