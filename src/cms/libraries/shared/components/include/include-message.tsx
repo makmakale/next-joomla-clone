@@ -1,3 +1,5 @@
+import { useState } from 'react';
+
 import { AlertTriangleIcon, InfoIcon } from 'lucide-react';
 
 import { Alert, AlertAction, AlertDescription, AlertTitle } from '@/libraries/shared/shadcn/ui/alert';
@@ -7,12 +9,20 @@ export interface JIncludeMessageType {
     type: 'message';
 }
 
+type DemoMessage = {
+    type: string;
+    title: string;
+    description?: string | string[];
+};
+
 export function JIncludeMessage() {
-    const message = {
+    const [message, setMessage] = useState<DemoMessage | undefined>({
         type: 'error',
         title: 'TODO',
         description: 'Test alert',
-    };
+    });
+
+    if (!message) return null;
 
     return (
         <Alert variant="default">
@@ -33,7 +43,7 @@ export function JIncludeMessage() {
             )}
 
             <AlertAction>
-                <Button variant="ghost" size="icon">
+                <Button variant="ghost" size="icon" onClick={() => setMessage(undefined)}>
                     <i className="fa-solid fa-xmark" />
                 </Button>
             </AlertAction>
