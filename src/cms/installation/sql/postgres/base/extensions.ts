@@ -291,7 +291,7 @@ export const seedExtensions = async () => {
             transform(0, 'Joomla! Platform', 'library', 'joomla', '', 0, 1, 1, 1, 1, '', '', '', 0, 0),
             transform(0, 'PHPass', 'library', 'phpass', '', 0, 1, 1, 1, 1, '', '', '', 0, 0),
 
-            // -- Modules: Site
+            // -- Login: Site
             transform(0, 'mod_articles_archive', 'module', 'mod_articles_archive', '', 0, 1, 1, 0, 1, '', '', '', 0, 0),
             transform(0, 'mod_articles_latest', 'module', 'mod_articles_latest', '', 0, 1, 1, 0, 1, '', '', '', 0, 0),
             transform(0, 'mod_articles_popular', 'module', 'mod_articles_popular', '', 0, 1, 1, 0, 1, '', '', '', 0, 0),
@@ -316,7 +316,7 @@ export const seedExtensions = async () => {
             transform(0, 'mod_finder', 'module', 'mod_finder', '', 0, 1, 0, 0, 1, '', '', '', 0, 0),
             transform(0, 'mod_articles', 'module', 'mod_articles', '', 0, 1, 0, 0, 1, '', '', '', 0, 0),
 
-            // -- Modules: Administrator
+            // -- Login: Administrator
             transform(0, 'mod_custom', 'module', 'mod_custom', '', 1, 1, 1, 0, 1, '', '', '', 0, 0),
             transform(0, 'mod_feed', 'module', 'mod_feed', '', 1, 1, 1, 0, 1, '', '', '', 0, 0),
             transform(0, 'mod_latest', 'module', 'mod_latest', '', 1, 1, 1, 0, 1, '', '', '', 0, 0),

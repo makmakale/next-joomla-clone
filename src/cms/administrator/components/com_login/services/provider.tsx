@@ -3,9 +3,7 @@
 import type { PropsWithChildren } from 'react';
 import { createContext, use } from 'react';
 
-const useCtxValue = () => {
-    return {};
-};
+import { useCtxValue } from '../src/hooks/Login/useCtxValue';
 
 const ComLoginContext = createContext<ReturnType<typeof useCtxValue> | null>(null);
 

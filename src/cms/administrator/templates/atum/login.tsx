@@ -1,24 +1,106 @@
+import Image from 'next/image';
+
+import { cn } from 'cn';
+
 import JInclude from '@/libraries/shared/components/include';
-import { Card, CardContent, CardHeader, CardTitle } from '@/libraries/shared/shadcn/ui/card';
+import { Card, CardContent, CardHeader } from '@/libraries/shared/shadcn/ui/card';
+import {
+    Sidebar,
+    SidebarContent,
+    SidebarFooter,
+    SidebarGroup,
+    SidebarHeader,
+    SidebarInset,
+    SidebarProvider,
+    useSidebar,
+} from '@/libraries/shared/shadcn/ui/sidebar';
+import { useApplication } from '@/libraries/src/Application';
+import { useTranslations } from '@/libraries/src/Language';
+
+import brandLarge from './images/logos/brand-large.svg';
+import brandSmall from './images/logos/brand-small.svg';
+import loginLogo from './images/logos/login.svg';
 
 const AtumLogin = () => {
-    return (
-        <div className="flex min-h-screen w-full flex-col items-center justify-center bg-gradient-to-r from-indigo-400 to-cyan-400 p-6">
-            <Card className="w-full flex-1 py-0">
-                <CardHeader>
-                    <CardTitle>Login</CardTitle>
-                </CardHeader>
+    const { config } = useApplication();
+    const t = useTranslations();
+    const { open } = useSidebar();
 
-                <CardContent className="flex-1">
-                    <div className="flex w-full flex-1 flex-col items-center justify-center">
-                        <main className="w-full max-w-160 flex-1 space-y-6 py-4">
-                            <JInclude type="component" />
-                        </main>
+    return (
+        <>
+            <Sidebar variant="inset">
+                <SidebarHeader className="h-16">
+                    <div className={cn('flex h-full items-center', { 'justify-center': !open })}>
+                        <Image
+                            src={open ? brandLarge : brandSmall}
+                            alt={t('TPL_ATUM_BACK_TO_CONTROL_PANEL')}
+                            loading="eager"
+                            decoding="async"
+                        />
                     </div>
-                </CardContent>
-            </Card>
-        </div>
+                </SidebarHeader>
+
+                <SidebarContent>
+                    <SidebarGroup>
+                        <div className="mbs-25 flex-auto text-center">
+                            <h1>{config.siteName as string}</h1>
+                            <h2>{t('TPL_ATUM_BACKEND_LOGIN')}</h2>
+                        </div>
+                    </SidebarGroup>
+                    <SidebarGroup />
+                </SidebarContent>
+                <SidebarFooter>
+                    <JInclude type="modules" name="sidebar" style="body" />
+                </SidebarFooter>
+            </Sidebar>
+
+            <SidebarInset className="overflow-hidden">
+                <div className="flex h-16 shrink-0 items-center border-b transition-[width,height] ease-linear">
+                    <div className="flex w-full items-center gap-1 px-4 lg:gap-2 lg:px-6">
+                        <JInclude type="modules" name="title" />
+
+                        <div className="ml-auto flex items-center gap-2">
+                            <JInclude type="modules" name="status" />
+                        </div>
+                    </div>
+                </div>
+
+                <div className="flex flex-1 flex-col">
+                    <div className="@container/main flex flex-1 flex-col items-center justify-center gap-2">
+                        <div className="flex w-full max-w-md flex-col gap-4 px-4 py-4 md:gap-6 md:px-6 md:py-6">
+                            <Card>
+                                <CardHeader>
+                                    <div className="flex justify-center">
+                                        <Image src={loginLogo} alt="" loading="eager" decoding="async" />
+                                    </div>
+                                </CardHeader>
+                                <CardContent>
+                                    <div className="login_message">
+                                        <JInclude type="message" />
+                                    </div>
+                                    <div className="flex h-full items-center justify-center">
+                                        <div className="login w-full">
+                                            <JInclude type="component" />
+                                        </div>
+                                    </div>
+                                </CardContent>
+                            </Card>
+                        </div>
+                    </div>
+                </div>
+            </SidebarInset>
+        </>
     );
 };
 
-export default AtumLogin;
+export default () => (
+    <SidebarProvider
+        style={
+            {
+                '--sidebar-width': '400px',
+            } as React.CSSProperties
+        }
+    >
+        <AtumLogin />
+    </SidebarProvider>
+);

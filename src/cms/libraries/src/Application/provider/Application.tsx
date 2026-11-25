@@ -9,6 +9,7 @@ import { useSearchParams } from 'next/navigation';
 
 import { getConfiguration } from '@/libraries/services/configuration';
 import type { AppInputType } from '@/libraries/src/Application';
+import { getModuleList } from '@/libraries/src/Module';
 import { TanstackQuery } from '@/libraries/vendor/wrappers';
 
 import { useQuery } from '@tanstack/react-query';
@@ -34,11 +35,17 @@ const useContextValue = (props: ApplicationProps) => {
         setInput(prev => ({ ...prev, [key]: val }));
     }, []);
 
+    const { data: modules = [] } = useQuery({
+        queryKey: ['get_client_modules', props.clientId],
+        queryFn: () => getModuleList(props.clientId),
+    });
+
     return {
         ...props,
-        config,
+        config: config!,
         getInput: () => new Map(Object.entries(input)),
         changeInput,
+        modules,
     };
 };
 

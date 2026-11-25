@@ -2,19 +2,20 @@
 
 import * as React from 'react';
 
-import { mergeProps } from '@base-ui/react/merge-props';
-import { useRender } from '@base-ui/react/use-render';
 import { type VariantProps, cva } from 'class-variance-authority';
 import { cn } from 'cn';
 import { PanelLeftIcon } from 'lucide-react';
 
-import { useIsMobile } from '@/libraries/shared/shadcn/hooks/use-mobile';
-import { Button } from '@/libraries/shared/shadcn/ui/button';
-import { Input } from '@/libraries/shared/shadcn/ui/input';
-import { Separator } from '@/libraries/shared/shadcn/ui/separator';
-import { Sheet, SheetContent, SheetDescription, SheetHeader, SheetTitle } from '@/libraries/shared/shadcn/ui/sheet';
-import { Skeleton } from '@/libraries/shared/shadcn/ui/skeleton';
-import { Tooltip, TooltipContent, TooltipTrigger } from '@/libraries/shared/shadcn/ui/tooltip';
+import { useIsMobile } from '@/cms/libraries/shared/shadcn/hooks/use-mobile';
+import { Button } from '@/cms/libraries/shared/shadcn/ui/button';
+import { Input } from '@/cms/libraries/shared/shadcn/ui/input';
+import { Separator } from '@/cms/libraries/shared/shadcn/ui/separator';
+import { Sheet, SheetContent, SheetDescription, SheetHeader, SheetTitle } from '@/cms/libraries/shared/shadcn/ui/sheet';
+import { Skeleton } from '@/cms/libraries/shared/shadcn/ui/skeleton';
+import { Tooltip, TooltipContent, TooltipTrigger } from '@/cms/libraries/shared/shadcn/ui/tooltip';
+
+import { mergeProps } from '@base-ui/react/merge-props';
+import { useRender } from '@base-ui/react/use-render';
 
 const SIDEBAR_COOKIE_NAME = 'sidebar_state';
 const SIDEBAR_COOKIE_MAX_AGE = 60 * 60 * 24 * 7;
@@ -286,7 +287,7 @@ function SidebarInset({ className, ...props }: React.ComponentProps<'main'>) {
         <main
             data-slot="sidebar-inset"
             className={cn(
-                'bg-background relative flex w-full flex-1 flex-col md:peer-data-[variant=inset]:m-2 md:peer-data-[variant=inset]:ml-0 md:peer-data-[variant=inset]:rounded-xl md:peer-data-[variant=inset]:shadow-sm md:peer-data-[variant=inset]:peer-data-[state=collapsed]:ml-2',
+                'bg-background relative flex w-full flex-1 flex-col md:peer-data-[variant=inset]:m-4 md:peer-data-[variant=inset]:ml-0 md:peer-data-[variant=inset]:rounded-xl md:peer-data-[variant=inset]:shadow-sm md:peer-data-[variant=inset]:peer-data-[state=collapsed]:ml-2',
                 className,
             )}
             {...props}

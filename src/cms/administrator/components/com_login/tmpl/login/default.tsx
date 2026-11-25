@@ -1,24 +1,17 @@
 'use client';
 
-import { useApplication } from '@/libraries/src/Application';
+import { RenderModule } from '@/libraries/src/Module';
 
-const Default = () => {
-    const { getInput } = useApplication();
+import { useComLoginContext } from '../../services/provider';
 
-    const input = getInput();
-    const option = input.get('option') ?? '';
-    const view = input.get('view') ?? '';
-    const layout = input.get('layout') ?? 'default';
+export default () => {
+    const { loginModule, modules } = useComLoginContext();
 
     return (
-        <div>
-            <h1>Login from com_login/tmpl/login/default</h1>
+        <>
+            <RenderModule module={loginModule} />
 
-            <div>
-                <pre>{JSON.stringify({ option, view, layout }, null, 2)}</pre>
-            </div>
-        </div>
+            {modules.map(mod => mod.module !== 'mod_login' && <RenderModule key={mod.id} module={mod} />)}
+        </>
     );
 };
-
-export default Default;
