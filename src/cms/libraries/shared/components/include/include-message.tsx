@@ -9,8 +9,14 @@ export interface JIncludeMessageType {
     type: 'message';
 }
 
+type DemoMessage = {
+    type: string;
+    title: string;
+    description?: string | string[];
+};
+
 export function JIncludeMessage() {
-    const [message, setMessage] = useState({
+    const [message, setMessage] = useState<DemoMessage | undefined>({
         type: 'error',
         title: 'TODO',
         description: 'Test alert',
